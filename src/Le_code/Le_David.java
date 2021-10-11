@@ -13,7 +13,7 @@ public class Le_David {
 //	-faire methodes
 	
 	
-	private Memoire memoire_Dav;
+//	private Memoire memoire_Dav;
 	private Roues roues_Dav;
 	private Pince pince_Dav;
 	private Carto carte_Dav;

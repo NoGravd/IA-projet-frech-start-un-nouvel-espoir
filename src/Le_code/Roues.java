@@ -5,8 +5,8 @@ import lejos.hardware.motor.Motor;
 import lejos.utility.Delay;
 
 public class Roues {
-	static final BaseRegulatedMotor mA = Motor.A;
-	static final BaseRegulatedMotor mC = Motor.C;
+	static final BaseRegulatedMotor mA = Motor.A;//roue droite
+	static final BaseRegulatedMotor mC = Motor.C;//roue gauche
 	static final BaseRegulatedMotor[] l = new BaseRegulatedMotor[] {mC};
 	static final int VITESSE_MAX = 400;
 	

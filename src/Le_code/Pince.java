@@ -7,8 +7,6 @@ import lejos.utility.Delay;
 public class Pince {
 	static final int TIME_PINCE = 3000;
 	static final BaseRegulatedMotor mP = Motor.B;//moteur pince
-	static final BaseRegulatedMotor mC = Motor.C;//moteur roue
-	static final BaseRegulatedMotor[] l = new BaseRegulatedMotor[] {mC};
 	
 	
 	//useless (mem)
