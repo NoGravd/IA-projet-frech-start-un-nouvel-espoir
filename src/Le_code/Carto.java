@@ -15,9 +15,6 @@ public class Carto {
 	
 	
 	
-	
-	
-	
 	public void travLigne (int color) {
 		int couleur = couleurDuInt(color);
 		if (couleur == BLANC) {
@@ -47,15 +44,21 @@ public class Carto {
 	}
 	
 	
-	private void calculPositionIc(int couleur) {
+	
+	private void calculPositionIc (int couleur) {
 		//TODO
 	}
 	
 	
 	
-	private int couleurDuInt (int leInt) {
+	public int couleurDuInt (int leInt) {
 		//TODO
 		return RIEN;
+	}
+	
+	
+	public void Mur (int dist) {
+		//TODO
 	}
 	
 	

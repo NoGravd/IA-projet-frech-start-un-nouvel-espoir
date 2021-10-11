@@ -11,7 +11,7 @@ public class Memoire {
 	private static int[][] positionsCertaine;
 	private static int[][] positionPrecise;
 	private static int[][] positionPaletsPris;
-	private static int boussole;
+	private static int boussole; // nord=0; est=1; sud=2; ouest=3
 	private static double superBoussole;
 	private static boolean bonneBase = false;
 	
@@ -20,6 +20,14 @@ public class Memoire {
 		positionsCertaine = position;
 		positionPrecise = position;
 		etatPince = pince;
+		boolean positionG = (position [0] [0]==1);
+		if (positionG) {
+			boussole = 1;
+			superBoussole = 1;
+		} else {
+			boussole = 3;
+			superBoussole = 3;
+		}
 	}
 	
 	
