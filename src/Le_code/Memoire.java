@@ -14,19 +14,20 @@ public class Memoire {
 	private static int boussole; // nord=0; est=1; sud=2; ouest=3
 	private static double superBoussole;
 	private static boolean bonneBase = false;
+	private static int lastLigne=666;
 	
 	
 	public static void constructeur (int [][] position, boolean pince) {
 		positionsCertaine = position;
 		positionPrecise = position;
 		etatPince = pince;
-		boolean positionG = (position [0] [0]==1);
+		boolean positionG = (position [0] [0]==1);//robot commence cote gauche
 		if (positionG) {
-			boussole = 1;
-			superBoussole = 1;
+			boussole = 1;//EST
+			superBoussole = 1;//EST
 		} else {
-			boussole = 3;
-			superBoussole = 3;
+			boussole = 3;//OUEST
+			superBoussole = 3;//OUEST
 		}
 	}
 	
@@ -67,6 +68,10 @@ public class Memoire {
 	
 	public static void modifBonneBase (boolean boul) {
 		bonneBase = boul;
+	}
+	
+	public static void modifLastLigne (int coul) {
+		lastLigne = coul;
 	}
 	
 	
@@ -114,6 +119,10 @@ public class Memoire {
 	
 	public static boolean getBonneBase() {
 		return bonneBase;
+	}
+	
+	public static int getLastLigne() {
+		return lastLigne;
 	}
 	
 }

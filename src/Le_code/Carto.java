@@ -13,6 +13,11 @@ public class Carto {
 	private final int BLEU = 5;//x4
 	private final int RIEN= 666;//ptt D-ja triee par class capteur mais a garder pour debug
 	
+	private final int NORD = 0;
+	private final int EST = 1;
+	private final int SUD = 2;
+	private final int OUEST = 3;
+	
 	
 	
 	public void travLigne (int color) {
@@ -23,29 +28,35 @@ public class Carto {
 			horsBase();
 		if (couleur == NOIRE) {
 			Memoire.modifPositionCertaine (new int[][] {{1,1},{1,2},{2,0},{2,1},{2,2},{2,3},{3,0},{3,1},{3,2},{3,3},{4,1},{4,2}});
-			calculPositionIc (couleur);
+			calculPositionP (couleur);
+			travLigneBouss(couleur);
 		}
 		if (couleur == ROUGE) {
 			Memoire.modifPositionCertaine (new int[][] {{1,2},{1,3},{2,2},{2,3},{3,2},{3,3},{4,2},{4,3},{5,2},{5,3}});
-			calculPositionIc (couleur);
+			calculPositionP (couleur);
+			travLigneBouss(couleur);
 		}
 		if (couleur == VERT) {
 			Memoire.modifPositionCertaine (new int[][] {{1,1},{3,2},{3,3},{3,4},{2,1},{2,2},{2,3},{2,4}});
-			calculPositionIc (couleur);
+			calculPositionP (couleur);
+			travLigneBouss(couleur);
 		}
 		if (couleur == JAUNE) {
 			Memoire.modifPositionCertaine (new int[][] {{1,0},{1,1},{2,0},{2,1},{3,0},{3,1},{4,0},{4,1},{5,0},{5,1}});
-			calculPositionIc (couleur);
+			calculPositionP (couleur);
+			travLigneBouss(couleur);
 		}
 		if (couleur == BLEU) {
 			Memoire.modifPositionCertaine (new int[][] {{3,1},{3,2},{3,3},{3,4},{4,1},{4,2},{4,3},{4,4}});
-			calculPositionIc (couleur);
+			calculPositionP (couleur);
+			travLigneBouss(couleur);
 		}
+		Memoire.modifLastLigne(couleur);
 	}
 	
 	
 	
-	private void calculPositionIc (int couleur) {
+	private void calculPositionP (int couleur) {
 		//TODO
 	}
 	
@@ -57,9 +68,38 @@ public class Carto {
 	}
 	
 	
+	
 	public void Mur (int dist) {
 		//TODO
 	}
+	
+	
+	
+	//boussole :
+	
+	private void travLigneBouss (int color) {
+		//TODO
+			
+	}
+	
+	public void corrigeAngleMur (int color) {//couleur = Rouge/Jaune
+		if (color!=ROUGE&&color!=JAUNE)
+			return;
+		//rotate de x; doit calculer x en fonction du mur (US)
+		//info : la distance entre la ligne et le mur est de 50cm; US = ligne + 4cm
+		int x=0;
+		//TODO
+		
+		Roues.pivote(x);
+		if (color==ROUGE) {
+			Memoire.modifBoussole(NORD);
+			Memoire.modifSuperBoussole(NORD);
+		} else {
+			Memoire.modifBoussole(SUD);
+			Memoire.modifSuperBoussole(SUD);
+		}
+	}
+	
 	
 	
 	//bases :
