@@ -9,7 +9,7 @@ public class Capteur {
 	
 	//Trouver les ports correspondant au bon capteur;
 	
-	private Port p1 = lejos.hardware.port.SensorPort.S1;
+	//private Port p1 = lejos.hardware.port.SensorPort.S1;
 	private Port p2 = lejos.hardware.port.SensorPort.S2;
 	private Port p3 = lejos.hardware.port.SensorPort.S3;
 //	private Port p4 = lejos.hardware.port.SensorPort.S4;
@@ -17,7 +17,7 @@ public class Capteur {
 	//Initialisation des instances des 3 capteur (Ultrason,Couleur et tactil)
 	
 	private EV3UltrasonicSensor capteurSe = new EV3UltrasonicSensor(p3);
-	private EV3ColorSensor capteurCo = new EV3ColorSensor(p1);
+	//private EV3ColorSensor capteurCo = new EV3ColorSensor(p1);
 	private EV3TouchSensor capteurTa = new EV3TouchSensor(p2);
 	
 	
@@ -89,12 +89,12 @@ public class Capteur {
 
 	//Donner l'ID de la couleur détecter par le capteur de couleur
 	
-	public int couleurDetectee(){
+	//public int couleurDetectee(){
 		
 		//Une fonction qui est capable de donner la couleur en mode RGB
 		
-		return capteurCo.getColorID();
+		//return capteurCo.getColorID();
 		
-	}
+	//}
 	
 }
