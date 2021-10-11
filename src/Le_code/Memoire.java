@@ -7,6 +7,8 @@ public class Memoire {
 	private static boolean [][] positionIncertaine;
 	private static boolean etatPince;
 	
+	private static int[][] positionPaletsPris;
+	
 	
 	
 	//------Carto----------
@@ -28,6 +30,12 @@ public class Memoire {
 			etreBase = true;
 	}
 	
+	public static void catchPalet() {
+		int[][] tmpr = new int[positionPaletsPris.length+1][2];
+		for (int ii=0; ii<tmpr.length-1; ii++) 
+			tmpr [ii] = positionPaletsPris[ii];
+//		tmpr [tmpr.length] = positionIncertaine[0];
+	}
 	
 	
 	//-------Pince--------
@@ -39,4 +47,6 @@ public class Memoire {
 	public static boolean getEtatPince() {
 		return etatPince;
 	}
+	
+	
 }
