@@ -5,8 +5,8 @@ import lejos.hardware.motor.Motor;
 
 public class Detection {
 
-	//Classe qui permet de detecter la nature, la distance et direction d'un obstacle Ã  l'aide d'un 360 degres sur soit meme
-	//A mettre Ã  jour avec la classe moteur et Capteur
+	//Classe qui permet de detecter la nature, la distance et direction d'un obstacle a  l'aide d'un 360 degres sur soit meme
+	//A mettre a  jour avec la classe moteur et Capteur
 	
 	
 	private int directionFace = 0;
@@ -23,7 +23,7 @@ public class Detection {
 	
 	public int getDirectionObstacle(){
 		
-		//Permet d'obtenir la direction en Â° de l'obstacle
+		//Permet d'obtenir la direction en ° de l'obstacle
 		
 		return directionObstacle;
 		
@@ -32,7 +32,7 @@ public class Detection {
 	
 	private void clearTableauDistance(){
 		
-		//Permet de remettre Ã  0 le tableau des distances 
+		//Permet de remettre a  0 le tableau des distances 
 		
 		distance360 = new float[360];
 		
@@ -40,7 +40,7 @@ public class Detection {
 	
 	private void actualiserDirectionFace(){
 		
-		//Permet d'avoir une direction toujours infÃ©rieur Ã  360
+		//Permet d'avoir une direction toujours inferieur a  360°
 		
 		if(directionFace >= 360){
 			
@@ -52,7 +52,7 @@ public class Detection {
 	
 	public void tourSurSoiMemeDetection(){
 		
-		//Fait un tour sur soi meme est prend une mesure a chaque degres
+		//Fait un tour sur soi meme et prend une mesure a chaque °
 		
 		int i=0;
 		clearTableauDistance();

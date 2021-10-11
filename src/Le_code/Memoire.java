@@ -9,13 +9,13 @@ public class Memoire {
 	
 	
 	
+	//------Carto----------
+	
 	public Memoire (boolean [][] position, boolean pince) {
 		positionSur = position;
 		positionPasSur = position;
 		etatPince = pince;
 	}
-	
-	
 	
 	public static void lignePasBlanche() {
 		etreBase = false;
@@ -27,6 +27,10 @@ public class Memoire {
 		else
 			etreBase = true;
 	}
+	
+	
+	
+	//-------Pince--------
 	
 	public static void mvmtPince (boolean boul) {
 		etatPince = boul;
