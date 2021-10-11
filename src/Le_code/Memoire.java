@@ -3,8 +3,8 @@ package Le_code;
 public class Memoire {
 	private static boolean avoirPalet = false;
 	private static boolean etreBase = false;
-	private static boolean [][] positionSur;
-	private static boolean [][] positionPasSur;
+	private static boolean [][] positionCertaine;
+	private static boolean [][] positionIncertaine;
 	private static boolean etatPince;
 	
 	
@@ -12,8 +12,8 @@ public class Memoire {
 	//------Carto----------
 	
 	public Memoire (boolean [][] position, boolean pince) {
-		positionSur = position;
-		positionPasSur = position;
+		positionCertaine = position;
+		positionIncertaine = position;
 		etatPince = pince;
 	}
 	
