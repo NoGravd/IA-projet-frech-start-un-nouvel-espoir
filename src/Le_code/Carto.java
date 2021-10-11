@@ -15,11 +15,6 @@ public class Carto {
 	
 	
 	
-	public Carto (int[][] positionDeDepart) {
-		Memoire.modifPositionCertaine(positionDeDepart);
-	}
-	
-	
 	
 	
 	

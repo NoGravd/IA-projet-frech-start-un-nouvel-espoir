@@ -16,7 +16,7 @@ public class Memoire {
 	private static boolean bonneBase = false;
 	
 	
-	public Memoire (int [][] position, boolean pince) {
+	public static void constructeur (int [][] position, boolean pince) {
 		positionsCertaine = position;
 		positionPrecise = position;
 		etatPince = pince;

@@ -55,8 +55,9 @@ public class Roues {
 	}
 	
 	public static void demi_tour_droite() {
-		mA.rotate(360);
-		mA.rotate(360);
+		mA.rotate(360*2);
+//		mA.rotate(360);
+		
 //		mC.rotate(180);
 //		mA.rotate(-180);
 //		mC.rotate(180);
@@ -64,8 +65,9 @@ public class Roues {
 	}
 	
 	public static void demi_tour_gauche() {
-		mC.rotate(360);
-		mC.rotate(360);
+		mC.rotate(360*2);
+//		mC.rotate(360);
+		
 //		mA.rotate(180);
 //		mC.rotate(-180);
 //		mA.rotate(180);
@@ -73,8 +75,7 @@ public class Roues {
 	}
 	
 	public static void demi_tour() {
-		//TODO pas sur que  math.random soit bien random ma o pire balek
-		int random= (int)Math.random();
+		int random= (int) Math.round(Math.random());
 		if (random==0)
 			demi_tour_gauche();
 		else
