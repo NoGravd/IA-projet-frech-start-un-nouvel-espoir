@@ -3,8 +3,8 @@ package Le_code;
 public class Memoire {
 	private static boolean avoirPalet = false;
 	private static boolean etreBase = false;
-	private static boolean [][] positionCertaine;
-	private static boolean [][] positionIncertaine;
+	private static int[][] positionsCertaine;
+	private static int[][] positionPrecis;
 	private static boolean etatPince;
 	
 	private static int[][] positionPaletsPris;
@@ -13,9 +13,9 @@ public class Memoire {
 	
 	//------Carto----------
 	
-	public Memoire (boolean [][] position, boolean pince) {
-		positionCertaine = position;
-		positionIncertaine = position;
+	public Memoire (int [][] position, boolean pince) {
+		positionsCertaine = position;
+		positionPrecis = position;
 		etatPince = pince;
 	}
 	
@@ -32,9 +32,13 @@ public class Memoire {
 	
 	public static void catchPalet() {
 		int[][] tmpr = new int[positionPaletsPris.length+1][2];
-		for (int ii=0; ii<tmpr.length-1; ii++) 
-			tmpr [ii] = positionPaletsPris[ii];
-//		tmpr [tmpr.length] = positionIncertaine[0];
+		int ii;
+		for (ii=0; ii<tmpr.length-1; ii++) {
+			tmpr [ii][0] = positionPaletsPris[ii][0];
+			tmpr [ii][1] = positionPaletsPris[ii][1];
+		}
+		tmpr [ii+1] [0]= positionPrecis[0][0];
+		tmpr [ii+1] [1]= positionPrecis[0][1];
 	}
 	
 	

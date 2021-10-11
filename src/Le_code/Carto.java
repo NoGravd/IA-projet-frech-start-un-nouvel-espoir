@@ -5,7 +5,7 @@ public class Carto {
 	//@author NG
 	
 	private int[][] positionCertaine;
-	private int[][] positionIncertaine;
+	private int[][] positionPrecis;
 	private boolean estDansBase=false;
 	private boolean bonneBase=false;
 	
@@ -101,8 +101,8 @@ public class Carto {
 		return positionCertaine;
 	}
 	
-	public int[][] getPositionI() {
-		return positionIncertaine;
+	public int[][] getPositionP() {
+		return positionPrecis;
 	}
 	
 	public int getBoussole() {

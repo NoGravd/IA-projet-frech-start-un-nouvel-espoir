@@ -10,6 +10,7 @@ public class Le_David {
 //	- lier a la pince
 //	- lier au capteurs
 //	-lier cartographie
+//	-faire methodes
 	
 	
 	private Memoire memoire_Dav;

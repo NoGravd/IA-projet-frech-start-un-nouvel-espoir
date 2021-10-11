@@ -8,14 +8,16 @@ public class Roues {
 	static final BaseRegulatedMotor mA = Motor.A;
 	static final BaseRegulatedMotor mC = Motor.C;
 	static final BaseRegulatedMotor[] l = new BaseRegulatedMotor[] {mC};
-	static final int vitMax = 400;
+	static final int VITESSE_MAX = 400;
+	
+	
+	//useless (mem)
+	/*
 	public Memoire memoire;
-	
-	
 	public Roues (Memoire mem) {
 		memoire = mem;
 	}
-	
+	*/
 	
 	
  	public static void demare() {
@@ -23,8 +25,8 @@ public class Roues {
 		int nAcc = 200; //definition du nb de marches d'accélération
 //		int maxSpeed = 400; //vitesse max = 100xVbatterie
 		for (int i=0; i<nAcc; i++) {
-			mA.setSpeed(vitMax/nAcc*i);//change la vitesse
-			mC.setSpeed(vitMax/nAcc*i);
+			mA.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
+			mC.setSpeed(VITESSE_MAX/nAcc*i);
 			mA.forward();//lance le moteur 
 			mC.forward();
 			Delay.msDelay(1);// attend 3ms
@@ -84,8 +86,8 @@ public class Roues {
 				int nAcc = 200; //definition du nb de marches d'accélération
 //				int maxSpeed = 400; //vitesse max = 100xVbatterie
 				for (int i=0; i<nAcc; i++) {
-					mA.setSpeed(vitMax/nAcc*i);//change la vitesse
-					mC.setSpeed(vitMax/nAcc*i);
+					mA.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
+					mC.setSpeed(VITESSE_MAX/nAcc*i);
 					mA.backward();//lance le moteur 
 					mC.backward();
 					Delay.msDelay(1);// attend 3ms
@@ -94,8 +96,8 @@ public class Roues {
 	}
 	
 	public static void rouleSeconde(int tmps) {
-		mA.setSpeed(vitMax);
-		mC.setSpeed(vitMax);
+		mA.setSpeed(VITESSE_MAX);
+		mC.setSpeed(VITESSE_MAX);
 		Delay.msDelay(tmps*1000);
 	}
 	
