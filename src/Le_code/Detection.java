@@ -69,6 +69,19 @@ public class Detection {
 		actualiserDirectionFace();
 	}
 	
+	public void tourneVersPlusProche (){
+		tourSurSoiMemeDetection();
+		float minimum = 3;
+		int degre = 0;
+		for(int i=0; i<360; i++) {
+			if (distance360[i]<minimum) {
+				minimum = distance360[i];
+				degre = i;
+			}
+		}
+		moteurC.rotate(degre);
+	}
+	
 //	public void directionDeLobstacle(){
 //		
 //		
