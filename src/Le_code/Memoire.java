@@ -1,20 +1,25 @@
 package Le_code;
 
 public class Memoire {
+	//class ou on stock tout se qui est a stocker
+	//@author NG
 	
 	//pince
-	private static boolean avoirPalet = false;
-	private static boolean etatPince;
+	private static boolean avoirPalet = false;//TODO
+	private static boolean etatPince = false;
 	
 	//carto
 	private static boolean etreBase = false;
+	private static boolean etreBonneBase = false;
+	private static int laBonneBase;
+	private static int laMauvaiseBase;
 	private static int[][] positionsCertaine;
 	private static int[][] positionPrecise;
 	private static int[][] positionPaletsPris;
 	private static int boussole; // nord=0; est=1; sud=2; ouest=3
 	private static double superBoussole;
-	private static boolean bonneBase = false;
-	private static int lastLigne=666;
+	private static int lastLigne=666;//ptt changer en un tab? a voir
+	
 	
 	
 	public static void constructeur (int [][] position, boolean pince) {
@@ -25,9 +30,13 @@ public class Memoire {
 		if (positionG) {
 			boussole = 1;//EST
 			superBoussole = 1;//EST
+			laBonneBase = 1; //EST
+			laMauvaiseBase = 3; //OUEST
 		} else {
 			boussole = 3;//OUEST
 			superBoussole = 3;//OUEST
+			laBonneBase = 3; //OUEST
+			laMauvaiseBase = 1;//EST
 		}
 	}
 	
@@ -35,7 +44,7 @@ public class Memoire {
 	
 	//------Carto----------
 	
-	public static void modifEtreBase(boolean boul) {
+	public static void setEtreBase(boolean boul) {
 		etreBase = boul;
 	}
 	
@@ -50,27 +59,27 @@ public class Memoire {
 		tmpr [ii+1] [1]= positionPrecise[0][1];
 	}
 	
-	public static void modifPositionCertaine (int[][] position) {
+	public static void setPositionCertaine (int[][] position) {
 		positionsCertaine = position;
 	}
 	
-	public static void modifPositionPrecise (int[][] position) {
+	public static void setPositionPrecise (int[][] position) {
 		positionPrecise = position;
 	}
 	
-	public static void modifBoussole (int bouss) {
+	public static void setBoussole (int bouss) {
 		boussole = bouss;
 	}
 	
-	public static void modifSuperBoussole (int superBouss) {
+	public static void setSuperBoussole (int superBouss) {
 		superBoussole = superBouss;
 	}
 	
-	public static void modifBonneBase (boolean boul) {
-		bonneBase = boul;
+	public static void setEtreBonneBase (boolean boul) {
+		etreBonneBase = boul;
 	}
 	
-	public static void modifLastLigne (int coul) {
+	public static void setLastLigne (int coul) {
 		lastLigne = coul;
 	}
 	
@@ -117,12 +126,25 @@ public class Memoire {
 		return superBoussole;
 	}
 	
-	public static boolean getBonneBase() {
-		return bonneBase;
+	public static boolean getEreBonneBase() {
+		return etreBonneBase;
 	}
 	
 	public static int getLastLigne() {
 		return lastLigne;
 	}
+
+
+
+	
+	public static int getLaBonneBase() {
+		return laBonneBase;
+	}
+	
+	public static int getLaMauvaiseBase() {
+		return laMauvaiseBase;
+	}
+
+
 	
 }
