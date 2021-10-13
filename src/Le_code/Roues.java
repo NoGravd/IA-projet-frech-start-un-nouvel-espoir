@@ -8,16 +8,8 @@ public class Roues {
 	static final BaseRegulatedMotor mA = Motor.A;//roue droite
 	static final BaseRegulatedMotor mC = Motor.C;//roue gauche
 	static final BaseRegulatedMotor[] l = new BaseRegulatedMotor[] {mC};
-	static final int VITESSE_MAX = 400;
+	static final int VITESSE_MAX = (int) mC.getMaxSpeed();
 	
-	
-	//useless (mem)
-	/*
-	public Memoire memoire;
-	public Roues (Memoire mem) {
-		memoire = mem;
-	}
-	*/
 	
 	
  	public static void demare() {
@@ -43,35 +35,19 @@ public class Roues {
  	}
  	
  	public static void droite() {
-		mC.rotate(360);
-//		mC.rotate(180);
-//		mA.rotate(-180);
+ 		pivote (90);
 	}
 	
 	public static void gauche() {
-		mA.rotate(360);
-//		mC.rotate(-180);
-//		mA.rotate(180);
+		pivote (-90);
 	}
 	
 	public static void demi_tour_droite() {
-		mA.rotate(360*2);
-//		mA.rotate(360);
-		
-//		mC.rotate(180);
-//		mA.rotate(-180);
-//		mC.rotate(180);
-//		mA.rotate(-180);
+		pivote (360);
 	}
 	
 	public static void demi_tour_gauche() {
-		mC.rotate(360*2);
-//		mC.rotate(360);
-		
-//		mA.rotate(180);
-//		mC.rotate(-180);
-//		mA.rotate(180);
-//		mC.rotate(-180);
+		pivote (-360);
 	}
 	
 	public static void demi_tour() {
@@ -103,8 +79,20 @@ public class Roues {
 	}
 	
 	public static void pivote (int degre) {
-		mC.rotate(degre/2);
-		mA.rotate(-(degre/2));
+		int degre2 = degre;
+		try {
+			mA.rotateTo((-degre2)/2, true);
+			mC.rotateTo(degre2/2, true);
+		} catch (Throwable t) {
+			t.printStackTrace();
+			Delay.msDelay(10000);
+			System.exit(0);
+		}
+		//TODO : tester
+		
+		
+//		mC.rotate(degre/2);
+//		mA.rotate(-(degre/2));
 	}
 	
 }

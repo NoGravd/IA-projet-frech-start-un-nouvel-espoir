@@ -3,46 +3,42 @@ package Le_code;
 import java.util.Arrays;
 
 import lejos.hardware.Button;
-import lejos.hardware.port.Port;
+//import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.utility.Delay;
 
 public class Test {
 
 	public static void main(String[] args) {
-		Port p3 = lejos.hardware.port.SensorPort.S3;
-		EV3UltrasonicSensor capteurSe = new EV3UltrasonicSensor(p3);
-
+		EV3UltrasonicSensor capteurUS = Capteur.capteurUS;
+		
 		
 		
 		try {
-			capteurSe.enable();
-			int i = 0;
+			capteurUS.enable();
 			float[] tab = new float [1000000];
-			Roues test = new Roues();
-			test.mA.rotateTo(1560, true);
-			while (test.mA.isMoving()) {
-				capteurSe.getDistanceMode().fetchSample(tab, i);
-				i++;
+			Roues.mA.rotateTo(1560, true);
+			int ii = 0;
+			while (Roues.mA.isMoving()) {
+				capteurUS.getDistanceMode().fetchSample(tab, ii);
+				ii++;
 			}
-			capteurSe.disable();
-			int j=0;
-			while(tab[j]!=(float) 0) {
-			j++;
+			capteurUS.disable();
+			int jj=0;
+			while(tab[jj]!=(float) 0) {
+			jj++;
 			}
-			tab = Arrays.copyOf(tab, j);
+			tab = Arrays.copyOf(tab, jj);
 			float min = tab[0];
 			int indicdumin = 0;
-			int k=1; 
-			while(k<tab.length) {
-				if (min > tab[k]) {
-					min = tab[k];
-					indicdumin = k;
+			for (int kk=1; kk<tab.length; kk++) {
+				if (min > tab[kk]) {
+					min = tab[kk];
+					indicdumin = kk;
 				}
-				k++;
 			}
 			int angle = (indicdumin/tab.length)*1560;
-			test.mA.rotateTo(angle);
+			Roues.mA.rotateTo(angle);
 			System.out.println(""+indicdumin+"   "+tab.length);
 			Button.ENTER.waitForPress();
 			

@@ -9,18 +9,9 @@ public class Pince {
 	static final BaseRegulatedMotor mP = Motor.B;//moteur pince
 	
 	
-	//useless (mem)
-	/*
-	public static boolean etatPince = true;//Attention : il faut donc que la pince soit ouverte avant le run du prgrm
-	public static  Memoire memoire;
-	public Pince (Memoire mem) {
-		memoire = mem;
-	}
-	*/
-	
 	
 	public static void oPince() {
-		if (!Memoire.getEtatPince()) {//si Pince fermées
+		if (!Memoire.getEtatPince()) {//si Pince fermees
 			mP.forward();
 			Delay.msDelay(TIME_PINCE);
 			mP.stop();

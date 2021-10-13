@@ -82,33 +82,23 @@ public class Detection {
 		moteurC.rotate(degre);
 	}
 	
-//	public void directionDeLobstacle(){
-//		
-//		
-//		int i =0;
-//		float valeurPrec = distance360[0];
-//		
-//		while(i < 360){
-//			
-//			if(valeurPrec > distance360[i]){
-//				
-//				if(){				//Si c'est un pallet
-//				
-//					directionObstacle = i-1;
-//					distanceObstacle = distance360[i];
-//					obstacleEstPalet = true;
-//				
-//				}else{				//Si ce n'est pas un paller
-//					
-//					directionObstacle = i-1;
-//					distanceObstacle = distance360[i];
-//					obstacleEstPalet = false;		
-//				}
-//			}
-//			i++;
-//		}
-//	}
-	
-	
+	/*
+	public void directionDeLobstacle(){
+		float valeurPrec = distance360[0];
+		for(int i=0; i<360; i++){
+			if(valeurPrec > distance360[i]){
+				if(){				//Si c'est un pallet
+					directionObstacle = i-1;
+					distanceObstacle = distance360[i];
+					obstacleEstPalet = true;
+				}else{				//Si ce n'est pas un paller
+					directionObstacle = i-1;
+					distanceObstacle = distance360[i];
+					obstacleEstPalet = false;		
+				}
+			}
+		}
+	}
+	*/
 	
 }
