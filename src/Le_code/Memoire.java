@@ -5,7 +5,7 @@ public class Memoire {
 	//@author NG
 	
 	//pince
-	private static boolean avoirPalet = false;//TODO
+	private static boolean avoirPalet = false;
 	private static boolean etatPince = false;
 	
 	//carto
@@ -18,7 +18,7 @@ public class Memoire {
 	private static int[][] positionPaletsPris;
 	private static int boussole; // nord=0; est=1; sud=2; ouest=3
 	private static double superBoussole;
-	private static int lastLigne=404;//ptt changer en un tab? a voir
+	private static int lastLigne = 404;//ptt changer en un tab? a voir
 	
 	
 	
@@ -44,10 +44,6 @@ public class Memoire {
 	
 	//------Carto----------
 	
-	public static void setEtreBase(boolean boul) {
-		etreBase = boul;
-	}
-	
 	public static void catchPalet() {
 		int[][] tmpr = new int[positionPaletsPris.length+1][2];
 		int ii;
@@ -57,6 +53,12 @@ public class Memoire {
 		}
 		tmpr [ii+1] [0]= positionPrecise [0];
 		tmpr [ii+1] [1]= positionPrecise [1];
+	}
+	
+	
+	
+	public static void setEtreBase(boolean boul) {
+		etreBase = boul;
 	}
 	
 	public static void setPositionsCertaine (int[][] position) {
@@ -89,6 +91,8 @@ public class Memoire {
 	public static void mvmtPince (boolean boul) {
 		etatPince = boul;
 	}
+	
+	
 	
 	public static void setAvoirPalet (boolean boul) {
 		avoirPalet = boul;
@@ -137,9 +141,6 @@ public class Memoire {
 	public static int getLastLigne() {
 		return lastLigne;
 	}
-
-
-
 	
 	public static int getLaBonneBase() {
 		return laBonneBase;
@@ -148,7 +149,5 @@ public class Memoire {
 	public static int getLaMauvaiseBase() {
 		return laMauvaiseBase;
 	}
-
-
 	
 }

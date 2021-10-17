@@ -60,16 +60,18 @@ public class Roues {
 	
 	public static void recule() {
 		//accélération
-				int nAcc = 200; //definition du nb de marches d'accélération
-//				int maxSpeed = 400; //vitesse max = 100xVbatterie
-				for (int i=0; i<nAcc; i++) {
-					mA.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
-					mC.setSpeed(VITESSE_MAX/nAcc*i);
-					mA.backward();//lance le moteur 
-					mC.backward();
-					Delay.msDelay(1);// attend 3ms
-				}
-				stop();
+		int nAcc = 200; //definition du nb de marches d'accélération
+		//				int maxSpeed = 400; //vitesse max = 100xVbatterie
+		for (int i=0; i<nAcc; i++) {
+			mA.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
+			mC.setSpeed(VITESSE_MAX/nAcc*i);
+			mA.backward();//lance le moteur 
+			mC.backward();
+			Delay.msDelay(1);// attend 3ms
+		}
+		stop();
+		if (Memoire.getEtatPince())//si les pince sont ouvertes
+			Memoire.setAvoirPalet(false);//alors on a pas/plus de palet
 	}
 	
 	public static void rouleSeconde(int tmps) {
@@ -88,9 +90,11 @@ public class Roues {
 			Delay.msDelay(10000);
 			System.exit(0);
 		}
-		//TODO : tester
+		//TODO :
+		//rslt test : marche pa, s'arrete tro to
 		
 		
+		//old version :
 //		mC.rotate(degre/2);
 //		mA.rotate(-(degre/2));
 	}

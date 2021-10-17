@@ -21,6 +21,7 @@ public class Carto {
 	
 	
 	public void travLigne (int color) {
+		//traite tout ce qu'il y a a traiter dans la Carto quand le robot traverse une ligne
 		int couleur = couleurDuInt(color);
 		if (couleur == BLANC) {
 			ligneBlanche();
@@ -44,6 +45,8 @@ public class Carto {
 	
 	
 	private void calculPositionP (int couleur) {
+		//modifie la positionPresice dans la memoire en fonction de la ligne que le robot vient de traverser
+		//est appele par travLigne
 		int[] newPosition = new int[1];
 		if (Memoire.getBoussole() == NORD) {
 			newPosition [0] = Memoire.getPositionPrecise() [0];
@@ -64,6 +67,7 @@ public class Carto {
 	
 	
 	public int couleurDuInt (int leInt) {
+		//traite les couleurs en int donner par le sensor
 		//TODO echantillonage sur la table
 		switch (leInt) {
 		case 0 : return ROUGE;
@@ -110,12 +114,14 @@ public class Carto {
 	}
 	
 	public void inverseBouss() {
+		//inverse les valeurs de la boussole
 		switch(Memoire.getBoussole()) {
 		case NORD : Memoire.setBoussole(SUD);
 		case EST : Memoire.setBoussole(OUEST);
 		case SUD : Memoire.setBoussole(NORD);
 		case OUEST : Memoire.setBoussole(EST);
 		}
+		rotateDeg (180);//superBoussole
 	}
 	
 	public void corrigeAngleLignes() {
@@ -133,6 +139,8 @@ public class Carto {
 	//superBoussole :
 	
 	private void superBoussCorrige() {
+		//la superBoussole corrige la valeur de la boussole
+		//est appele par rotateDeg
 		double sb = Memoire.getSuperBoussole(); //pour la visibilite et par flemme de tout recopier 100x
 		if (sb>45 && sb<=135)
 			Memoire.setBoussole(EST);
@@ -145,6 +153,7 @@ public class Carto {
 	}
 	
 	public void rotateDeg (int degre) {
+		//modifie les valeurs des boussoles car le robot et en train de pivoter de [int degre]
 		double sb = Memoire.getSuperBoussole();
 		sb += degre;
 		if (sb>=360)
@@ -160,6 +169,8 @@ public class Carto {
 	//bases :
 	
 	private void ligneBlanche() {
+		//dit à la memoire ou le robot se trouve sachant qu'il vient de traverser un ligne blanche
+		//est appele par travLigne
 		if (Memoire.getEtreBase()) {//si on sort de la base
 			boolean feuBonneBase = Memoire.getEreBonneBase();
 			horsBase();
@@ -182,11 +193,15 @@ public class Carto {
 	}
 	
 	private void horsBase() {
+		//dit a la memoire que le robot est hors des base
+		//est appele par travLigne et ligneBlanche
 		Memoire.setEtreBase(false);
 		Memoire.setEtreBonneBase(false);
 	}
 	
 	private void quelleBase() {
+		//determine si le robot est dans la bonne base et donne son rslt dans la Memoire
+		//est appele par ligneBlanche
 		boolean etreBonneBase;
 		//------------------
 		//vais faire system de point :
@@ -199,6 +214,13 @@ public class Carto {
 		int xx = 1;//a modifier en fonction de rslts des test + lui trouver un nom TODO
 		int nbPoints = 0;
 		//TODO
+		
+		//positionCertaine :
+		
+		
+		
+		//positionPrecise
+		
 		
 		
 		//lastLigne :
@@ -227,6 +249,8 @@ public class Carto {
 	}
 	
 	private void baseBouss (boolean sortir) {
+		//modifie les valeurs de la boussole dans la memoire sachant que le robot rentre dans une base
+		//est appele par ligneBlanche
 		if (!sortir) {
 			Memoire.setBoussole(Memoire.getLaBonneBase());
 			if (!Memoire.getEreBonneBase())
