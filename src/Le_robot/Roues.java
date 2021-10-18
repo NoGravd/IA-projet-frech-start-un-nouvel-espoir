@@ -1,5 +1,7 @@
 package Le_robot;
 
+import java.util.Arrays;
+
 import org.jfree.util.WaitingImageObserver;
 
 import lejos.hardware.Button;
@@ -98,13 +100,42 @@ public class Roues {
 			Delay.msDelay(10000);
 			System.exit(0);
 		}
-		//TODO :
-		//rslt test : marche pa, s'arrete tro to
-		
-		
-		//old version :
-//		mC.rotate(degre/2);
-//		mA.rotate(-(degre/2));
 	}
 	
+	public static void pivoteUS (int degre) {
+		Capteur.demarrerCapteurUltraSon();
+		float[] tab = new float [1000000];
+		double degreD = degre*4.333;
+		int degre2 = (int) Math.round(degreD);
+		try {
+			mA.rotateTo((-degre2)/2, true);
+			mC.rotateTo(degre2/2, true);
+			int ii=0;
+			while (mC.isMoving()) {
+				Capteur.capteurUS.getDistanceMode().fetchSample(tab, ii);
+				ii++;//juste pour que le bot calclul
+			}
+			Capteur.eteindreCapteurUltraSon();
+			int jj=0;
+			while(tab[jj]!=(float) 0) {
+				jj++;
+			}
+			tab = Arrays.copyOf(tab, jj);
+			float min = tab[0];
+			int indicdumin = 0;
+			for (int kk=1; kk<tab.length; kk++) {
+				if (min > tab[kk]) {
+					min = tab[kk];
+					indicdumin = kk;
+				}
+			}
+			int angle = (indicdumin/tab.length)*1560;
+			Roues.mA.rotateTo(angle);
+			System.out.println(""+angle+"   "+tab.length);
+		} catch (Throwable t) {
+			t.printStackTrace();
+			Delay.msDelay(10000);
+			System.exit(0);
+		}
+	}
 }
