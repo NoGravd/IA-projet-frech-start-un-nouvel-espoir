@@ -90,9 +90,9 @@ public class Roues {
 			mC.rotateTo(degre2/2, true);
 //			mA.waitComplete();
 //			Button.ENTER.waitForPress();
-			int ii=0;
+			/*int ii=0;
 			while (mC.isMoving())
-				ii++;
+				ii++;*/
 		} catch (Throwable t) {
 			t.printStackTrace();
 			Delay.msDelay(10000);
