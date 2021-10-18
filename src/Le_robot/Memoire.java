@@ -1,4 +1,4 @@
-package Le_code;
+package Le_robot;
 
 public class Memoire {
 	//class ou on stock tout se qui est a stocker

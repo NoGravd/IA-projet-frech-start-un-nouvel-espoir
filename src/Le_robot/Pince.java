@@ -1,4 +1,4 @@
-package Le_code;
+package Le_robot;
 
 import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.Motor;
