@@ -84,15 +84,15 @@ public class Roues {
 	}
 	
 	public static void pivote (int degre) {
-		int degre2 = degre;
+		double degreD = degre*4.333;
+		int degre2 = (int) Math.round(degreD);
 		try {
 			mA.rotateTo((-degre2)/2, true);
 			mC.rotateTo(degre2/2, true);
-//			mA.waitComplete();
-//			Button.ENTER.waitForPress();
+
 			int ii=0;
 			while (mC.isMoving())
-				ii++;
+				ii++;//juste pour que le bot calclul
 		} catch (Throwable t) {
 			t.printStackTrace();
 			Delay.msDelay(10000);
