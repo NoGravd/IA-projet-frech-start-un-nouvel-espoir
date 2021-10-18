@@ -10,7 +10,7 @@ import lejos.utility.Delay;
 public class Test {
 
 	public static void main(String[] args) {
-		
+		Roues.pivote(360);
 	}
 
 }

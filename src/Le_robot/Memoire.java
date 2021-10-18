@@ -4,6 +4,8 @@ public class Memoire {
 	//class ou on stock tout se qui est a stocker
 	//@author NG
 	
+	
+	
 	//pince
 	private static boolean avoirPalet = false;
 	private static boolean etatPince = false;
@@ -84,6 +86,7 @@ public class Memoire {
 	public static void setLastLigne (int coul) {
 		lastLigne = coul;
 	}
+	
 	
 	
 	//-------Pince--------

@@ -13,7 +13,7 @@ public class Roues {
 	
 	
  	public static void demare() {
-		//accélération
+		//acceleration
 		int nAcc = 200; //definition du nb de marches d'accélération
 //		int maxSpeed = 400; //vitesse max = 100xVbatterie
 		for (int i=0; i<nAcc; i++) {

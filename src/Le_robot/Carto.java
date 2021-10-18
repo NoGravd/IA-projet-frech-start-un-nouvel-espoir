@@ -68,14 +68,13 @@ public class Carto {
 	
 	public int couleurDuInt (int leInt) {
 		//traite les couleurs en int donner par le sensor
-		//TODO echantillonage sur la table
 		switch (leInt) {
 		case 0 : return ROUGE;
-		case 1 : return JAUNE;
-		case 2 : return NOIRE;
-		case 3 : return BLANC;
-		case 4 : return VERT;
-		case 5 : return BLEU;
+		case 3 : return JAUNE;
+		case 7 : return NOIRE;//x TODO : marche pa
+		case 6 : return BLANC;
+		case 1 : return VERT;//?
+		case 8 : return BLEU;//x TODO : marche pa
 		default : return RIEN;
 		}
 	}
@@ -219,7 +218,7 @@ public class Carto {
 		
 		
 		
-		//positionPrecise
+		//positionPrecise :
 		
 		
 		
@@ -250,7 +249,7 @@ public class Carto {
 	
 	private void baseBouss (boolean sortir) {
 		//modifie les valeurs de la boussole dans la memoire sachant que le robot rentre dans une base
-		//est appele par ligneBlanche
+		//est appele par ligneBlanche et quelleBase
 		if (!sortir) {
 			Memoire.setBoussole(Memoire.getLaBonneBase());
 			if (!Memoire.getEreBonneBase())
@@ -258,7 +257,7 @@ public class Carto {
 		}
 		if (sortir) {
 			Memoire.setBoussole(Memoire.getLaMauvaiseBase());
-			if (Memoire.getEreBonneBase())
+			if (Memoire.getEreBonneBase())//TODO : NON ca C fo
 				inverseBouss();
 		}
 	}
