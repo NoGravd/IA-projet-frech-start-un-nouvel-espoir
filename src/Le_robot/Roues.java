@@ -1,5 +1,8 @@
 package Le_robot;
 
+import org.jfree.util.WaitingImageObserver;
+
+import lejos.hardware.Button;
 import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.Motor;
 import lejos.utility.Delay;
@@ -85,6 +88,11 @@ public class Roues {
 		try {
 			mA.rotateTo((-degre2)/2, true);
 			mC.rotateTo(degre2/2, true);
+//			mA.waitComplete();
+//			Button.ENTER.waitForPress();
+			int ii=0;
+			while (mC.isMoving())
+				ii++;
 		} catch (Throwable t) {
 			t.printStackTrace();
 			Delay.msDelay(10000);
