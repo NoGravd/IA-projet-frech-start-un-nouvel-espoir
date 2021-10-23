@@ -9,14 +9,32 @@ import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.Motor;
 import lejos.utility.Delay;
 
+/**
+Une classe qui permet de deplacer le robot
+*/
 public class Roues {
+	
+	/**
+    Instance qui represente le moteur controler par la roue droite.
+	 */
 	static final BaseRegulatedMotor mA = Motor.A;//roue droite
+	/**
+    Instance qui represente le moteur controler par la roue gauche.
+	 */
 	static final BaseRegulatedMotor mC = Motor.C;//roue gauche
+	/**
+    Instance qui represente la liste des moteurs a syncrhoniser avec le moteur A pour avancer et reculer.
+	 */
 	static final BaseRegulatedMotor[] l = new BaseRegulatedMotor[] {mC};
+	/**
+    Instance qui represente la vitesse max du robot.
+	 */
 	static final int VITESSE_MAX = (int) mC.getMaxSpeed();
 	
 	
-	
+	/**
+    Demarre le moteur et avance petit à petit(aceleration).
+	 */
  	public static void demare() {
 		//acceleration
 		int nAcc = 200; //definition du nb de marches d'accélération
@@ -31,6 +49,9 @@ public class Roues {
 //		stop();
  	}
  	
+	/**
+    Arrete les moteurs.
+	 */
  	public static void stop() {
  		mA.synchronizeWith(l);
 		mA.startSynchronization();
@@ -39,22 +60,37 @@ public class Roues {
 		mA.endSynchronization();
  	}
  	
+	/**
+    Pivote de 90° degres sur la droite.
+	 */
  	public static void droite() {
  		pivote (90);
 	}
 	
+	/**
+    Pivote de 90° degres sur la gauche.
+	 */
 	public static void gauche() {
 		pivote (-90);
 	}
 	
+	/**
+    Pivote de maniere a faire un demi tour, partant à droite.
+	 */
 	public static void demi_tour_droite() {
 		pivote (360);
 	}
 	
+	/**
+    Pivote de maniere a faire un demi tour, partant à gauche.
+	 */
 	public static void demi_tour_gauche() {
 		pivote (-360);
 	}
 	
+	/**
+    Pivote de maniere a faire un demi tour, en partant soit a gauche, soit a droite (determiner de maniere aleatoire.
+	 */
 	public static void demi_tour() {
 		int random= (int) Math.round(Math.random());
 		if (random==0)
@@ -63,6 +99,9 @@ public class Roues {
 			demi_tour_droite();
 	}
 	
+	/**
+    Demarre le moteur et recule petit à petit(aceleration).
+	 */
 	public static void recule() {
 		//accélération
 		int nAcc = 200; //definition du nb de marches d'accélération
@@ -79,12 +118,20 @@ public class Roues {
 			Memoire.setAvoirPalet(false);//alors on a pas/plus de palet
 	}
 	
-	public static void rouleSeconde(int tmps) {
-		mA.setSpeed(VITESSE_MAX);
+	/**
+    Permet d'avancer pendant tmps secondes.
+    @param tmps Le temps que le moteur avance
+	 */
+	public static void rouleSeconde(int tmps) {		//Manque pas les forward() dans cette fonction ?
+		mA.setSpeed(VITESSE_MAX);		
 		mC.setSpeed(VITESSE_MAX);
 		Delay.msDelay(tmps*1000);
 	}
 	
+	/**
+    Pivote de l'angle fourni en parametre.
+    @param degre Le degre de rotation voulu
+	 */
 	public static void pivote (int degre) {
 		double degreD = degre*4.333;
 		int degre2 = (int) Math.round(degreD);
@@ -102,6 +149,9 @@ public class Roues {
 		}
 	}
 	
+	/**
+    Fonction en chantier.
+	 */
 	public static void pivoteUS (int degre) {
 		Capteur.demarrerCapteurUltraSon();
 		float[] tab = new float [1000000];
