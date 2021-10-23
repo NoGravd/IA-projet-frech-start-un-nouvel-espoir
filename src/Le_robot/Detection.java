@@ -3,41 +3,60 @@ package Le_robot;
 import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.Motor;
 
+/**
+Une qui detecte la nature, la distance et direction d'un obstacle a l'aide d'un 360° sur sois meme.
+*/
 public class Detection {
-	//Classe qui detecte la nature, la distance et direction d'un obstacle a  l'aide d'un 360° sur sois meme
 	
-	
-	
+	/**
+	Une instance qui permet de savoir dans qu'elle direction fais face le robot.
+	*/
 	private int directionFace = 0;
+	/**
+	Une instance qui permet de contenir 360 mesure de distance realiser par le capteur ultrason.
+	*/
 	private float[] distance360 = new float[360];
 	
+	/**
+	Une instance qui permet de savoir le direction de l'obstacle.
+	*/
 	private int directionObstacle = 0;
+	/**
+	Une instance qui permet de savoir la distance de l'obstacle.
+	*/
 	private float distanceObstacle = 0;
+	/**
+	Une instance qui permet de savoir si l'obstacle est un palet.
+	*/
 	private boolean obstacleEstPalet = false;
 	
 	
-	
+	/**
+	Permet d'obtenir la direction en ° de l'obstacle.
+	*/
 	public int getDirectionObstacle() {
-		//Permet d'obtenir la direction en ° de l'obstacle
 		return directionObstacle;
-		
 	}
 	
-	
-	
+	/**
+	Permet de remettre a  0 le tableau des distances .
+	*/
 	private void clearTableauDistance() {
-		//Permet de remettre a  0 le tableau des distances 
 		distance360 = new float[360];
 	}
 	
+	/**
+	Permet d'avoir une direction toujours inferieur a  360°.
+	*/
 	private void actualiserDirectionFace() {
-		//Permet d'avoir une direction toujours inferieur a  360°
 		if (directionFace >= 360)
 			directionFace -= - 360;
 	}
 	
+	/**
+	Fait un tour sur soi meme et prend une mesure a chaque °.
+	*/
 	public void tourSurSoiMemeDetection() {
-		//Fait un tour sur soi meme et prend une mesure a chaque °
 		clearTableauDistance();
 		Capteur.demarrerCapteurUltraSon();
 		for (int ii=0; ii<360; ii++) {
@@ -49,6 +68,9 @@ public class Detection {
 		actualiserDirectionFace();
 	}
 	
+	/**
+	Se retounre vers l'obstacle le plus proche.
+	*/
 	public void tourneVersPlusProche () {
 		tourSurSoiMemeDetection();
 		float minimum = 3;
@@ -62,7 +84,10 @@ public class Detection {
 		Roues.mC.rotate(degre);
 	}
 	
-	public void directionDeLobstacle() {
+	/**
+	Calcul si l'obstacle le plus proche est un palet ou non.
+	*/
+	public void directionDeLobstacle() {			//Changer le nom de la fonction
 		float valeurPrec = distance360 [0];
 		for (int ii=0; ii<360; ii++) {
 			if (valeurPrec > distance360 [ii]) {
