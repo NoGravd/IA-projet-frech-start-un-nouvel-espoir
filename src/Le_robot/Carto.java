@@ -113,7 +113,7 @@ public class Carto {
 	}
 	
 	private boolean verifPositionP (int couleur) {
-		//TODO : si la PositionP est illogique, la réévalu en fonction des deux dernieres lignes
+		//si la PositionP est illogique, la réévalu en fonction des deux dernieres lignes
 		int[] positionP = Memoire.getPositionPrecise();
 		boolean boul = false;
 		if (couleur==ROUGE) 
@@ -154,7 +154,6 @@ public class Carto {
 		
 		//version 1 :
 		/**
->>>>>>> Stashed changes
 		switch (leInt) {
 		case 0 : return ROUGE;
 		case 3 : return JAUNE;
@@ -192,7 +191,9 @@ public class Carto {
 	
 	private void travLigneBouss (int color) {
 		//TODO
-			
+			//bah en fait je crois qu'il ne se passe rien ici
+			//je c pa
+			//le nono se remet a parler tout seul !!
 	}
 	
 	/**
@@ -203,10 +204,10 @@ public class Carto {
 		if (color!=ROUGE&&color!=JAUNE)
 			return;
 		//info : la distance entre la ligne et le mur est de 50cm; US = ligne + 4cm; distance entre l'axe de rotation et la ligne + 9cm
-		int x=0;
+		int xx=0;
 		//TODO
 		
-		Roues.pivote(x);
+		Roues.pivote(xx);
 		if (color==ROUGE) {
 			Memoire.setBoussole(NORD);
 			Memoire.setSuperBoussole(NORD);
@@ -319,7 +320,6 @@ public class Carto {
 	  Determine si le robot est dans la bonne base et donne son rslt dans la Memoire, est appele par ligneBlanche.
 	 */
 	private void quelleBase() {
-
 		boolean etreBonneBase;
 		//------------------
 		//vais faire system de point :
@@ -328,21 +328,62 @@ public class Carto {
 		//-lastLigne : idem positionCertaine (sert ptt a rien mais on C jamais)
 		//-boussole : +1 si bonne; -1 si opposé
 		//-superBoussole : parreil mais avec un angle de 178°
-		//si pts>XX -> C OK
-		int xx = 1;//a modifier en fonction de rslts des test + lui trouver un nom TODO
+		//si pts>Nos Attentes -> C OK
+		//------------------
+		int Nos_Attentes = 1;//TODO : modifier en fonction de rslts des test
 		int nbPoints = 0;
-		//TODO
 		
-		//positionCertaine :
+		//positionsCertaine :
+		int[][] positionsC = Memoire.getPositionsCertaine();
+		int scorePC=0;
+		if (Memoire.getLaBonneBase()==1) {//bonne base a l'EST
+			for (int ii=0; ii<positionsC.length; ii++) {
+				if (positionsC[ii][0]==5)
+					scorePC=1;
+				else if (positionsC[ii][0]==2) 
+					scorePC=-1;
+			}
+		} else { //bonne base a l'OUEST
+			for (int ii=0; ii<positionsC.length; ii++) {
+				if (positionsC[ii][0]==2)
+					scorePC=1;
+				else if (positionsC[ii][0]==5) 
+					scorePC=-1;
+			}
+		}
+		if (scorePC==-1)
+			nbPoints--;
+		if (scorePC==1)
+			nbPoints++;
 		
 		
 		
 		//positionPrecise :
-		
+		int[] positionsP = Memoire.getPositionPrecise();
+		int scorePP=0;
+		if (Memoire.getLaBonneBase()==1) {//bonne base a l'EST
+			for (int ii=0; ii<positionsP.length; ii++) {
+				if (positionsP[0]==5)
+					scorePP=1;
+				else if (positionsP[0]==2) 
+					scorePP=-1;
+			}
+		} else { //bonne base a l'OUEST
+			for (int ii=0; ii<positionsP.length; ii++) {
+				if (positionsP[0]==2)
+					scorePP=1;
+				else if (positionsP[0]==5) 
+					scorePP=-1;
+			}
+		}
+		if (scorePP==-1)
+			nbPoints--;
+		if (scorePP==1)
+			nbPoints++;
 		
 		
 		//lastLigne :
-		int ligneAdj = Memoire.getLaBonneBase()==1 ? BLEU : VERT;
+		int ligneAdj = Memoire.getLaBonneBase()==1 ? BLEU : VERT; //ligneAdj a la base que l'on souhaite / 1==EST
 		if (Memoire.getLastLigne() == ligneAdj)
 			nbPoints++;
 		else if (Memoire.getLastLigne() != NOIRE && Memoire.getLastLigne() != ROUGE && Memoire.getLastLigne() != JAUNE)
@@ -357,7 +398,7 @@ public class Carto {
 		
 		
 		//verdicte :
-		if (nbPoints>=xx)
+		if (nbPoints>=Nos_Attentes)
 			etreBonneBase = true;
 		else
 			etreBonneBase = false;
@@ -379,8 +420,10 @@ public class Carto {
 		}
 		if (sortir) {
 			Memoire.setBoussole(Memoire.getLaMauvaiseBase());
-			if (Memoire.getEreBonneBase())//TODO : NON ca C fo
+			if (Memoire.getEreBonneBase())
 				inverseBouss();
+			Memoire.setEtreBase(false);
+			Memoire.setEtreBonneBase(false);
 		}
 	}
 	

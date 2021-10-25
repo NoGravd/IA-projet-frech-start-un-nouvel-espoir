@@ -4,7 +4,7 @@ import lejos.hardware.Sound;
 
 public class Music {
 	//class qui fait de la Zic'mu
-	//@author NG le musicos
+	//@author ${NG_le_musicos}
 	//ne me jugez pas j'ai beaucoup trop de temps libre
 	
 //	DO	
