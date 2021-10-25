@@ -5,6 +5,7 @@ import lejos.hardware.Sound;
 public class Music {
 	//class qui fait de la Zic'mu
 	//@author NG le musicos
+	//ne me juger pas j'ai beaucoup trop de temps libre
 	
 //	DO	
 //	262
@@ -40,32 +41,38 @@ public class Music {
 	static final int SI = 494;
 	
 	//durees des notes (basees sur 1 sec) :
-	static int T1 = 1000;
-	static int T2 = T1/2;
-	static int T3 = T2/2;
-	static int T4 = T3/2;
-	static int T5 = T4/2;
+	static int T = 1000;//noire
 	
-	static int T1P = T1+(T1/4);
-	static int T2P = T2+(T2/4);
-	static int T3P = T3+(T3/4);
-	static int T4P = T4+(T4/4);
-	static int T5P = T5+(T5/4);
+	static int T1 = T*4;//ronde
+	static int T2 = T*2;//blanche
+	static int T3 = 1;//noire
+	static int T4 = T/2;//croche
+	static int T5 = T/4;//double-croche
+	
+	static int T1P = 6*T;
+	static int T2P = 3*T;
+	static int T3P = T3+(T/2);
+	static int T4P = T4+(T/4);
+	static int T5P = T5+(T/8);
 	
 	
 	//-----outils-------
 	
 	private static void temps (int sec) {
-		T1 = 1000*sec;
-		T2 = T1/2;
-		T3 = T2/2;
-		T4 = T3/2;
+		 T = sec*1000;//noire
 		
-		T1P = T1+(T1/4);
-		T2P = T2+(T2/4);
-		T3P = T3+(T3/4);
-		T4P = T4+(T4/4);
-		T5P = T5+(T5/4);
+		 T1 = T*4;//ronde
+		 T2 = T*2;//blanche
+		 T3 = 1;//noire
+		 T4 = T/2;//croche
+		 T5 = T/4;//double-croche
+		
+		 //points :
+		 T1P = 6*T;
+		 T2P = 3*T;
+		 T3P = T3+(T/2);
+		 T4P = T4+(T/4);
+		 T5P = T5+(T/8);
 	}
 	
 	private static void note (int note, int sec) throws InterruptedException {
@@ -150,6 +157,125 @@ public class Music {
 			
 			silence (T2);
 		}
+	}
+	
+	public static void Terminator_main_theme() throws InterruptedException {
+		temps (1);
+		for (int ii=0; ii<4; ii++) {//x4
+			note (DO, T5);
+			note (DO, T4);
+			note (DO, T4);
+			note (DO, T5);
+			note (DO, T3);
+			silence (T3);
+		}
+		
+		note (SOL, T4);
+		note (LA, T4);
+		note (SI, T4+T2P);
+		
+		note (LA, T3);
+		note (FA, T4);
+		note (DO, T2P);
+		note (RE, T3P);
+		
+		silence (T4);
+		
+		note (RE, T4);
+		note (FA, T4);
+		note (MI, T4+T2P);
+		
+		note (MI, T3);
+		note (DO, T4);
+		note (LA, T2P);
+		note (SOL, T2P);
+		
+		silence (T4);
+		
+		note (SOL, T4);
+		note (LA, T4);
+		note (SI, T4+T2P);
+		
+		note (LA, T3);
+		note (FA, T4);
+		note (DO, T2P+T3P);
+		
+		silence (T5);
+		
+		note (DO, T2);
+	}
+	
+	public static void Gonna_Fly_Now() throws InterruptedException {
+		note (DO, T4);
+		for (int ii=0; ii<6 ; ii++) {
+			if (ii==2) {
+				note (SOL, T4);
+				note (DO, T5);
+				note (DO, T5);
+				
+				note (DO, T4);
+				note (FA, T4);
+			} else if (ii==5) {
+				note (FA, T4);
+				note (DO, T5);
+				note (DO, T5);
+				note (DO, T3);
+			} else {
+					note (DO, T4);
+					note (DO, T5);
+					note (DO, T5);
+			}
+		}
+		for (int yy=0; yy<4; yy++) {
+			if (yy==2) {
+				note (RE, T5);
+				note (RE, T5);
+				note (RE, T4);
+			} else {
+				note (RE, T4);
+				note (RE, T5);
+				note (RE, T5);
+			}
+		}
+		note (RE, T5);
+		note (RE, T5);
+		note (RE, T3);
+		
+		note (MI, T5);
+		note (SOL, T4P);
+		note (FA, T2P);
+		
+		note (LA, T5);
+		note (SI, T4P);
+		note (RE, T2P);
+		
+		note (MI, T5);
+		note (SOL, T4P);
+		note (FA, T2P);
+		
+		note (LA, T5);
+		note (SI, T4P);
+		note (RE, T2P);
+		
+		silence (T3);
+		
+		note (RE, T5);
+		note (DO, T5);
+		note (RE, T4P);
+		note (DO, T5);
+		note (RE, T5);
+		note (MI, T4P);
+		note (MI, T3);
+		
+		
+		note (SI, T4);//ajout
+		note (SI, T3);//ajout
+	}
+	
+	public static void Korobeiniki() throws InterruptedException {
+		//TODO
+		
+		
 	}
 	
 }
