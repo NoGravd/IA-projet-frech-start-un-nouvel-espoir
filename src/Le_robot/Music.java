@@ -58,8 +58,8 @@ public class Music {
 	
 	//-----outils-------
 	
-	private static void temps (int sec) {
-		 T = sec*1000;//noire
+	private static void temps (int  sec) {
+		 int T =(int) sec;//noire
 		
 		 T1 = T*4;//ronde
 		 T2 = T*2;//blanche
@@ -160,7 +160,7 @@ public class Music {
 	}
 	
 	public static void Terminator_main_theme() throws InterruptedException {
-		temps (1);
+		temps (300);
 		for (int ii=0; ii<4; ii++) {//x4
 			note (DO, T5);
 			note (DO, T4);
@@ -206,6 +206,7 @@ public class Music {
 	}
 	
 	public static void Gonna_Fly_Now() throws InterruptedException {
+		temps (500);
 		note (DO, T4);
 		for (int ii=0; ii<6 ; ii++) {
 			if (ii==2) {
