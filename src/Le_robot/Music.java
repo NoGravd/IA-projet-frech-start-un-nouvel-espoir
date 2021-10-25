@@ -5,7 +5,7 @@ import lejos.hardware.Sound;
 public class Music {
 	//class qui fait de la Zic'mu
 	//@author NG le musicos
-	//ne me juger pas j'ai beaucoup trop de temps libre
+	//ne me jugez pas j'ai beaucoup trop de temps libre
 	
 //	DO	
 //	262
@@ -58,8 +58,8 @@ public class Music {
 	
 	//-----outils-------
 	
-	private static void temps (int  sec) {
-		 int T =(int) sec;//noire
+	private static void tempo (int milisec) {
+		 int T =(int) milisec;//noire
 		
 		 T1 = T*4;//ronde
 		 T2 = T*2;//blanche
@@ -84,6 +84,9 @@ public class Music {
 		Thread.sleep(sec);
 	}
 	
+	private static int milisecFromBPM (int bpm) {
+		return (int) (1000/Math.round(bpm/60));
+	}
 	
 	
 	//------music--------
@@ -100,7 +103,7 @@ public class Music {
 		}
 	
 	public static void Hot_Cross_Buns() throws InterruptedException {
-		temps(1);
+		tempo (1000);
 		
 		note (SI, T3);
 		note (LA, T3);
@@ -123,7 +126,7 @@ public class Music {
 	
 	public static void Kalinka() throws InterruptedException {
 		for (int ii=0; ii<4; ii++) {//joue 4x
-			temps(1/(ii+1));//accelere a chaque fois
+			tempo (1000/(ii+1));//accelere a chaque fois
 			
 			note (FA, T3);
 			note (MI, T3);
@@ -160,7 +163,7 @@ public class Music {
 	}
 	
 	public static void Terminator_main_theme() throws InterruptedException {
-		temps (300);
+		tempo (300);
 		for (int ii=0; ii<4; ii++) {//x4
 			note (DO, T5);
 			note (DO, T4);
@@ -206,7 +209,7 @@ public class Music {
 	}
 	
 	public static void Gonna_Fly_Now() throws InterruptedException {
-		temps (500);
+		tempo (500);
 		note (DO, T4);
 		for (int ii=0; ii<6 ; ii++) {
 			if (ii==2) {
@@ -274,6 +277,8 @@ public class Music {
 	}
 	
 	public static void Korobeiniki() throws InterruptedException {
+		tempo (milisecFromBPM(180));
+		
 		note (FA, T3);
 		
 		note (DO, T4);
@@ -337,6 +342,236 @@ public class Music {
 		note (DO-20, T3);
 		
 		note (DO-20, T3);
+	}
+	
+	public static void Gamme() throws InterruptedException {
+		note (DO, T3);
+		note (RE, T3);
+		note (MI, T3);
+		note (FA, T3);
+		note (SOL, T3);
+		note (LA, T3);
+		note (SI, T3);
+	}
+	
+	public static void Marseillaise() throws InterruptedException {
+		tempo (milisecFromBPM(115));
+		
+		note (DO, T4P);
+		note (DO, T5);
+		
+		note (FA, T3);
+		note (FA, T3);
+		
+		note (SOL, T3);
+		note (SOL, T3);
+		
+		note (SI+60, T3P);
+		
+		note (LA, T4);
+		
+		note (FA, T4P);
+		note (FA, T5);
+		
+		note (LA, T4P);
+		note (FA, T5);
+		
+		note (RE, T3);
+		note (SI, T3*2);
+		
+		note (SOL, T4P);
+		note (MI, T5);
+		
+		note (FA, T2);
+		
+		silence (T3);
+		
+		
+		
+		note (FA, T4P);
+		note (SOL, T5);
+		
+		for (int ii=0; ii<3; ii++)
+			note (LA, T3);
+		
+		note (SI, T4P);
+		note (LA, T5);
+		
+		note (LA, T3);
+		note (SOL, T3);
+		
+		silence (T3);
+		
+		
+		note (SOL, T4P);
+		note (LA, T5);
+		
+		for (int yy=0; yy<3; yy++)
+			note (SI, T3);
+		
+		note (SI+60, T4P);
+		note (SI, T5);
+		
+		note (LA, T2);
+		
+		silence (T3);
+		
+		
+		
+		note (SI+60, T4P);
+		note (SI+60, T5);
+		
+		note (SI+60, T3);
+		
+		note (LA, T4P);
+		note (FA, T5);
+		
+		note (SI, T3);
+		
+		note (SOL, T4P);
+		note (LA, T5);
+		
+		note (DO, T2);
+		
+		silence (T4P);
+		
+		
+		
+		note (DO, T4P);
+		
+		note (DO, T4P);
+		note (RE, T5);
+		
+		note (SOL, T2);
+		
+		note (SI, T3);
+		
+		note (SOL, T4P);
+		note (RE, T5);
+		
+		note (FA, T2);
+		
+		note (MI, T2);
+		
+		note (RE, T3);
+		
+		note (FA, T4P);
+		note (FA, T5);
+		
+		note (FA, T3);
+		
+		note (MI, T4P);
+		note (FA, T5);
+		
+		note (SOL, T2+T3);
+		
+		silence (T4);
+		
+		
+		
+		note (SOL, T4);
+		
+		note (LA, T3P);
+		
+		note (LA, T4);
+		
+		note (LA, T4);
+		note (LA, T4);
+		note (SI, T4);
+		note (SI+60, T4);
+		
+		note (SOL, T2+T3);
+		
+		note (LA, T4);
+		note (SOL, T4);
+		
+		note (FA, T3P);
+		
+		note (FA, T4);
+		
+		note (FA, T4);
+		note (LA, T4);
+		note (SOL, T4);
+		note (FA, T4);
+		
+		note (FA, T3);
+		note (MI, T3);
+		
+		silence (T3+T4P);
+		
+		
+		
+		note (SI+60, T5);
+		note (SI+60, T2);
+		
+		silence (T4);
+		
+		
+		
+		note (SI, T4);
+		
+		note (LA, T4P);
+		note (FA, T5);
+		
+		note (SOL, T2);
+		
+		silence (T3+T4P);
+		
+		
+		
+		note (SI+60, T4);
+		note (SI+60, T2);
+		
+		silence (T4);
+		
+		
+		
+		note (SI, T4);
+		
+		note (LA, T4P);
+		note (FA, T5);
+		
+		note (SOL, T2);
+		
+		silence (T3);
+		
+		
+		
+		note (DO, T3);
+		
+		note (FA, T2);
+		
+		silence (T3);
+		
+		
+		
+		note (SOL, T3);
+		
+		note (LA, T1);
+		
+		note (SI, T2);
+		
+		note (SI+60, T3);
+		
+		note (SI+130, T3);
+		
+		note (SOL, T2);
+		
+		silence (T3);
+		
+		
+		
+		note (SI+130, T3);
+		
+		note (SI+60, T2);
+		
+		note (SI+60, T4P);
+		note (LA, T5);
+		
+		note (SI, T4P);
+		note (SOL, T5);
+		
+		note (FA, T1);
 	}
 	
 }
