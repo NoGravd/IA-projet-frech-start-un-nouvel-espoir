@@ -32,28 +32,28 @@ public class Music {
 	
 	
 	//frequences des notes :
-	static final int DO = 262;
-	static final int RE = 287;
-	static final int MI = 320;
-	static final int FA = 349;
-	static final int SOL = 392;
-	static final int LA = 440;
-	static final int SI = 494;
+	static private final int DO = 262;
+	static private final int RE = 287;
+	static private final int MI = 320;
+	static private final int FA = 349;
+	static private final int SOL = 392;
+	static private final int LA = 440;
+	static private final int SI = 494;
 	
 	//durees des notes (basees sur 1 sec) :
-	static int T = 1000;//noire
+	static private int T = 1000;//noire
 	
-	static int T1 = T*4;//ronde
-	static int T2 = T*2;//blanche
-	static int T3 = 1;//noire
-	static int T4 = T/2;//croche
-	static int T5 = T/4;//double-croche
+	static private int T1 = T*4;//ronde
+	static private int T2 = T*2;//blanche
+	static private int T3 = 1;//noire
+	static private int T4 = T/2;//croche
+	static private int T5 = T/4;//double-croche
 	
-	static int T1P = 6*T;
-	static int T2P = 3*T;
-	static int T3P = T3+(T/2);
-	static int T4P = T4+(T/4);
-	static int T5P = T5+(T/8);
+	static private int T1P = 6*T;
+	static private int T2P = 3*T;
+	static private int T3P = T3+(T/2);
+	static private int T4P = T4+(T/4);
+	static private int T5P = T5+(T/8);
 	
 	
 	//-----outils-------
@@ -273,9 +273,69 @@ public class Music {
 	}
 	
 	public static void Korobeiniki() throws InterruptedException {
-		//TODO
+		note (FA, T3);
 		
+		note (DO, T4);
+		note (RE, T4);
+		note (MI, T3);
 		
+		note (FA, T4);
+		note (RE, T4);
+		note (DO-20, T3);
+		
+		note (DO-20,T4);
+		note (RE, T4);
+		note (FA, T3);
+		
+		note (MI, T4);
+		note (RE, T4);
+		note (DO, T3);
+		
+		note (DO, T4);
+		note (RE, T4);
+		note (MI, T3);
+		
+		note (FA, T3);
+		
+		note (RE, T3);
+		
+		note (DO-20, T3);
+		
+		note (DO-20, T3);
+		
+		silence (T2);
+		
+		note (MI, T3);
+		
+		note (SOL, T4);
+		note (SI, T4);
+		note (SI, T4);
+		
+		silence (T4);
+		
+		note (LA, T4);
+		note (SOL, T4);
+		note (FA, T2);
+		
+		note (RE, T4);
+		note (FA, T4);
+		note (FA, T3);
+		
+		note (MI, T4);
+		note (RE, T4);
+		note (DO, T4);
+		note (DO, T3);
+		
+		note (RE, T4);
+		note(MI,T4);
+		note(MI,T4);
+		note (FA, T3);
+		
+		note (RE, T3);
+		
+		note (DO-20, T3);
+		
+		note (DO-20, T3);
 	}
 	
 }
