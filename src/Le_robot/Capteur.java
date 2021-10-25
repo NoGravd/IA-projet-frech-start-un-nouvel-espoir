@@ -1,10 +1,7 @@
 package Le_robot;
 import lejos.hardware.sensor.*;
-import lejos.robotics.SampleProvider;
 import lejos.utility.Delay;
-
 import java.util.Arrays;
-
 import lejos.hardware.Button;
 import lejos.hardware.port.*;
 
@@ -27,6 +24,7 @@ public class Capteur {
 	 */
 	private static Port p3 = lejos.hardware.port.SensorPort.S3;
 	
+
 	
 	/**
     Instance du capteur de couleur.
@@ -35,6 +33,10 @@ public class Capteur {
 	/**
     Instance du capteur tactile.
 	 */
+
+	//Initialisation des instances des 3 capteurs (Ultrason,Couleur et tactile) :
+//	public static EV3ColorSensor capteurCo = new EV3ColorSensor(p1);
+
 	public static EV3TouchSensor capteurTa = new EV3TouchSensor(p2);
 	/**
     Instance du capteur ultrason.
@@ -46,12 +48,16 @@ public class Capteur {
     Instance contenant la dernier distance recuperer par la fonction distanceOb().
 	 */
 	public static float[] donneeSe = new float[1];
+
 	
 	private static float[] donneeCo = new float[1];	//Pas utilisée pour le moment 
 	
 	/**
     Instance contenant le dernier etat du capteur tactile recuperer par la fonction capteurTactileActive().
 	 */
+
+//	private static float[] donneeCo = new float[1];
+
 	private static float[] donneeTa = new float[1];
 	
 	
@@ -78,9 +84,15 @@ public class Capteur {
 	 */
 	public static void distanceOb() {
 		
+
 		capteurUS.enable();
 		capteurUS.getDistanceMode().fetchSample(donneeSe, 0);
 		capteurUS.disable();
+
+//		capteurUS.enable();
+		capteurUS.getDistanceMode(); //.fetchSample(donneeSe, 0);
+//		capteurUS.disable();
+
 	}
 	
 	/**
@@ -150,6 +162,7 @@ public class Capteur {
 	
 	//-------------------Couleur----------------------
 	
+
 	/**
     Permet de savoir qu'elle est la couleur detecte par le robot.
     @return l'ID de la couleur detecter.
@@ -162,5 +175,16 @@ public class Capteur {
 	public float getCouleur() {			//Pas utile pour le moment
 		return donneeCo [0];
 	}
+
+//	public static int couleurDetectee() {
+//		//Donne ID de la couleur detecter par le capteur de couleur en mode RGB
+////		capteurCo.getColorIDMode();
+//		capteurCo.setFloodlight(false);
+//		return capteurCo.getColorID();
+//	}
+//	
+//	public static float getCouleur() {
+//		return donneeCo [0];
+//	}
 	
 }

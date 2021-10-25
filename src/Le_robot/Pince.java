@@ -34,12 +34,27 @@ public class Pince {
 	 */
 	public static void fPince() {
 		if (Memoire.getEtatPince()) {//si Pince ouvertes
-			if (Capteur.capteurTactileActive())//si le palet
+			if (Capteur.capteurTactileActive())//si avoir palet
 				Memoire.setAvoirPalet(true);//inscrit memoire
 			mP.backward();
 			Delay.msDelay(TIME_PINCE);
 			mP.stop();
 			Memoire.mvmtPince(false);
+		}
+	}
+	
+	public static void oPince_mobile() {
+		if (!Memoire.getEtatPince()) {//si Pince fermees
+			try {
+				int xx=10;//TODO : calculer xx
+				mP.rotateTo(xx, true);
+			} catch (Throwable t) {
+				t.printStackTrace();
+				Delay.msDelay(10000);
+				System.exit(0);
+			}
+			mP.stop();
+			Memoire.mvmtPince(true);
 		}
 	}
 	

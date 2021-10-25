@@ -1,9 +1,14 @@
 package Le_robot;
 
+
 /**
 Une classe qui calculera les positions du david.
 @author NG
 */
+
+import lejos.robotics.Color;
+
+
 public class Carto {
 	
 	//pas obligatoire mais pratik : (int arbitraires)
@@ -85,8 +90,12 @@ public class Carto {
     @param couleur ID d'une couleur.
 	 */
 	private void calculPositionP (int couleur) {
-
-		int[] newPosition = new int[1];
+		//modifie la positionPresice dans la memoire en fonction de la ligne que le robot vient de traverser
+		//est appele par travLigne
+		
+		if (verifPositionP(couleur))
+			return;
+		int[] newPosition = new int[2];
 		if (Memoire.getBoussole() == NORD) {
 			newPosition [0] = Memoire.getPositionPrecise() [0];
 			newPosition [1] = Memoire.getPositionPrecise() [1] + 1;
@@ -103,22 +112,72 @@ public class Carto {
 		Memoire.setPositionPrecise(newPosition);
 	}
 	
+	private boolean verifPositionP (int couleur) {
+		//TODO : si la PositionP est illogique, la réévalu en fonction des deux dernieres lignes
+		int[] positionP = Memoire.getPositionPrecise();
+		boolean boul = false;
+		if (couleur==ROUGE) 
+			if (positionP[1]==1||positionP[1]==2)
+				boul = true;
+		if (couleur==VERT)
+			if (positionP[0]!=2&&positionP[0]!=3)
+				boul = true;
+		if (couleur==JAUNE)
+			if (positionP[1]!=1&&positionP[1]!=2)
+				boul = true;
+		if (couleur==BLEU)
+			if (positionP[1]!=4&&positionP[1]!=5)
+				boul = true;
+		if (couleur==NOIRE)
+//			if (position)//TODO
+		if (couleur==BLANC)
+		//TODO
+		
+		
+		
+		if (boul) {
+			//TODO
+			
+			
+			
+			return true;
+		}
+		return false;
+	}
 	
 	/**
     Traite les couleurs en int donner par le sensor.
     @param leInt ID d'une couleur.
 	 */
 	public int couleurDuInt (int leInt) {
-	
+		//traite les couleurs en int donner par le sensor
+		
+		//version 1 :
+		/**
+>>>>>>> Stashed changes
 		switch (leInt) {
 		case 0 : return ROUGE;
 		case 3 : return JAUNE;
-		case 7 : return NOIRE;//x TODO : marche pa
+		case 7 : return NOIRE;//x : marche pa
 		case 6 : return BLANC;
-		case 1 : return VERT;//?
-		case 8 : return BLEU;//x TODO : marche pa
+		case 1 : return VERT;//? : bof
+		case 8 : return BLEU;//x : marche pa
 		default : return RIEN;
 		}
+		*/
+		
+		//version 2 :
+//		/**
+		 switch (leInt) {
+		case Color.RED : return ROUGE;
+		case Color.YELLOW : return JAUNE;
+		case Color.BLACK : return NOIRE;
+		case Color.WHITE : return BLANC;
+		case Color.GREEN : return VERT;
+		case Color.BLUE : return BLEU;
+		default : return RIEN;
+		}
+//		 */
 	}
 	
 	
