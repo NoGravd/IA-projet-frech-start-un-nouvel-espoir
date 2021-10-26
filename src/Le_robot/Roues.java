@@ -93,14 +93,14 @@ public class Roues {
     Pivote de maniere a faire un demi tour, partant à droite.
 	 */
 	public static void demi_tour_droite() {
-		pivote (360);
+		pivote (180);
 	}
 	
 	/**
     Pivote de maniere a faire un demi tour, partant à gauche.
 	 */
 	public static void demi_tour_gauche() {
-		pivote (-360);
+		pivote (-180);
 	}
 	
 	/**

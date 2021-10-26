@@ -45,14 +45,16 @@ public class Music {
 	
 	static private int T1 = T*4;//ronde
 	static private int T2 = T*2;//blanche
-	static private int T3 = 1;//noire
+	static private int T3 = T;//noire
 	static private int T4 = T/2;//croche
 	static private int T5 = T/4;//double-croche
 	
+	@SuppressWarnings("unused")
 	static private int T1P = 6*T;
 	static private int T2P = 3*T;
 	static private int T3P = T3+(T/2);
 	static private int T4P = T4+(T/4);
+	@SuppressWarnings("unused")
 	static private int T5P = T5+(T/8);
 	
 	
@@ -63,7 +65,7 @@ public class Music {
 		
 		 T1 = T*4;//ronde
 		 T2 = T*2;//blanche
-		 T3 = 1;//noire
+		 T3 = T;//noire
 		 T4 = T/2;//croche
 		 T5 = T/4;//double-croche
 		
@@ -574,4 +576,69 @@ public class Music {
 		note (FA, T1);
 	}
 	
+	public static void The_imperial_march() throws InterruptedException {
+		tempo(milisecFromBPM(180));
+		
+		for (int ii=0; ii<3; ii++)
+			note (RE, T3);
+		
+		note (DO-20, T4P);
+		note (FA, T5);
+		
+		note (RE, T3);
+		
+		note (DO-22, T4P);
+		note (FA, T5);
+		
+		note (RE, T3);
+		
+		for (int yy=0; yy<3; yy++)
+			note (LA, T3);
+		
+		note (SI, T4P);
+		note (FA, T5);
+		
+		note (DO, T3);
+		
+		note (DO-40, T4P);
+		note (FA, T5);
+		
+		note (RE, T3);
+		
+		note (SI+125, T3);
+		
+		note (RE, T4P);
+		note (RE, T5);
+		
+		note (SI+125, T3);
+		
+		note (SI+60, T4P);
+		note (SI+60, T5);
+		
+		note (SI, T3);
+		
+		note (RE, T3);
+		
+		note (SOL, T3);
+		
+		note (SOL, T4P);
+		note (FA, T5);
+		
+		note (FA, T3);
+		
+		note (DO-22, T3);
+		
+		note (DO, T3);
+		
+		note (DO-20, T4P);
+		note (DO, T5);
+		
+		note (FA, T3);
+		
+		note (RE, T4P);
+		note (FA, T5);
+		
+		note (LA, T2);
+	}
+
 }
