@@ -2,9 +2,7 @@ package Le_robot;
 
 import java.util.Arrays;
 
-import org.jfree.util.WaitingImageObserver;
 
-import lejos.hardware.Button;
 import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.Motor;
 import lejos.utility.Delay;
@@ -159,6 +157,7 @@ public class Roues {
 			while (mC.isMoving())
 				ii++;//juste pour que le bot calclul
 			degreD+=ii;//ca c juste pour que eclipse rale pas car ii sert a rien
+			Carto.rotateDeg(degre);
 		} catch (Throwable t) {
 			t.printStackTrace();
 			Delay.msDelay(10000);

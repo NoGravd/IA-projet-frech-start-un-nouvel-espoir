@@ -1,7 +1,6 @@
 package Le_robot;
 
-import lejos.hardware.motor.BaseRegulatedMotor;
-import lejos.hardware.motor.Motor;
+
 
 /**
 Une qui detecte la nature, la distance et direction d'un obstacle a l'aide d'un 360° sur sois meme.
@@ -24,6 +23,7 @@ public class Detection {
 	/**
 	Une instance qui permet de savoir la distance de l'obstacle.
 	*/
+	@SuppressWarnings("unused")
 	private float distanceObstacle = 0;
 	/**
 	Une instance qui permet de savoir si l'obstacle est un palet.

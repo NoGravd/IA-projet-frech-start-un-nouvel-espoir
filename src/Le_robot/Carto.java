@@ -15,55 +15,55 @@ public class Carto {
 	/**
     Instance qui represente l'ID de la couleur blanche.
 	 */
-	private final int BLANC = 0;//x1 ou x5
+	private final static int BLANC = 0;//x1 ou x5
 	/**
     Instance qui represente l'ID de la couleur noire.
 	 */
-	private final int NOIRE = 1;//x3 ou y2
+	private final static int NOIRE = 1;//x3 ou y2
 	/**
     Instance qui represente l'ID de la couleur rouge.
 	 */
-	private final int ROUGE = 2;//y3
+	private final static int ROUGE = 2;//y3
 	/**
     Instance qui represente l'ID de la couleur vert.
 	 */
-	private final int VERT = 3;//x2
+	private final static int VERT = 3;//x2
 	/**
     Instance qui represente l'ID de la couleur jaune.
 	 */
-	private final int JAUNE = 4;//y1
+	private final static int JAUNE = 4;//y1
 	/**
     Instance qui represente l'ID de la couleur bleu.
 	 */
-	private final int BLEU = 5;//x4
+	private final static int BLEU = 5;//x4
 	/**
     Instance qui represente une erreur.
 	 */
-	private final int RIEN= 404;//ptt D-ja triee par class Capteur mais a garder pour debug
+	private final static int RIEN= 404;//ptt D-ja triee par class Capteur mais a garder pour debug
 	
 	/**
     Instance qui represente la position NORD.
 	 */
-	private final int NORD = 0;
+	private final static int NORD = 0;
 	/**
     Instance qui represente la position EST.
 	 */
-	private final int EST = 1;
+	private final static int EST = 1;
 	/**
     Instance qui represente la position SUD.
 	 */
-	private final int SUD = 2;
+	private final static int SUD = 2;
 	/**
     Instance qui represente la position OUEST.
 	 */
-	private final int OUEST = 3;
+	private final static int OUEST = 3;
 	
 	
 	/**
     Traite tout ce qu'il y a a traiter dans la Carto quand le robot traverse une ligne.
     @param color ID d'une couleur.
 	 */
-	public void travLigne (int color) {
+	public static void travLigne (int color) {
 	
 		int couleur = couleurDuInt(color);
 		if (couleur == BLANC) {
@@ -89,7 +89,7 @@ public class Carto {
     Modifie la positionPresice dans la memoire en fonction de la ligne que le robot vient de traverser, est appele par travLigne.
     @param couleur ID d'une couleur.
 	 */
-	private void calculPositionP (int couleur) {
+	private static void calculPositionP (int couleur) {
 		//modifie la positionPresice dans la memoire en fonction de la ligne que le robot vient de traverser
 		//est appele par travLigne
 		
@@ -112,7 +112,7 @@ public class Carto {
 		Memoire.setPositionPrecise(newPosition);
 	}
 	
-	private boolean verifPositionP (int couleur) {
+	private static boolean verifPositionP (int couleur) {
 		//si la PositionP est illogique, la réévalu en fonction des deux dernieres lignes
 		int[] positionP = Memoire.getPositionPrecise();
 		boolean boul = false;
@@ -149,7 +149,7 @@ public class Carto {
     Traite les couleurs en int donner par le sensor.
     @param leInt ID d'une couleur.
 	 */
-	public int couleurDuInt (int leInt) {
+	public static int couleurDuInt (int leInt) {
 		//traite les couleurs en int donner par le sensor
 		
 		//version 1 :
@@ -189,7 +189,7 @@ public class Carto {
 	
 	//boussole :
 	
-	private void travLigneBouss (int color) {
+	private static void travLigneBouss (int color) {
 		//TODO
 			//bah en fait je crois qu'il ne se passe rien ici
 			//je c pa
@@ -220,7 +220,7 @@ public class Carto {
 	/**
 	   Inverse les valeurs de la boussole.
 	 */
-	public void inverseBouss() {
+	public static void inverseBouss() {
 		
 		switch(Memoire.getBoussole()) {
 		case NORD : Memoire.setBoussole(SUD);
@@ -248,7 +248,7 @@ public class Carto {
 	/**
 	   La superBoussole corrige la valeur de la boussole, est appele par rotateDeg.
 	 */
-	private void superBoussCorrige() {
+	private static void superBoussCorrige() {
 	
 		double sb = Memoire.getSuperBoussole(); //pour la visibilite et par flemme de tout recopier 100x
 		if (sb>45 && sb<=135)
@@ -265,7 +265,7 @@ public class Carto {
 	  Modifie les valeurs des boussoles car le robot et en train de pivoter de [int degre].
 	  @param degre Le degre de rotation du robot
 	 */
-	public void rotateDeg (int degre) {
+	public static void rotateDeg (int degre) {
 		
 		double sb = Memoire.getSuperBoussole();
 		sb += degre;
@@ -284,7 +284,7 @@ public class Carto {
 	/**
 	  Dit à la memoire ou le robot se trouve sachant qu'il vient de traverser un ligne blanche, est appele par travLigne.
 	 */
-	private void ligneBlanche() {
+	private static void ligneBlanche() {
 		
 		if (Memoire.getEtreBase()) {//si on sort de la base
 			boolean feuBonneBase = Memoire.getEreBonneBase();
@@ -310,7 +310,7 @@ public class Carto {
 	/**
 	  Dit a la memoire que le robot est hors des base, est appele par travLigne et ligneBlanche.
 	 */
-	private void horsBase() {
+	private static void horsBase() {
 		
 		Memoire.setEtreBase(false);
 		Memoire.setEtreBonneBase(false);
@@ -319,7 +319,7 @@ public class Carto {
 	/**
 	  Determine si le robot est dans la bonne base et donne son rslt dans la Memoire, est appele par ligneBlanche.
 	 */
-	private void quelleBase() {
+	private static void quelleBase() {
 		boolean etreBonneBase;
 		//------------------
 		//vais faire system de point :
@@ -411,7 +411,7 @@ public class Carto {
 	  Modifie les valeurs de la boussole dans la memoire sachant que le robot rentre dans une base, est appele par ligneBlanche et quelleBase.
 	  @param sortir Si le robot est sortie ou non de la base
 	 */
-	private void baseBouss (boolean sortir) {
+	private static void baseBouss (boolean sortir) {
 	
 		if (!sortir) {
 			Memoire.setBoussole(Memoire.getLaBonneBase());
