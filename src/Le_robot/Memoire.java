@@ -62,6 +62,9 @@ public class Memoire {
 	 */
 	private static int lastLigne = 404;//ptt changer en un tab? a voir
 	
+	private static int[] lastPositionP;
+	
+	private static int[][] zoneRecherche = initialiseZoneRecherche();
 	
 	/**
     Permet d'actualiser les instances du robot selon sa position.
@@ -94,12 +97,27 @@ public class Memoire {
 	
 	
 	
+	private static int[][] initialiseZoneRecherche() {
+		int[][] rslt = new int [16][2];
+		for (int xx=1; xx<5; xx++) {
+			for (int yy=0; yy<4; yy++) {
+				rslt[xx+yy-1][0] = xx;
+				rslt[xx+yy-1][1] = yy;
+			}
+		}
+		return rslt;
+	}
+	
+	
+	
 	//------Carto----------
 	
 	/**
     Permet de determiner la position des palets deja recuperer par notre robot.
 	 */
-	public static void catchPalet() {				
+	public static void catchPalet() {
+		//a changer TODO : position segmentaire + setZonerecherche
+		
 		int[][] tmpr = new int[positionPaletsPris.length+1][2];
 		int ii;
 		for (ii=0; ii<tmpr.length-1; ii++) {
@@ -108,6 +126,28 @@ public class Memoire {
 		}
 		tmpr [ii+1] [0]= positionPrecise [0];
 		tmpr [ii+1] [1]= positionPrecise [1];
+	}
+	
+	public static void zoneVu (int[] position) {
+		if (zoneRecherche.length==0)
+			return;
+		int[][] tmpr = new int [zoneRecherche.length][2];
+		boolean boul=false;
+		for (int ii=0; ii<tmpr.length; ii++) {
+			if (zoneRecherche[ii]!=position) {
+				tmpr [ii][0] = zoneRecherche [ii][0];
+				tmpr [ii][1] = zoneRecherche [ii][1];
+			} else
+				boul=true;
+		}
+		if (boul) {
+			int[][] rslt = new int [tmpr.length-1][2];
+			for (int ii=0; ii<rslt.length; ii++) {
+				tmpr [ii][0] = zoneRecherche [ii][0];
+				tmpr [ii][1] = zoneRecherche [ii][1];
+			}
+			zoneRecherche = rslt;
+		}
 	}
 	
 	
@@ -133,7 +173,12 @@ public class Memoire {
     @param position La position du robot
 	 */
 	public static void setPositionPrecise (int[] position) {
+		setLastePositionP (positionPrecise);
 		positionPrecise = position;
+	}
+	
+	private static void setLastePositionP (int[] position) {
+		lastPositionP = position;
 	}
 	
 	/**
@@ -287,9 +332,16 @@ public class Memoire {
 		return laMauvaiseBase;
 	}
 	
-	
 	public static int getNbBut() {
 		return nbBut;
+	}
+	
+	public static int[] getLastPositionP() {
+		return lastPositionP;
+	}
+	
+	public static int[][] getZoneRecherche() {
+		return zoneRecherche;
 	}
 	
 }

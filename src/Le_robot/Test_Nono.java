@@ -11,7 +11,7 @@ public class Test_Nono {
 
 	public static void main(String[] args) throws InterruptedException {
 		//Test angle Pince :
-		Pince.moteur_pince.rotateTo(10);
+		Pince.moteur_pince.rotateTo(-40);
 	}
 
 }

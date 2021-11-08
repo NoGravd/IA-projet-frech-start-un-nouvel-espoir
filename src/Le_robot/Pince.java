@@ -11,6 +11,7 @@ public class Pince {
 	/**
     Instance qui permet de determiner le temps d'ouverture et de fermetur de la pince
 	 */
+	@SuppressWarnings("unused")
 	private static final int TIME_PINCE = 3000; //pas touche : ca marche
 	/**
     Instance qui represente le moteur qui controle les pinces

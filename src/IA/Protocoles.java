@@ -23,12 +23,16 @@ public class Protocoles {
 		Memoire.setNbBut();
 	}
 	
-	
 	public static void conflit_robotAdv (int dist) {
 		//TODO : contourne le robot adv
 		
 	}
 	
+	public static void goZoneRecherche() {
+		//TODO : va dans zonerecherche + proche (pathFinding ma geule !)
+		
+		
+	}
 	
 	
 }
