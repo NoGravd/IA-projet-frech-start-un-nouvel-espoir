@@ -110,9 +110,9 @@ public class Capteur {
 		try {
 			demarrerCapteurUltraSon();
 			float[] tab = new float [1000000];
-			Roues.mA.rotateTo(1560, true);
+			Roues.moteur_droit.rotateTo(1560, true);
 			int ii=0;
-			while (Roues.mA.isMoving()) {
+			while (Roues.moteur_droit.isMoving()) {
 				capteurUS.getDistanceMode().fetchSample(tab, ii);
 				ii++;
 			}
@@ -131,7 +131,7 @@ public class Capteur {
 				}
 			}
 			int angle = (indicdumin/tab.length)*1560;
-			Roues.mA.rotateTo(angle);
+			Roues.moteur_droit.rotateTo(angle);
 			System.out.println(""+indicdumin+"   "+tab.length);
 			Button.ENTER.waitForPress();//question nono : il va falloir le virer ? wesh
 		} catch (Throwable t) {

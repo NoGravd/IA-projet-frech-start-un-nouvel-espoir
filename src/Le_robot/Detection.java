@@ -60,7 +60,7 @@ public class Detection {
 		clearTableauDistance();
 		Capteur.demarrerCapteurUltraSon();
 		for (int ii=0; ii<360; ii++) {
-			Roues.mC.rotate(1);
+			Roues.moteur_gauche.rotate(1);
 			Capteur.distanceOb();
 			distance360[ii] = Capteur.getDistanceOb();
 		}
@@ -81,7 +81,7 @@ public class Detection {
 				degre = ii;
 			}
 		}
-		Roues.mC.rotate(degre);
+		Roues.moteur_gauche.rotate(degre);
 	}
 	
 	/**

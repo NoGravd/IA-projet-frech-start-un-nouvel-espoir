@@ -5,7 +5,11 @@ Une classe où l'on stock tout se qui est a stocker.
 @author NG
 */
 public class Memoire {
-
+	
+	
+	private static int nbBut = 0;
+	
+	
 	//pince
 	/**
     Instance qui nous permet de savoir si le robot a un palet.
@@ -80,6 +84,12 @@ public class Memoire {
 			laBonneBase = 3; //OUEST
 			laMauvaiseBase = 1;//EST
 		}
+	}
+	
+	
+	
+	public static void setNbBut() {
+		nbBut++;
 	}
 	
 	
@@ -275,6 +285,11 @@ public class Memoire {
 	 */
 	public static int getLaMauvaiseBase() {
 		return laMauvaiseBase;
+	}
+	
+	
+	public static int getNbBut() {
+		return nbBut;
 	}
 	
 }

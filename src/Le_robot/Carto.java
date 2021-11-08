@@ -64,12 +64,18 @@ public class Carto {
     @param color ID d'une couleur.
 	 */
 	public static void travLigne (int color) {
-	
 		int couleur = couleurDuInt(color);
-		if (couleur == BLANC) {
+		if (couleur == BLANC)
 			ligneBlanche();
-		} else
+		else
 			horsBase();
+		calculPositionC(couleur);
+		calculPositionP(couleur);
+//		travLigneBouss(couleur);//en faite C useless
+		Memoire.setLastLigne(couleur);
+	}
+	
+	private static void calculPositionC (int couleur) {
 		if (couleur == NOIRE)
 			Memoire.setPositionsCertaine (new int[][] {{1,1},{1,2},{2,0},{2,1},{2,2},{2,3},{3,0},{3,1},{3,2},{3,3},{4,1},{4,2}});
 		if (couleur == ROUGE)
@@ -80,9 +86,6 @@ public class Carto {
 			Memoire.setPositionsCertaine (new int[][] {{1,0},{1,1},{2,0},{2,1},{3,0},{3,1},{4,0},{4,1},{5,0},{5,1}});
 		if (couleur == BLEU)
 			Memoire.setPositionsCertaine (new int[][] {{3,1},{3,2},{3,3},{3,4},{4,1},{4,2},{4,3},{4,4}});
-		calculPositionP (couleur);
-		travLigneBouss(couleur);
-		Memoire.setLastLigne(couleur);
 	}
 	
 	/**
@@ -93,7 +96,7 @@ public class Carto {
 		//modifie la positionPresice dans la memoire en fonction de la ligne que le robot vient de traverser
 		//est appele par travLigne
 		
-		if (verifPositionP(couleur))
+		if (IllogiquePositionP(couleur))
 			return;
 		int[] newPosition = new int[2];
 		if (Memoire.getBoussole() == NORD) {
@@ -112,7 +115,7 @@ public class Carto {
 		Memoire.setPositionPrecise(newPosition);
 	}
 	
-	private static boolean verifPositionP (int couleur) {
+	private static boolean IllogiquePositionP (int couleur) {
 		//si la PositionP est illogique, la réévalu en fonction des deux dernieres lignes
 		int[] positionP = Memoire.getPositionPrecise();
 		boolean boul = false;
@@ -129,9 +132,11 @@ public class Carto {
 			if (positionP[1]!=4&&positionP[1]!=5)
 				boul = true;
 		if (couleur==NOIRE)
-//			if (position)//TODO
+			if (Memoire.getEtreBase() || (positionP[0]==1 && positionP[1]==0)|| (positionP[0]==1 && positionP[1]==3)|| (positionP[0]==4 && positionP[1]==0)|| (positionP[0]==4 && positionP[1]==3))
+				boul = true;
 		if (couleur==BLANC)
-		//TODO
+			if (positionP[0]==2 || positionP[0]==3)
+				boul = true;
 		
 		
 		
@@ -181,6 +186,11 @@ public class Carto {
 	
 	
 	
+	public static boolean IsIt_Mur (int dist) {
+		
+		return false;//TODO
+	}
+	
 	public void Mur (int dist) {
 		//TODO
 	}
@@ -189,8 +199,8 @@ public class Carto {
 	
 	//boussole :
 	
+	@SuppressWarnings("unused")
 	private static void travLigneBouss (int color) {
-		//TODO
 			//bah en fait je crois qu'il ne se passe rien ici
 			//je c pa
 			//le nono se remet a parler tout seul !!
@@ -285,7 +295,6 @@ public class Carto {
 	  Dit à la memoire ou le robot se trouve sachant qu'il vient de traverser un ligne blanche, est appele par travLigne.
 	 */
 	private static void ligneBlanche() {
-		
 		if (Memoire.getEtreBase()) {//si on sort de la base
 			boolean feuBonneBase = Memoire.getEreBonneBase();
 			horsBase();
@@ -305,6 +314,7 @@ public class Carto {
 				Memoire.setPositionsCertaine(new int[][] {{xMauvaiseBase,0},{xMauvaiseBase,1},{xMauvaiseBase,2},{xMauvaiseBase,3}});
 			}
 		}
+		calculPositionP(BLANC);
 	}
 	
 	/**
@@ -330,7 +340,7 @@ public class Carto {
 		//-superBoussole : parreil mais avec un angle de 178°
 		//si pts>Nos Attentes -> C OK
 		//------------------
-		int Nos_Attentes = 1;//TODO : modifier en fonction de rslts des test
+		int Nos_Attentes = 1;//a modifier  si le robot a tendance a se tromper
 		int nbPoints = 0;
 		
 		//positionsCertaine :

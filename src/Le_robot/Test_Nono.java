@@ -10,11 +10,8 @@ package Le_robot;
 public class Test_Nono {
 
 	public static void main(String[] args) throws InterruptedException {
-		Music.Korobeiniki();
-		for (int ii=0; ii<4; ii++)
-			Roues.demi_tour();
-		Music.Marseillaise();
-		Music.Kalinka();
+		//Test angle Pince :
+		Pince.moteur_pince.rotateTo(10);
 	}
 
 }

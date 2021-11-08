@@ -15,19 +15,19 @@ public class Roues {
 	/**
     Instance qui represente le moteur controler par la roue droite.
 	 */
-	static final BaseRegulatedMotor mA = Motor.A;//roue droite
+	static final BaseRegulatedMotor moteur_droit = Motor.A;//roue droite
 	/**
     Instance qui represente le moteur controler par la roue gauche.
 	 */
-	static final BaseRegulatedMotor mC = Motor.C;//roue gauche
+	static final BaseRegulatedMotor moteur_gauche = Motor.C;//roue gauche
 	/**
     Instance qui represente la liste des moteurs a syncrhoniser avec le moteur A pour avancer et reculer.
 	 */
-	static final BaseRegulatedMotor[] l = new BaseRegulatedMotor[] {mC};
+	static final BaseRegulatedMotor[] l = new BaseRegulatedMotor[] {moteur_gauche};
 	/**
     Instance qui represente la vitesse max du robot.
 	 */
-	static final int VITESSE_MAX = (int) mC.getMaxSpeed();
+	static final int VITESSE_MAX = (int) moteur_gauche.getMaxSpeed();
 	
 	
 	/**
@@ -38,10 +38,10 @@ public class Roues {
 		int nAcc = 200; //definition du nb de marches d'accélération
 //		int maxSpeed = 400; //vitesse max = 100xVbatterie
 		for (int i=0; i<nAcc; i++) {
-			mA.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
-			mC.setSpeed(VITESSE_MAX/nAcc*i);
-			mA.forward();//lance le moteur 
-			mC.forward();
+			moteur_droit.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
+			moteur_gauche.setSpeed(VITESSE_MAX/nAcc*i);
+			moteur_droit.forward();//lance le moteur 
+			moteur_gauche.forward();
 			Delay.msDelay(1);// attend 3ms
 		}
 //		stop();
@@ -50,8 +50,8 @@ public class Roues {
 	public static void avanceTQpalet() {
 		Pince.oPince_mobile();
 		Capteur.demarrerCapteurUltraSon();
-		mA.forward();
-		mC.forward();
+		moteur_droit.forward();
+		moteur_gauche.forward();
 		while (Capteur.getDistanceOb()>1) { //tant qu'il ne fonce pas dans 1 mur
 			while (!Capteur.capteurTactileActive())
 				Delay.msDelay(1);
@@ -66,11 +66,11 @@ public class Roues {
     Arrete les moteurs.
 	 */
 	public static void stop() {
-		mA.synchronizeWith(l);
-		mA.startSynchronization();
-		mC.stop();
-		mA.stop();
-		mA.endSynchronization();
+		moteur_droit.synchronizeWith(l);
+		moteur_droit.startSynchronization();
+		moteur_gauche.stop();
+		moteur_droit.stop();
+		moteur_droit.endSynchronization();
  	}
  	
 	/**
@@ -120,10 +120,10 @@ public class Roues {
 		int nAcc = 200; //definition du nb de marches d'accélération
 		//				int maxSpeed = 400; //vitesse max = 100xVbatterie
 		for (int i=0; i<nAcc; i++) {
-			mA.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
-			mC.setSpeed(VITESSE_MAX/nAcc*i);
-			mA.backward();//lance le moteur 
-			mC.backward();
+			moteur_droit.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
+			moteur_gauche.setSpeed(VITESSE_MAX/nAcc*i);
+			moteur_droit.backward();//lance le moteur 
+			moteur_gauche.backward();
 			Delay.msDelay(1);// attend 3ms
 		}
 		stop();
@@ -136,10 +136,10 @@ public class Roues {
     @param tmps Le temps que le moteur avance
 	 */
 	public static void rouleTemps(int tmps) {
-		mA.setSpeed(VITESSE_MAX);
-		mC.setSpeed(VITESSE_MAX);
-		mA.forward();
-		mC.forward();
+		moteur_droit.setSpeed(VITESSE_MAX);
+		moteur_gauche.setSpeed(VITESSE_MAX);
+		moteur_droit.forward();
+		moteur_gauche.forward();
 		Delay.msDelay(tmps*1000);
 	}
 	
@@ -151,10 +151,10 @@ public class Roues {
 		double degreD = degre*4.333;
 		int degre2 = (int) Math.round(degreD);
 		try {
-			mA.rotateTo((-degre2)/2, true);
-			mC.rotateTo(degre2/2, true);
+			moteur_droit.rotateTo((-degre2)/2, true);
+			moteur_gauche.rotateTo(degre2/2, true);
 			int ii=0;
-			while (mC.isMoving())
+			while (moteur_gauche.isMoving())
 				ii++;//juste pour que le bot calclul
 			degreD+=ii;//ca c juste pour que eclipse rale pas car ii sert a rien
 			Carto.rotateDeg(degre);
@@ -174,10 +174,10 @@ public class Roues {
 		double degreD = degre*4.333;
 		int degre2 = (int) Math.round(degreD);
 		try {
-			mA.rotateTo((-degre2)/2, true);
-			mC.rotateTo(degre2/2, true);
+			moteur_droit.rotateTo((-degre2)/2, true);
+			moteur_gauche.rotateTo(degre2/2, true);
 			int ii=0;
-			while (mC.isMoving()) {
+			while (moteur_gauche.isMoving()) {
 				Capteur.capteurUS.getDistanceMode().fetchSample(tab, ii);
 				ii++;//juste pour que le bot calclul
 			}
@@ -196,7 +196,7 @@ public class Roues {
 				}
 			}
 			int angle = (indicdumin/tab.length)*1560;
-			Roues.mA.rotateTo(angle);
+			Roues.moteur_droit.rotateTo(angle);
 			System.out.println(""+angle+"   "+tab.length);
 		} catch (Throwable t) {
 			t.printStackTrace();

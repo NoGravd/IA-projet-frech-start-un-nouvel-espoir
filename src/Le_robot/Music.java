@@ -79,11 +79,11 @@ public class Music {
 	
 	private static void note (int note, int sec) throws InterruptedException {
 		Sound.playTone(note,sec);//frequence note, duree sec
-		Thread.sleep(sec);//attend sec (pour que la note se joue entierement)
+		silence(sec);//attend sec (pour que la note se joue entierement)
 	}
 	
 	private static void silence (int sec) throws InterruptedException {
-		Thread.sleep(sec);
+		Thread.sleep(sec); // ne fait rien
 	}
 	
 	private static int milisecFromBPM (int bpm) {
