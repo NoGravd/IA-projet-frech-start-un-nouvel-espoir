@@ -64,7 +64,7 @@ public class Memoire {
 	
 	private static int[] lastPositionP;
 	
-	private static int[][] zoneRecherche = initialiseZoneRecherche();
+	private static int[][] zone2Recherche = initialiseZone2Recherche();
 	
 	/**
     Permet d'actualiser les instances du robot selon sa position.
@@ -97,7 +97,7 @@ public class Memoire {
 	
 	
 	
-	private static int[][] initialiseZoneRecherche() {
+	private static int[][] initialiseZone2Recherche() {
 		int[][] rslt = new int [16][2];
 		for (int xx=1; xx<5; xx++) {
 			for (int yy=0; yy<4; yy++) {
@@ -129,24 +129,24 @@ public class Memoire {
 	}
 	
 	public static void zoneVu (int[] position) {
-		if (zoneRecherche.length==0)
+		if (zone2Recherche.length==0)
 			return;
-		int[][] tmpr = new int [zoneRecherche.length][2];
+		int[][] tmpr = new int [zone2Recherche.length][2];
 		boolean boul=false;
 		for (int ii=0; ii<tmpr.length; ii++) {
-			if (zoneRecherche[ii]!=position) {
-				tmpr [ii][0] = zoneRecherche [ii][0];
-				tmpr [ii][1] = zoneRecherche [ii][1];
+			if (zone2Recherche[ii]!=position) {
+				tmpr [ii][0] = zone2Recherche [ii][0];
+				tmpr [ii][1] = zone2Recherche [ii][1];
 			} else
 				boul=true;
 		}
 		if (boul) {
 			int[][] rslt = new int [tmpr.length-1][2];
 			for (int ii=0; ii<rslt.length; ii++) {
-				tmpr [ii][0] = zoneRecherche [ii][0];
-				tmpr [ii][1] = zoneRecherche [ii][1];
+				tmpr [ii][0] = zone2Recherche [ii][0];
+				tmpr [ii][1] = zone2Recherche [ii][1];
 			}
-			zoneRecherche = rslt;
+			zone2Recherche = rslt;
 		}
 	}
 	
@@ -340,8 +340,8 @@ public class Memoire {
 		return lastPositionP;
 	}
 	
-	public static int[][] getZoneRecherche() {
-		return zoneRecherche;
+	public static int[][] getZone2Recherche() {
+		return zone2Recherche;
 	}
 	
 }

@@ -143,6 +143,10 @@ public class Roues {
 		Delay.msDelay(tmps*1000);
 	}
 	
+	public static void rouleDist (int metre) {
+		//TODO
+	}
+	
 	/**
     Pivote de l'angle fourni en parametre.
     @param degre Le degre de rotation voulu
