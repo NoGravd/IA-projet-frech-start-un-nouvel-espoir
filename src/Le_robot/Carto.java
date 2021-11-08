@@ -186,12 +186,15 @@ public class Carto {
 	
 	
 	
-	public static boolean IsIt_Mur (int dist) {
-		
-		return false;//TODO
+	public static boolean IsIt_mur (int dist) {
+		boolean boul = false;
+		//TODO
+		if (boul)
+			Mur(dist);
+		return boul;
 	}
 	
-	public void Mur (int dist) {
+	private static void Mur (int dist) {
 		//TODO
 	}
 	

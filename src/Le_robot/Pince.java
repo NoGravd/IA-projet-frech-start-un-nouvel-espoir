@@ -22,9 +22,7 @@ public class Pince {
 	 */
 	public static void oPince() {
 		if (!Memoire.getEtatPince()) {//si Pince fermees
-			moteur_pince.forward();
-			Delay.msDelay(TIME_PINCE);
-			moteur_pince.stop();
+			moteur_pince.rotateTo(20);;
 			Memoire.mvmtPince(true);
 		}
 	}
@@ -36,9 +34,7 @@ public class Pince {
 		if (Memoire.getEtatPince()) {//si Pince ouvertes
 			if (Capteur.capteurTactileActive())//si avoir palet
 				Memoire.setAvoirPalet(true);//inscrit memoire
-			moteur_pince.backward();
-			Delay.msDelay(TIME_PINCE);
-			moteur_pince.stop();
+			moteur_pince.rotateTo(-20);
 			Memoire.mvmtPince(false);
 		}
 	}
@@ -46,7 +42,7 @@ public class Pince {
 	public static void oPince_mobile() {
 		if (!Memoire.getEtatPince()) {//si Pince fermees
 			try {
-				int angle=10;//TODO : calculer angle
+				int angle=20;
 				moteur_pince.rotateTo(angle, true);
 			} catch (Throwable t) {
 				t.printStackTrace();
@@ -61,7 +57,7 @@ public class Pince {
 	public static void oPince_music() {
 		if (!Memoire.getEtatPince()) {//si Pince fermer
 			try {
-				int angle=-10;//TODO : calculer angle
+				int angle=20;
 				moteur_pince.rotateTo(angle, true);
 				Music.The_imperial_march();//TODO trouver music dont le tmoteur_pinces est egal ou inf o tmoteur_pinces de fermeture de la pince
 			} catch (Throwable t) {
@@ -77,7 +73,7 @@ public class Pince {
 	public static void fPince_music() {
 		if (Memoire.getEtatPince()) {//si Pince ouverte
 			try {
-				int angle=10;//TODO : calculer angle
+				int angle=20;
 				moteur_pince.rotateTo(angle, true);
 				Music.The_imperial_march();//TODO trouver music dont le tmoteur_pinces est egal ou inf o tmoteur_pinces de fermeture de la pince
 			} catch (Throwable t) {
