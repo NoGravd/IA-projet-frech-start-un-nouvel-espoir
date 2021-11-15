@@ -134,6 +134,14 @@ public class Memoire {
 	public static void setPositionIR (int[] position) {positionIR = position;}
 	public static int[] getPositionIR() {return positionIR;}
 	
+	private static int[][] positionsPaletsIR;
+	public static void setPositionsPaletsIR (int[][] positions) {positionsPaletsIR = positions;}
+	public static int[][] getPositionsPaletsIR() {return positionsPaletsIR;}
+	
+	private static int[] positionAdvIR;
+	public static void setPositionAdvIR (int[] position) {positionAdvIR = position;}
+	public static int[] getPositionAdvIR() {return positionAdvIR;}
+	
 	
 	
 	/**
