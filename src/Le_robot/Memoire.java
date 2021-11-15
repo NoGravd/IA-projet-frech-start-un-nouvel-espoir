@@ -119,13 +119,29 @@ public class Memoire {
 	
 	
 	
+	//-------IR-----------
+	private static int[][] grilleIR;
+	private static int[][] initialiseGrilleIR (boolean robotAdv) {
+		if (robotAdv)
+			return new int [11][2];
+		else
+			return new int [10][2];
+	}
+	public static void setGrilleIR (int[][] grille) {grilleIR = grille;} 
+	public static int[][] getGrilleIR() {return grilleIR;}
+	
+	private static int[] positionIR;
+	public static void setPositionIR (int[] position) {positionIR = position;}
+	public static int[] getPositionIR() {return positionIR;}
+	
+	
 	
 	/**
     Permet d'actualiser les instances du robot selon sa position.
     @param position Le position du robot.
     @param pince l'etat de la pince.
 	 */
-	public static void constructeur (int [] position, boolean pince) {
+	public static void constructeur (int [] position, boolean pince, boolean robotAdvIR) {
 		positionsCertaine [0] = position;
 		positionPrecise = position;
 		etatPince = pince;
@@ -141,6 +157,7 @@ public class Memoire {
 			laBonneBase = 3; //OUEST
 			laMauvaiseBase = 1;//EST
 		}
+		initialiseGrilleIR(robotAdvIR);
 	}
 	
 	
