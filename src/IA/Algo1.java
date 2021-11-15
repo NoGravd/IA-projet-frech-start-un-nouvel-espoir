@@ -1,5 +1,8 @@
 package IA;
 
+import Le_robot.*;
+import Protocole.*;
+
 public class Algo1 {
 	
 	

@@ -1,4 +1,4 @@
-package IA;
+package Protocole;
 
 import Le_robot.*;
 

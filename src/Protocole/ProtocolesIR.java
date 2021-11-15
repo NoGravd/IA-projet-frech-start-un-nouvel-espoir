@@ -1,10 +1,6 @@
-package IA;
+package Protocole;
 
-import Le_robot.Capteur;
-import Le_robot.Carto;
-import Le_robot.Memoire;
-import Le_robot.Pince;
-import Le_robot.Roues;
+import Le_robot.*;
 
 public class ProtocolesIR {
 	
@@ -32,6 +28,10 @@ public class ProtocolesIR {
 	}
 	
 	public static void goPaletProche() {
+		//TODO
+	}
+	
+	public static void goPaletMauvaiseBase() {
 		//TODO
 	}
 	
