@@ -142,6 +142,9 @@ public class Memoire {
 	public static void setPositionAdvIR (int[] position) {positionAdvIR = position;}
 	public static int[] getPositionAdvIR() {return positionAdvIR;}
 	
+	private static int nbPointsIR=0;
+	public static void setNbPointsIR (int nbPt) {nbPointsIR = nbPt;}
+	public static int getnbPoinntsIR() {return nbPointsIR;}
 	
 	
 	/**
