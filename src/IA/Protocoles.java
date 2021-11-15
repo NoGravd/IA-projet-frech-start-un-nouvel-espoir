@@ -20,7 +20,7 @@ public class Protocoles {
 	public static void marquer() {
 		Pince.oPince_music();
 		//TODO : recule
-		Memoire.setNbBut();
+		Memoire.IncrementeNbBut();
 	}
 	
 	public static void conflit_robotAdv (int dist) {

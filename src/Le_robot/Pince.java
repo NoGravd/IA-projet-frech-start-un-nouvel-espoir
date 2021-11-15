@@ -24,7 +24,7 @@ public class Pince {
 	public static void oPince() {
 		if (!Memoire.getEtatPince()) {//si Pince fermees
 			moteur_pince.rotateTo(20);;
-			Memoire.mvmtPince(true);
+			Memoire.setEtatPince(true);
 		}
 	}
 	
@@ -36,7 +36,7 @@ public class Pince {
 			if (Capteur.capteurTactileActive())//si avoir palet
 				Memoire.setAvoirPalet(true);//inscrit memoire
 			moteur_pince.rotateTo(-20);
-			Memoire.mvmtPince(false);
+			Memoire.setEtatPince(false);
 		}
 	}
 	
@@ -51,7 +51,7 @@ public class Pince {
 				System.exit(0);
 			}
 			moteur_pince.stop();
-			Memoire.mvmtPince(true);
+			Memoire.setEtatPince(true);
 		}
 	}
 	
@@ -67,7 +67,7 @@ public class Pince {
 				System.exit(0);
 			}
 			moteur_pince.stop();
-			Memoire.mvmtPince(false);
+			Memoire.setEtatPince(false);
 		}
 	}
 	
@@ -83,7 +83,7 @@ public class Pince {
 				System.exit(0);
 			}
 			moteur_pince.stop();
-			Memoire.mvmtPince(false);
+			Memoire.setEtatPince(false);
 		}
 	}
 }

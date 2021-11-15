@@ -112,6 +112,7 @@ public class Carto {
 			newPosition [0] = Memoire.getPositionPrecise() [0] - 1;
 			newPosition [1] = Memoire.getPositionPrecise() [1];
 		}
+		Memoire.setLastPositionP(Memoire.getPositionPrecise());
 		Memoire.setPositionPrecise(newPosition);
 	}
 	
