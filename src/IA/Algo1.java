@@ -5,10 +5,12 @@ import Protocole.*;
 
 public class Algo1 {
 	
-	public static void main(String[] args) {
-		//TODO
+	public static void Forest_Gump(String[] args) {
 		Starter.Starter1(null);
-		
+		while (1<2) {
+			ProtocolesIR.goPaletProche();
+			ProtocolesIR.goMarquer();
+		}
 	}
 
 }
