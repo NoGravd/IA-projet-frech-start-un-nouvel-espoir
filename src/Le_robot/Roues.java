@@ -48,7 +48,7 @@ public class Roues {
  	}
 	
 	public static void avanceTQpalet() {
-		Pince.oPince_mobile();
+		Pince.ouverture_mobile();
 		Capteur.demarrerCapteurUltraSon();
 		moteur_droit.forward();
 		moteur_gauche.forward();
@@ -56,7 +56,7 @@ public class Roues {
 			while (!Capteur.capteurTactileActive())
 				Delay.msDelay(1);
 			stop();
-			Pince.fPince();
+			Pince.fermeture();
 		}
 		stop();
 		Capteur.eteindreCapteurUltraSon();
@@ -207,5 +207,47 @@ public class Roues {
 			Delay.msDelay(10000);
 			System.exit(0);
 		}
+	}
+	
+	
+	
+	//-----Avec capteurs :
+	
+	private static boolean capteursCaptent() {
+		int color = (int) Capteur.getCouleur();
+		if (Carto.couleurDuInt(color)!=404)
+			Carto.travLigne(color);
+		if (Capteur.getDistanceOb()<10)
+			return true;
+		return false;
+	}
+	
+	public static void Sdemare() {
+		int nAcc = 200; //definition du nb de marches d'accélération
+		for (int i=0; i<nAcc; i++) {
+			moteur_droit.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
+			moteur_gauche.setSpeed(VITESSE_MAX/nAcc*i);
+			moteur_droit.forward();//lance le moteur 
+			moteur_gauche.forward();
+			if (capteursCaptent()) {stop(); return;}
+			Delay.msDelay(1);// attend 3ms
+			if (capteursCaptent()) {stop(); return;}
+		}
+	}
+	
+	public static void SrouleTemps (int milisec) {
+		moteur_droit.setSpeed(VITESSE_MAX);
+		moteur_gauche.setSpeed(VITESSE_MAX);
+		moteur_droit.forward();
+		moteur_gauche.forward();
+		for (int ii=0; ii<milisec; ii+=3) {
+			capteursCaptent();
+			Delay.msDelay(3);
+		}
+	}
+	
+	public static void SrouleDist (int metre) {
+		int facteur=0;//TODO
+		SrouleTemps(metre*facteur);
 	}
 }

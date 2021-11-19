@@ -21,7 +21,7 @@ public class Pince {
 	/**
     Ouvre la pince, que si elle est ferme.
 	 */
-	public static void oPince() {
+	public static void ouverture() {
 		if (!Memoire.getEtatPince()) {//si Pince fermees
 			moteur_pince.rotateTo(20);;
 			Memoire.setEtatPince(true);
@@ -31,7 +31,7 @@ public class Pince {
 	/**
     Ouvre la pince, que si elle est ouverte.
 	 */
-	public static void fPince() {
+	public static void fermeture() {
 		if (Memoire.getEtatPince()) {//si Pince ouvertes
 			if (Capteur.capteurTactileActive())//si avoir palet
 				Memoire.setAvoirPalet(true);//inscrit memoire
@@ -40,7 +40,7 @@ public class Pince {
 		}
 	}
 	
-	public static void oPince_mobile() {
+	public static void ouverture_mobile() {
 		if (!Memoire.getEtatPince()) {//si Pince fermees
 			try {
 				int angle=20;
@@ -55,7 +55,7 @@ public class Pince {
 		}
 	}
 	
-	public static void oPince_music() {
+	public static void ouverture_music() {
 		if (!Memoire.getEtatPince()) {//si Pince fermer
 			try {
 				int angle=20;
@@ -71,7 +71,7 @@ public class Pince {
 		}
 	}
 	
-	public static void fPince_music() {
+	public static void fermeture_music() {
 		if (Memoire.getEtatPince()) {//si Pince ouverte
 			try {
 				int angle=20;

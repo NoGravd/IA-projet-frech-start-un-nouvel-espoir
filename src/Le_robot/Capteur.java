@@ -172,7 +172,7 @@ public class Capteur {
 		return capteurCo.getColorID();
 	}
 	
-	public float getCouleur() {			//Pas utile pour le moment
+	public static float getCouleur() {			//Pas utile pour le moment
 		return donneeCo [0];
 	}
 

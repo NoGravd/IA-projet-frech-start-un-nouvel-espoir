@@ -10,16 +10,15 @@ public class Protocoles {
 		double sBouss = Memoire.getSuperBoussole();
 		int goal = Memoire.getLaBonneBase();
 		Roues.pivote((int)(goal-sBouss));
-		//TODO : si robot adv sur trajet
 		conflit_robotAdv((int) Capteur.getDistanceOb());
-		//TODO : roule
+		Roues.SrouleDist(calcDistanceZone(new int[] {goal==1?5:0,Memoire.getPositionPrecise()[1]}));
 		if (Carto.IsIt_mur((int) Capteur.getDistanceOb()) && Memoire.getEreBonneBase())
 			marquer();
 	}
 	
 	public static void marquer() {
-		Pince.oPince_music();
-		//TODO : recule
+		Pince.ouverture_music();
+		Roues.recule();
 		Memoire.IncrementeNbBut();
 	}
 	

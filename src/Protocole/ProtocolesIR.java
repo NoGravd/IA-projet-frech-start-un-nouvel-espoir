@@ -8,17 +8,16 @@ public class ProtocolesIR {
 	public static void goMarquer() {
 		double sBouss = Memoire.getSuperBoussole();
 		int goal = Memoire.getLaBonneBase();
-		Roues.pivote((int)(goal-sBouss));
-		//TODO : si robot adv sur trajet
+		Roues.pivote(((goal-sBouss)>180)? ((int)(goal-sBouss-360)) : ((int)(goal-sBouss)));
 		conflit_robotAdv((int) Capteur.getDistanceOb());
-		//TODO : roule
+		Roues.SrouleDist(calcDistanceZone(new int[] {goal==1?5:0,Memoire.getPositionIR()[1]}));
 		if (Carto.IsIt_mur((int) Capteur.getDistanceOb()) && Memoire.getEreBonneBase())
 			marquer();
 	}
 	
 	public static void marquer() {
-		Pince.oPince_music();
-		//TODO : recule
+		Pince.ouverture_music();
+		Roues.recule();
 		Memoire.IncrementeNbBut();
 	}
 	
@@ -38,7 +37,7 @@ public class ProtocolesIR {
 	public static void goTo (int[] zone) {
 		pivoteVersZone(zone);
 		int distance = calcDistanceZone(zone);
-		Roues.rouleDist(distance);
+		Roues.SrouleDist(distance);
 	}
 	
 	public static void pivoteVersZone (int[] zone) {
