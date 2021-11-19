@@ -29,7 +29,7 @@ public class Capteur {
 	/**
     Instance du capteur de couleur.
 	 */
-	private static EV3ColorSensor capteurCo = new EV3ColorSensor(p1);
+	public static EV3ColorSensor capteurCo = new EV3ColorSensor(p1);
 	/**
     Instance du capteur tactile.
 	 */
@@ -167,7 +167,7 @@ public class Capteur {
     Permet de savoir qu'elle est la couleur detecte par le robot.
     @return l'ID de la couleur detecter.
 	 */
-	public int couleurDetectee() {
+	public static int couleurDetectee() {
 		//Donne ID de la couleur detecter par le capteur de couleur en mode RGB
 		return capteurCo.getColorID();
 	}

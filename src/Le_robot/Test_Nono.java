@@ -10,7 +10,7 @@ package Le_robot;
 public class Test_Nono {
 
 	public static void main(String[] args) throws InterruptedException {
-		Music.The_imperial_march();
+		Roues.rouleTemps(10*1000);
 	}
 
 }
