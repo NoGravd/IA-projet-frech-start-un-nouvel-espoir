@@ -4,7 +4,7 @@ import Protocole.*;
 
 public class Algo1 {
 	
-	public static void Forest_Gump(String[] args) {
+	public static void Forest_Gump(String[] args) throws InterruptedException {
 		Starter.Starter1(null);
 		while (1<2) {//boucle infini tkt frero
 			ProtocolesIR.goPaletProche();

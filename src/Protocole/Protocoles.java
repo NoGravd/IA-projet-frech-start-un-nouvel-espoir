@@ -50,7 +50,23 @@ public class Protocoles {
 	}
 	
 	public static void pivoteVersZone (int[] zone) {
-		//TODO
+		int[] position = Memoire.getPositionPrecise();
+		int[] pointX = new int[] {zone[0],position[1]};
+		int distOpose = calcDistanceZone(pointX);
+		
+		//distAdj
+		int distAdj;
+		double distX = Math.abs(zone[0] - position[0])*(3/6);
+		double distY = Math.abs(zone[1] - position[1])*(2/4);
+		if (zone[0]==position[0])
+			distAdj = (int) distX;
+		if (zone[1]==position[1])
+			distAdj = (int) distY;
+		//putain fo utiliser pytagor !
+		else
+			distAdj = (int) Math.round(Math.sqrt(distX*distX+distY*distY));
+		int degre = (int) Math.round(distOpose / distAdj);
+		Roues.pivote(degre);
 	}
 	
 	public static int calcDistanceZone (int[] zone) {
