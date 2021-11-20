@@ -75,6 +75,10 @@ public class Carto {
 		Memoire.setLastLigne(couleur);
 	}
 	
+	/**
+    Calcul la position certaine du Robot.
+    @param color ID d'une couleur.
+	 */
 	private static void calculPositionC (int couleur) {
 		if (couleur == NOIRE)
 			Memoire.setPositionsCertaine (new int[][] {{1,1},{1,2},{2,0},{2,1},{2,2},{2,3},{3,0},{3,1},{3,2},{3,3},{4,1},{4,2}});
@@ -116,6 +120,10 @@ public class Carto {
 		Memoire.setPositionPrecise(newPosition);
 	}
 	
+	/**
+    Permet de se reperer de nouveau en cas de position absurde.
+    @param color ID d'une couleur.
+	 */
 	private static boolean IllogiquePositionP (int couleur) {
 		//si la PositionP est illogique, la réévalu en fonction des deux dernieres lignes
 		int[] positionP = Memoire.getPositionPrecise();
@@ -186,7 +194,10 @@ public class Carto {
 	}
 	
 	
-	
+	/**
+    Permet de savoir si ce qui est en face du robot est un mur.
+    @param distance de l'obstacle.
+	 */
 	public static boolean IsIt_mur (int dist) {
 		boolean boul = false;
 		//TODO
@@ -245,6 +256,9 @@ public class Carto {
 		rotateDeg (180);//superBoussole
 	}
 	
+	/**
+    Permet de se repositioner en fonction des lignes de couleurs.
+	 */
 	public void corrigeAngleLignes() {
 		//TODO
 		//il faut :
