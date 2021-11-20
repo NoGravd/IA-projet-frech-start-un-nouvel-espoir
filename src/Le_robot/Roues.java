@@ -47,6 +47,9 @@ public class Roues {
 //		stop();
  	}
 	
+	/**
+    Avance tant qu'il detecte un pallet.
+	 */
 	public static void avanceTQpalet() {
 		Pince.ouverture_mobile();
 		Capteur.demarrerCapteurUltraSon();
@@ -143,6 +146,11 @@ public class Roues {
 		Delay.msDelay(tmps*1000);
 	}
 	
+
+	/**
+    Roule pendant une distance donnee
+    @param distance en metre
+	 */
 	public static void rouleDist (int metre) {
 		//TODO
 	}
@@ -213,15 +221,22 @@ public class Roues {
 	
 	//-----Avec capteurs :
 	
+	/**
+    Permet de savoir si le robot est sur une ligne de couleur ou si il y a un obstacle a moin 10 cm.
+    @return True si sur une ligne de couleur ou si il y a un obsctacle a moin de 10 cm, false sinon.
+	 */
 	private static boolean capteursCaptent() {
 		int color = (int) Capteur.getCouleur();
 		if (Carto.couleurDuInt(color)!=404)
 			Carto.travLigne(color);
-		if (Capteur.getDistanceOb()<10)
+		if (Capteur.getDistanceOb()<0.1)
 			return true;
 		return false;
 	}
 	
+	/**
+    Permet d'accelerer de maniere moin brute.
+	 */
 	public static void Sdemare() {
 		int nAcc = 200; //definition du nb de marches d'accélération
 		for (int i=0; i<nAcc; i++) {
@@ -235,6 +250,10 @@ public class Roues {
 		}
 	}
 	
+	/**
+    Roule pendant un temps x
+    @param temps en mili seconde
+	 */
 	public static void SrouleTemps (int milisec) {
 		moteur_droit.setSpeed(VITESSE_MAX);
 		moteur_gauche.setSpeed(VITESSE_MAX);
@@ -246,6 +265,10 @@ public class Roues {
 		}
 	}
 	
+	/**
+    Roule pendant une distance x
+    @param distance en metre.
+	 */
 	public static void SrouleDist (int metre) {
 		int facteur=0;//TODO
 		SrouleTemps(metre*facteur);
