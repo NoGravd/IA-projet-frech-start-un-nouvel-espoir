@@ -40,6 +40,9 @@ public class Pince {
 		}
 	}
 	
+	/**
+    Ouvre la pince, que si elle est fermer.
+	 */
 	public static void ouverture_mobile() {
 		if (!Memoire.getEtatPince()) {//si Pince fermees
 			try {
@@ -55,6 +58,9 @@ public class Pince {
 		}
 	}
 	
+	/**
+    Ouvre la pince en musique, que si elle est fermer.
+	 */
 	public static void ouverture_music() {
 		if (!Memoire.getEtatPince()) {//si Pince fermer
 			try {
@@ -71,6 +77,9 @@ public class Pince {
 		}
 	}
 	
+	/**
+    Ferme la pince en musique, que si elle est ouverte.
+	 */
 	public static void fermeture_music() {
 		if (Memoire.getEtatPince()) {//si Pince ouverte
 			try {
