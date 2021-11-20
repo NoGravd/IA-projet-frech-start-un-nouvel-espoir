@@ -19,7 +19,10 @@ public class Initiateur_de_sensor {
 	}
 	
 	public static void initialise_color() {
-		Capteur.couleurDetectee();
+		
+		capteurCo.setFloodlight(true);					// A verifier mais normalement ça marche comme ça
+		capteurCo.setFloodlight(Color.WHITE);
+		
 	}
 	
 	public static void initialise_touch() {
