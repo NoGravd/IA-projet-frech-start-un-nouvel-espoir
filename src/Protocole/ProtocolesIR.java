@@ -2,9 +2,14 @@ package Protocole;
 
 import Le_robot.*;
 
+/**
+Une classe qui regroupe des protocoles (qui utilise la camera) utilisés dans les algorithmes utilisee par le robot.
+ */
 public class ProtocolesIR {
 	
-	
+	/**
+	Une methode qui permet au robot d'aller jusqu a la zone de but adverse.
+	 */
 	public static void goMarquer() {
 		double sBouss = Memoire.getSuperBoussole();
 		int goal = Memoire.getLaBonneBase();
@@ -15,27 +20,47 @@ public class ProtocolesIR {
 			marquer();
 	}
 	
+	/**
+	Une methode qui permet de lacher le palets et de reculer un fois le but marquer.
+	Incremente le nombre de but marque.
+	 */
 	public static void marquer() {
 		Pince.ouverture_music();
 		Roues.recule();
 		Memoire.IncrementeNbBut();
 	}
 	
+	/**
+	Une methode qui effectue une action si le robot adverse est en conflit avec notre robot.
+	@param distance du robot adverse.
+	 */
 	public static void conflit_robotAdv (int dist) {
 		//TODO : contourne le robot adv
 		
 	}
 	
+	/**
+	Une methode qui au robot d'aller vers le palet le plus proche.
+	 */
 	public static void goPaletProche() {
 		//TODO
 	}
 	
+	/**
+	Une methode qui permet au robot d'aller dans une zone.
+	@param La zone dans lequel le robot doit se rendre.
+	 */
 	public static void goTo (int[] zone) {
 		pivoteVersZone(zone);
 		int distance = calcDistanceZone(zone);
 		Roues.SrouleDist(distance);
 	}
 	
+	
+	/**
+	Une methode qui fait pivoter le robot vers une zone.
+	@param La zone dans lequel le robot doit se pivoter.
+	 */
 	public static void pivoteVersZone (int[] zone) {
 		int[] position = Memoire.getPositionIR();
 		int[] pointX = new int[] {zone[0],position[1]};
@@ -56,6 +81,10 @@ public class ProtocolesIR {
 		Roues.pivote(degre);
 	}
 	
+	/**
+	Une methode qui permet de calculer la distance jusqu a la zone objectif.
+	@param La zone dans lequel le robot doit se rendre.
+	 */
 	public static int calcDistanceZone (int[] zone) {
 		int[] position = Memoire.getPositionIR();
 		double distX = Math.abs(zone[0] - position[0])*(3/6);
