@@ -2,10 +2,16 @@ package Protocole;
 
 import Le_robot.*;
 
+/**
+Une classe qui regroupe des protocoles utilisés dans les algorithmes utilisee par le robot.
+ */
 public class Protocoles {
 	//class qui regroupe des protocoles utilisés dans les algo
 	
 	
+	/**
+	Une methode qui permet au robot d'aller jusqu a la zone de but adverse.
+	 */
 	public static void goMarquer() {
 		double sBouss = Memoire.getSuperBoussole();
 		int goal = Memoire.getLaBonneBase();
@@ -16,17 +22,28 @@ public class Protocoles {
 			marquer();
 	}
 	
+	/**
+	Une methode qui permet de lacher le palets et de reculer un fois le but marquer.
+	Incremente le nombre de but marque.
+	 */
 	public static void marquer() {
 		Pince.ouverture_music();
 		Roues.recule();
 		Memoire.IncrementeNbBut();
 	}
 	
+	/**
+	Une methode qui effectue une action si le robot adverse est en conflit avec notre robot.
+	@param distance du robot adverse
+	 */
 	public static void conflit_robotAdv (int dist) {
 		//TODO : contourne le robot adv
 		
 	}
 	
+	/**
+	Une methode qui permet au robot d'aller dans les zone de recherche
+	 */
 	public static void goZone2Recherche() {
 		int[][] zone2recherche = Memoire.getZone2Recherche();
 		int[] position = Memoire.getPositionPrecise();
@@ -43,12 +60,20 @@ public class Protocoles {
 		goTo (zoneProchest);
 	}
 	
+	/**
+	Une methode qui permet au robot d'aller dans une zone.
+	@param La zone dans lequel le robot doit se rendre.
+	 */
 	public static void goTo (int[] zone) {
 		pivoteVersZone(zone);
 		int distance = calcDistanceZone(zone);
 		Roues.rouleDist(distance);
 	}
 	
+	/**
+	Une methode qui fait pivoter le robot vers une zone.
+	@param La zone dans lequel le robot doit se pivoter.
+	 */
 	public static void pivoteVersZone (int[] zone) {
 		int[] position = Memoire.getPositionPrecise();
 		int[] pointX = new int[] {zone[0],position[1]};
@@ -69,6 +94,10 @@ public class Protocoles {
 		Roues.pivote(degre);
 	}
 	
+	/**
+	Une methode qui permet de calculer la distance jusqu a la zone objectif.
+	@param La zone dans lequel le robot doit se rendre.
+	 */
 	public static int calcDistanceZone (int[] zone) {
 		int[] position = Memoire.getPositionPrecise();
 		double distX = Math.abs(zone[0] - position[0])*(3/6);
