@@ -32,34 +32,91 @@ public class Music {
 	
 	
 	//frequences des notes :
+	/**
+    Instance qui represente la frequence de la note DO.
+	 */
 	static private final int DO = 262;
+	/**
+    Instance qui represente la frequence de la note RE.
+	 */
 	static private final int RE = 287;
+	/**
+    Instance qui represente la frequence de la note MI.
+	 */
 	static private final int MI = 320;
+	/**
+    Instance qui represente la frequence de la note FA.
+	 */
 	static private final int FA = 349;
+	/**
+    Instance qui represente la frequence de la note SOL.
+	 */
 	static private final int SOL = 392;
+	/**
+    Instance qui represente la frequence de la note LA.
+	 */
 	static private final int LA = 440;
+	/**
+    Instance qui represente la frequence de la note SI.
+	 */
 	static private final int SI = 494;
 	
 	//durees des notes (basees sur 1 sec) :
+	/**
+    Instance qui represente la durée d'une note noir.
+	 */
 	static private int T = 1000;//noire
-	
+	/**
+    Instance qui represente la durée d'une note ronde.
+	 */
 	static private int T1 = T*4;//ronde
+	/**
+    Instance qui represente la durée d'une note blanche.
+	 */
 	static private int T2 = T*2;//blanche
+	/**
+    Instance qui represente la durée d'une note noir.
+	 */
 	static private int T3 = T;//noire
+	/**
+    Instance qui represente la durée d'un croche.
+	 */
 	static private int T4 = T/2;//croche
+	/**
+    Instance qui represente la durée d'un double croche.
+	 */
 	static private int T5 = T/4;//double-croche
 	
 	@SuppressWarnings("unused")
+	/**
+    Instance qui represente le tempo n1.
+	 */
 	static private int T1P = 6*T;
+	/**
+    Instance qui represente le tempo n2.
+	 */
 	static private int T2P = 3*T;
+	/**
+    Instance qui represente le tempo n3.
+	 */
 	static private int T3P = T3+(T/2);
+	/**
+    Instance qui represente le tempo n4.
+	 */
 	static private int T4P = T4+(T/4);
+	/**
+    Instance qui represente le tempo n5.
+	 */
 	@SuppressWarnings("unused")
 	static private int T5P = T5+(T/8);
 	
 	
 	//-----outils-------
 	
+	/**
+    Methode qui calcul le tempo.
+    @param temps en mili secondes.
+	 */
 	private static void tempo (int milisec) {
 		 int T =(int) milisec;//noire
 		
@@ -77,15 +134,28 @@ public class Music {
 		 T5P = T5+(T/8);
 	}
 	
+	/**
+    Methode qui joue une note.
+    @param La note a jouer.
+    @param le temps de la note.
+	 */
 	private static void note (int note, int sec) throws InterruptedException {
 		Sound.playTone(note,sec);//frequence note, duree sec
 		silence(sec);//attend sec (pour que la note se joue entierement)
 	}
 	
+	/**
+    Methode qui permet de ne pas faire de sons pendant un certain temps.
+    @param temps en seconde.
+	 */
 	private static void silence (int sec) throws InterruptedException {
 		Thread.sleep(sec); // ne fait rien
 	}
 	
+	/**
+    Methode qui convertie des BPM en seconde.
+    @param temps en BPM.
+	 */
 	private static int milisecFromBPM (int bpm) {
 		return (int) (1000/Math.round(bpm/60));
 	}
@@ -93,6 +163,9 @@ public class Music {
 	
 	//------music--------
 	
+	/**
+    Methode qui permet de tester la fonctionalite de la musique.
+	 */
 	public static void test() throws InterruptedException {
 		Sound.playTone(300,500);// frequence 300, duree 1/2 seconde
 		Thread.sleep(500);// attend 1/2 seconde
@@ -104,6 +177,9 @@ public class Music {
 		Thread.sleep(1000);// attend 1 seconde
 		}
 	
+	/**
+    Methode qui permet de jouer hot cross buns.
+	 */
 	public static void Hot_Cross_Buns() throws InterruptedException {
 		tempo (1000);
 		
@@ -126,6 +202,9 @@ public class Music {
 		note (SOL, T2);
 	}
 	
+	/**
+    Methode qui permet de jouer kalinka.
+	 */
 	public static void Kalinka() throws InterruptedException {
 		for (int ii=0; ii<4; ii++) {//joue 4x
 			tempo (1000/(ii+1));//accelere a chaque fois
@@ -164,6 +243,9 @@ public class Music {
 		}
 	}
 	
+	/**
+    Methode qui permet de jouer Terminator main theme.
+	 */
 	public static void Terminator_main_theme() throws InterruptedException {
 		tempo (300);
 		for (int ii=0; ii<4; ii++) {//x4
@@ -210,6 +292,9 @@ public class Music {
 		note (DO, T2);
 	}
 	
+	/**
+    Methode qui permet de jouer gonna fly now.
+	 */
 	public static void Gonna_Fly_Now() throws InterruptedException {
 		tempo (500);
 		note (DO, T4);
@@ -278,6 +363,9 @@ public class Music {
 		note (SI, T3);//ajout
 	}
 	
+	/**
+    Methode qui permet de jouer Korobeiniki.
+	 */
 	public static void Korobeiniki() throws InterruptedException {
 		tempo (milisecFromBPM(180));
 		
@@ -346,6 +434,9 @@ public class Music {
 		note (DO-20, T3);
 	}
 	
+	/**
+    Methode qui permet de jouer les gammes.
+	 */
 	public static void Gamme() throws InterruptedException {
 		note (DO, T3);
 		note (RE, T3);
@@ -356,6 +447,9 @@ public class Music {
 		note (SI, T3);
 	}
 	
+	/**
+    Methode qui permet de jouer la marseillaise.
+	 */
 	public static void Marseillaise() throws InterruptedException {
 		tempo (milisecFromBPM(115));
 		
@@ -576,6 +670,9 @@ public class Music {
 		note (FA, T1);
 	}
 	
+	/**
+    Methode qui permet de jouer The imperial march.
+	 */
 	public static void The_imperial_march() throws InterruptedException {
 		tempo(milisecFromBPM(180));
 		
