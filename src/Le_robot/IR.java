@@ -1,8 +1,15 @@
 package Le_robot;
 
+/**
+Classe qui permet de traitee les donnes fournis par la camera.
+ */
 public class IR {
 	
-	
+	/**
+    Permet d'initialisee les positions des palets et du robot sur la
+    carte interne du robot.
+    @param les donnes renvoye par la camera.
+	 */
 	public static void traiteDonnees (String donnees) {
 		String donneesOmega = donnees;
 		int[][] grille = Memoire.getGrilleIR();
