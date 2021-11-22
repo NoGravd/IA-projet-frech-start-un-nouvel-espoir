@@ -7,24 +7,31 @@ import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.Motor;
 import lejos.utility.Delay;
 	//SERT DE TEST MAIS CONCRETEMENT FONCTIONNERAIS COMME ROUES
+
 public class FonctionsTests {
 	/**
     Instance qui represente le moteur controler par la roue droite.
 	 */
 	static final BaseRegulatedMotor moteur_droit = Motor.A;//roue droite
+	
 	/**
     Instance qui represente le moteur controler par la roue gauche.
 	 */
 	static final BaseRegulatedMotor moteur_gauche = Motor.C;//roue gauche
+	
 	/**
     Instance qui represente la liste des moteurs a syncrhoniser avec le moteur A pour avancer et reculer.
 	 */
 	static final BaseRegulatedMotor[] l = new BaseRegulatedMotor[] {moteur_gauche};
+	
 	/**
     Instance qui represente la vitesse max du robot.
 	 */
 	static final int VITESSE_MAX = (int) moteur_gauche.getMaxSpeed();
 	EV3Client ev = new EV3Client(new int[] {50,30},true);
+	
+	
+	
 	public void calibrageFaceAuPalais(){
 		//Après avoir rouler une certaine distance en direction du palais
 		//le robot parcours un angle de 60 degré et s'arrète immédiatement 
@@ -52,6 +59,8 @@ public class FonctionsTests {
 		}
 	}
 	
+	
+	
 	public void retourBredouille(int[] adresseDuPalaisQueAllaisChercher){
 		//FAIRE UN PIVOTE POUR QUE L'ANGLE DE CARTO REVIENNE A ZERO
 		ev.refreshAdressesInstantT();
@@ -67,10 +76,14 @@ public class FonctionsTests {
 		}
 	}
 	
+	
+	
 	public void recupererPalais() {
 		//ouvre les pinces, avance puis si capteurTouche == true
 		//On ferme les pinces
 	}
+	
+	
 	
 	public void retourVictorieux() {
 		//FAIRE UN PIVOTE POUR QUE L'ANGLE DE CARTO REVIENNE A ZERO (en direction de l'arrivé)
@@ -78,6 +91,8 @@ public class FonctionsTests {
 		//et nouveau tour dans la boucle while ev.finDePartie()
 	
 	}
+	
+	
 	
 	public void calibrageDemiTour() {
 		//S'utilise lorsque le robot c'est arrété sur la ligne, après avoir posser le palais
@@ -102,7 +117,5 @@ public class FonctionsTests {
 		Roues.stop();
 		Roues.demi_tour();
 	}
-	
-	
 	
 }
