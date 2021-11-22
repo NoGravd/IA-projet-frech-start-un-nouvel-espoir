@@ -30,22 +30,6 @@ public class Roues {
 	static final int VITESSE_MAX = (int) moteur_gauche.getMaxSpeed();
 	
 	
-	/**
-    Demarre le moteur et avance petit à petit(aceleration).
-	 */
-	public static void demare() {
-		//acceleration
-		int nAcc = 200; //definition du nb de marches d'accélération
-//		int maxSpeed = 400; //vitesse max = 100xVbatterie
-		for (int i=0; i<nAcc; i++) {
-			moteur_droit.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
-			moteur_gauche.setSpeed(VITESSE_MAX/nAcc*i);
-			moteur_droit.forward();//lance le moteur 
-			moteur_gauche.forward();
-			Delay.msDelay(1);// attend 3ms
-		}
-//		stop();
- 	}
 	
 	/**
     Avance tant qu'il detecte un pallet.
@@ -76,44 +60,7 @@ public class Roues {
 		moteur_droit.endSynchronization();
  	}
  	
-	/**
-    Pivote de 90° degres sur la droite.
-	 */
- 	public static void droite() {
- 		pivote (90);
-	}
 	
-	/**
-    Pivote de 90° degres sur la gauche.
-	 */
-	public static void gauche() {
-		pivote (-90);
-	}
-	
-	/**
-    Pivote de maniere a faire un demi tour, partant à droite.
-	 */
-	public static void demi_tour_droite() {
-		pivote (180);
-	}
-	
-	/**
-    Pivote de maniere a faire un demi tour, partant à gauche.
-	 */
-	public static void demi_tour_gauche() {
-		pivote (-180);
-	}
-	
-	/**
-    Pivote de maniere a faire un demi tour, en partant soit a gauche, soit a droite (determiner de maniere aleatoire.
-	 */
-	public static void demi_tour() {
-		int random= (int) Math.round(Math.random());
-		if (random==0)
-			demi_tour_gauche();
-		else
-			demi_tour_droite();
-	}
 	
 	/**
     Demarre le moteur et recule petit à petit(aceleration).
@@ -134,26 +81,7 @@ public class Roues {
 			Memoire.setAvoirPalet(false);//alors on a pas/plus de palet
 	}
 	
-	/**
-    Permet d'avancer pendant tmps secondes.
-    @param tmps Le temps que le moteur avance
-	 */
-	public static void rouleTemps(int tmps) {
-		moteur_droit.setSpeed(VITESSE_MAX);
-		moteur_gauche.setSpeed(VITESSE_MAX);
-		moteur_droit.forward();
-		moteur_gauche.forward();
-		Delay.msDelay(tmps*1000);
-	}
 	
-
-	/**
-    Roule pendant une distance donnee
-    @param distance en metre
-	 */
-	public static void rouleDist (int metre) {
-		//TODO
-	}
 	
 	/**
     Pivote de l'angle fourni en parametre.
@@ -276,4 +204,90 @@ public class Roues {
 		int facteur=0;//TODO
 		SrouleTemps(metre*facteur);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//=========================================================================
+	//methodes obsolettes (cimetiere) :
+	
+	
+//	
+//	/**
+//    Demarre le moteur et avance petit à petit(aceleration).
+//	 */
+//	public static void demare() {
+//		//acceleration
+//		int nAcc = 200; //definition du nb de marches d'accélération
+////		int maxSpeed = 400; //vitesse max = 100xVbatterie
+//		for (int i=0; i<nAcc; i++) {
+//			moteur_droit.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
+//			moteur_gauche.setSpeed(VITESSE_MAX/nAcc*i);
+//			moteur_droit.forward();//lance le moteur 
+//			moteur_gauche.forward();
+//			Delay.msDelay(1);// attend 3ms
+//		}
+////		stop();
+// 	}
+//	
+//	/**
+//    Pivote de 90° degres sur la droite.
+//	 */
+// 	public static void droite() {
+// 		pivote (90);
+//	}
+//	
+//	/**
+//    Pivote de 90° degres sur la gauche.
+//	 */
+//	public static void gauche() {
+//		pivote (-90);
+//	}
+//	
+//	/**
+//    Pivote de maniere a faire un demi tour, partant à droite.
+//	 */
+//	public static void demi_tour_droite() {
+//		pivote (180);
+//	}
+//	
+//	/**
+//    Pivote de maniere a faire un demi tour, partant à gauche.
+//	 */
+//	public static void demi_tour_gauche() {
+//		pivote (-180);
+//	}
+//	
+//	/**
+//    Pivote de maniere a faire un demi tour, en partant soit a gauche, soit a droite (determiner de maniere aleatoire.
+//	 */
+//	public static void demi_tour() {
+//		int random= (int) Math.round(Math.random());
+//		if (random==0)
+//			demi_tour_gauche();
+//		else
+//			demi_tour_droite();
+//	}
+//	
+//	
+//	/**
+//    Permet d'avancer pendant tmps secondes.
+//    @param tmps Le temps que le moteur avance
+//	 */
+//	public static void rouleTemps(int tmps) {
+//		moteur_droit.setSpeed(VITESSE_MAX);
+//		moteur_gauche.setSpeed(VITESSE_MAX);
+//		moteur_droit.forward();
+//		moteur_gauche.forward();
+//		Delay.msDelay(tmps*1000);
+//	}
+
 }
