@@ -146,7 +146,12 @@ public class Roues {
 		}
 	}
 	
-	
+	/**
+  Pivote de maniere a faire un demi tour, en partant soit a gauche, soit a droite (determiner de maniere aleatoire.
+	 */
+	public static void demi_tour() {
+		pivote (180);
+	}
 	
 	//-----Avec capteurs :
 	
