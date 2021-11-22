@@ -38,7 +38,7 @@ public class FonctionsTests {
 		int ii=0;
 		boolean bredouille = true;
 		while (Roues.moteur_droit.isMoving()) {
-			capteurUS.getDistanceMode().fetchSample(tab, ii);
+			c.capteurUS.getDistanceMode().fetchSample(tab, ii);
 			if(tab[ii-1]>2*tab[ii]) { //2* à verifier car infinity et tester
 				bredouille=false;
 				break; 
@@ -87,17 +87,17 @@ public class FonctionsTests {
 		Roues.moteur_droit.rotateTo(260,true);
 		int ii=0;
 		while (Roues.moteur_droit.isMoving()) {
-			capteurUS.getDistanceMode().fetchSample(tab, ii);
+			c.capteurUS.getDistanceMode().fetchSample(tab, ii);
 			if(tab[ii]<tab[ii-1]) break; 
 			ii++;
 		}
 		Roues.stop();
 		Roues.moteur_droit.rotateTo(-260,true);
-		int ii=0;
+		int i=0;
 		while (Roues.moteur_droit.isMoving()) {
-			capteurUS.getDistanceMode().fetchSample(tab, ii);
-			if(tab[ii]<tab[ii-1]) break; 
-			ii++;
+			c.capteurUS.getDistanceMode().fetchSample(tab, i);
+			if(tab[i]<tab[ii-1]) break; 
+			i++;
 		}
 		Roues.stop();
 		Roues.demiTour();
