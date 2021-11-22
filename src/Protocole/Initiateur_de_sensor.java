@@ -29,8 +29,8 @@ public class Initiateur_de_sensor {
 	 */
 	public static void initialise_color() {
 		
-		capteurCo.setFloodlight(true);					// A verifier mais normalement ça marche comme ça
-		capteurCo.setFloodlight(Color.WHITE);
+//		capteurCo.setFloodlight(true);					// A verifier mais normalement ça marche comme ça
+//		capteurCo.setFloodlight(Color.WHITE);
 		
 	}
 	

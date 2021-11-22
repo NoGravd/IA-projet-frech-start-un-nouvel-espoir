@@ -72,7 +72,8 @@ public class Starter {
 	public static void Starter1 (String[] args) throws InterruptedException {
 		// TODO
 		Initiateur_de_sensor.initialiseTout();
-		
+		int positionDeNotreRobot = 0;//TODO
+		int positionDuRobotAdverse = 0;//TODO
 		
 		if((positionDeNotreRobot == 1) && (positionDuRobotAdverse == 1)){ //si les deux robots commence a gauche
 			

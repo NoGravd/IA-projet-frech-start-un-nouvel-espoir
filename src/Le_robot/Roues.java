@@ -260,7 +260,10 @@ public class Roues {
 		moteur_droit.forward();
 		moteur_gauche.forward();
 		for (int ii=0; ii<milisec; ii+=3) {
-			capteursCaptent();
+			if (capteursCaptent()) {
+				stop();
+				return;
+			}
 			Delay.msDelay(3);
 		}
 	}

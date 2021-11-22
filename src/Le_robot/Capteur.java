@@ -166,11 +166,11 @@ public class Capteur {
 	/**
     Place l'ID de la couleur detecter dans le tableau donneeCo.
 	 */
-	public static void couleurDetectee() {
-		
-		capteurCo.getColorID().fetchSample(donneeCo, 0);
-		
-	}
+//	public static void couleurDetectee() {
+//		
+//		capteurCo.getColorID().fetchSample(donneeCo, 0);
+//		
+//	}
 	
 	/**
     Permet de savoir qu'elle est la couleur detecte par le robot.
