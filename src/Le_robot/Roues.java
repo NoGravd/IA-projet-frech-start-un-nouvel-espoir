@@ -74,7 +74,8 @@ public class Roues {
 			moteur_gauche.setSpeed(VITESSE_MAX/nAcc*i);
 			moteur_droit.backward();//lance le moteur 
 			moteur_gauche.backward();
-			Delay.msDelay(1);// attend 3ms
+			Delay.msDelay(1);// attend 1ms
+			capteursCaptent();
 		}
 		stop();
 		if (Memoire.getEtatPince())//si les pince sont ouvertes
