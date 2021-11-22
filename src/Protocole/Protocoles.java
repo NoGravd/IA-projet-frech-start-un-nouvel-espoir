@@ -17,7 +17,7 @@ public class Protocoles {
 		int goal = Memoire.getLaBonneBase();
 		Roues.pivote((int)(goal-sBouss));
 		conflit_robotAdv((int) Capteur.getDistanceOb());
-		Roues.SrouleDist(calcDistanceZone(new int[] {goal==1?5:0,Memoire.getPositionPrecise()[1]}));
+		Roues.rouleDist(calcDistanceZone(new int[] {goal==1?5:0,Memoire.getPositionPrecise()[1]}));
 		if (Carto.IsIt_mur((int) Capteur.getDistanceOb()) && Memoire.getEreBonneBase())
 			marquer();
 	}

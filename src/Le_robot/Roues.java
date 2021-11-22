@@ -166,7 +166,7 @@ public class Roues {
 	/**
     Permet d'accelerer de maniere moin brute.
 	 */
-	public static void Sdemare() {
+	public static void demare() {
 		int nAcc = 200; //definition du nb de marches d'accélération
 		for (int i=0; i<nAcc; i++) {
 			moteur_droit.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
@@ -183,7 +183,7 @@ public class Roues {
     Roule pendant un temps x
     @param temps en mili seconde
 	 */
-	public static void SrouleTemps (int milisec) {
+	public static void rouleTemps (int milisec) {
 		moteur_droit.setSpeed(VITESSE_MAX);
 		moteur_gauche.setSpeed(VITESSE_MAX);
 		moteur_droit.forward();
@@ -201,9 +201,9 @@ public class Roues {
     Roule pendant une distance x
     @param distance en metre.
 	 */
-	public static void SrouleDist (int metre) {
+	public static void rouleDist (int metre) {
 		int facteur=0;//TODO
-		SrouleTemps(metre*facteur);
+		rouleTemps(metre*facteur);
 	}
 	
 	
