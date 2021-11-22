@@ -15,7 +15,7 @@ public class ProtocolesIR {
 		int goal = Memoire.getLaBonneBase();
 		Roues.pivote(((goal-sBouss)>180)? ((int)(goal-sBouss-360)) : ((int)(goal-sBouss)));
 		conflit_robotAdv((int) Capteur.getDistanceOb());
-		Roues.SrouleDist(calcDistanceZone(new int[] {goal==1?5:0,Memoire.getPositionIR()[1]}));
+		Roues.rouleDist(calcDistanceZone(new int[] {goal==1?5:0,Memoire.getPositionIR()[1]}));
 		if (Carto.IsIt_mur((int) Capteur.getDistanceOb()) && Memoire.getEreBonneBase())
 			marquer();
 	}
@@ -53,7 +53,7 @@ public class ProtocolesIR {
 	public static void goTo (int[] zone) {
 		pivoteVersZone(zone);
 		int distance = calcDistanceZone(zone);
-		Roues.SrouleDist(distance);
+		Roues.rouleDist(distance);
 	}
 	
 	
