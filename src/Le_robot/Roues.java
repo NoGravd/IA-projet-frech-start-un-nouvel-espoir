@@ -15,19 +15,19 @@ public class Roues {
 	/**
     Instance qui represente le moteur controler par la roue droite.
 	 */
-	static final BaseRegulatedMotor moteur_droit = Motor.A;//roue droite
+	public static final BaseRegulatedMotor moteur_droit = Motor.A;//roue droite
 	/**
     Instance qui represente le moteur controler par la roue gauche.
 	 */
-	static final BaseRegulatedMotor moteur_gauche = Motor.C;//roue gauche
+	public static final BaseRegulatedMotor moteur_gauche = Motor.C;//roue gauche
 	/**
     Instance qui represente la liste des moteurs a syncrhoniser avec le moteur A pour avancer et reculer.
 	 */
-	static final BaseRegulatedMotor[] l = new BaseRegulatedMotor[] {moteur_gauche};
+	public static final BaseRegulatedMotor[] l = new BaseRegulatedMotor[] {moteur_gauche};
 	/**
     Instance qui represente la vitesse max du robot.
 	 */
-	static final int VITESSE_MAX = (int) moteur_gauche.getMaxSpeed();
+	public static final int VITESSE_MAX = (int) moteur_gauche.getMaxSpeed();
 	
 	
 	
@@ -209,11 +209,13 @@ public class Roues {
     Roule pendant une distance x
     @param distance en metre.
 	 */
-	public static void rouleDist (int metre) {
-		int facteur=0;//TODO
-		rouleTemps(metre*facteur);
+	public static void rouleDist (int centimetre) {
+		double tourDeRoue = 2.8*Math.PI;//cm
+		double tourDeRoueParMiliSec = 0.234;//23,4 tour toute les 10s
+		double distParMiliSec = tourDeRoueParMiliSec * tourDeRoue;
+		int milisec = (int) Math.round(centimetre / distParMiliSec);
+		rouleTemps(milisec);
 	}
-	
 	
 
 }
