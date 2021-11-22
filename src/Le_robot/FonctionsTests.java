@@ -37,15 +37,14 @@ public class FonctionsTests {
 		//le robot parcours un angle de 60 degré et s'arrète immédiatement 
 		//lorsuqe la différence entre son avant dernière valeur vue et la
 		//dernière est trop grande (il détecte le palais dans ces 60 degrés)
-		Capteur c = new Capteur();
-		c.demarrerCapteurUltraSon();
+		Capteur.demarrerCapteurUltraSon();
 		float[] tab = new float [1000000];
 		Roues.moteur_droit.rotateTo(-130, false); //1560 = un tour complet
 		Roues.moteur_droit.rotateTo(260,true);
 		int ii=0;
 		boolean bredouille = true;
 		while (Roues.moteur_droit.isMoving()) {
-			c.capteurUS.getDistanceMode().fetchSample(tab, ii);
+			Capteur.capteurUS.getDistanceMode().fetchSample(tab, ii);
 			if(tab[ii-1]>2*tab[ii]) { //2* à verifier car infinity et tester
 				bredouille=false;
 				break; 
@@ -96,13 +95,12 @@ public class FonctionsTests {
 	
 	public void calibrageDemiTour() {
 		//S'utilise lorsque le robot c'est arrété sur la ligne, après avoir posser le palais
-		Capteur c = new Capteur();
-		c.demarrerCapteurUltraSon();
+		Capteur.demarrerCapteurUltraSon();
 		float[] tab = new float [1000000];
 		Roues.moteur_droit.rotateTo(260,true);
 		int ii=0;
 		while (Roues.moteur_droit.isMoving()) {
-			c.capteurUS.getDistanceMode().fetchSample(tab, ii);
+			Capteur.capteurUS.getDistanceMode().fetchSample(tab, ii);
 			if(tab[ii]<tab[ii-1]) break; 
 			ii++;
 		}
@@ -110,7 +108,7 @@ public class FonctionsTests {
 		Roues.moteur_droit.rotateTo(-260,true);
 		int i=0;
 		while (Roues.moteur_droit.isMoving()) {
-			c.capteurUS.getDistanceMode().fetchSample(tab, i);
+			Capteur.capteurUS.getDistanceMode().fetchSample(tab, i);
 			if(tab[i]<tab[ii-1]) break; 
 			i++;
 		}

@@ -738,4 +738,16 @@ public class Music {
 		note (LA, T2);
 	}
 
+	public static void Mcdo() throws InterruptedException {
+		tempo(milisecFromBPM(180));
+		
+		note (FA,T4);
+		note (SOL,T4P);
+		note (LA,T4P);
+		
+		note (DO+20, T3);
+		
+		note (SI, T3);
+	}
+	
 }
