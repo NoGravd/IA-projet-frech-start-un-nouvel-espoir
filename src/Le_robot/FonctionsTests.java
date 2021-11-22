@@ -100,7 +100,7 @@ public class FonctionsTests {
 			i++;
 		}
 		Roues.stop();
-		Roues.demiTour();
+		Roues.demi_tour();
 	}
 	
 	
