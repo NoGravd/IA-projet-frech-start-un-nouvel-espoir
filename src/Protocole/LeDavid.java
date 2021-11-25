@@ -58,8 +58,8 @@ public class LeDavid {
 		System.out.println("Gauche pour true (n'importe pour else)");
 		Button.waitForAnyPress();
 		p = Button.readButtons();
-		if(p==Button.ID_LEFT) droitePlateau = false;
-		else droitePlateau=true;
+		if(p==Button.ID_LEFT) marque = true;
+		else marque=false;
 		//ev = new EV3Client(new int[]{x,y}, false);
 		
 		System.out.println("");
@@ -68,7 +68,7 @@ public class LeDavid {
 		Button.ENTER.waitForPress();
 	}
 	
-	public void leSangDeSesMorts(int[] emplacement) {
+	public int[] leSangDeSesMorts(int[] emplacement) {
 		//boussole.getEmplacement();
 		ev.refreshAvecLocalisation(emplacement);
 		int idcPalaisProche = ev.getIndicePalaisLePlusProcheDuRobot();
@@ -78,7 +78,7 @@ public class LeDavid {
 		boussole.rotateDeg(angle);
 		int distance = ev.getDistanceRobotToAdresse(adressePalaisProche)-35;
 		Roues.rouleDist(distance, c); //Vérif facteur rouledist et capteurscapte
-		calibrageFaceAuPalais(adressePalaisProche);
+		return calibrageFaceAuPalais(adressePalaisProche);
 		
 		
 	}
@@ -99,7 +99,7 @@ public class LeDavid {
 		pince.fermeture(c);
 		calibrageDemiTour();
 	}
-	public void calibrageFaceAuPalais(int[] adresseDuPalaisQueAllaisChercher){
+	public int[] calibrageFaceAuPalais(int[] adresseDuPalaisQueAllaisChercher){
 		//Après avoir rouler une certaine distance en direction du palais
 		//le robot parcours un angle de 60 degré et s'arrète immédiatement 
 		//lorsuqe la différence entre son avant dernière valeur vue et la
@@ -117,10 +117,11 @@ public class LeDavid {
 			}
 			ii++;
 		}
-		if(bredouille) retourBredouille(adresseDuPalaisQueAllaisChercher);
+		if(bredouille) return retourBredouille(adresseDuPalaisQueAllaisChercher);
 		else {
 			recupererPalais();
 			retourVictorieux(adresseDuPalaisQueAllaisChercher);
+			return adresseArrivee;
 		}
 	}
 	

@@ -22,6 +22,8 @@ public class Pince {
 	/**
     Ouvre la pince, que si elle est ferme.
 	 */
+	public Pince() {
+	}
 	public void ouverture() {
 		if(!ouverte) {
 			moteur_pince.rotateTo(20);
