@@ -3,8 +3,8 @@ package Le_robot;
 public class Boussole {
 	private int boussole;
 	
-	public Boussole (int bous) {
-		boussole = bous;
+	public Boussole () {
+		boussole = 0;
 	}
 	
 	/*
@@ -21,5 +21,9 @@ public class Boussole {
 	
 	public int get() {
 		return boussole;
+	}
+	
+	public void set(int angle){
+		boussole=0;
 	}
 }

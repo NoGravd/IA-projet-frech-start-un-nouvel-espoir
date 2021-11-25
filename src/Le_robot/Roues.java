@@ -97,7 +97,6 @@ public class Roues {
 			while (moteur_gauche.isMoving())
 				ii++;//juste pour que le bot calclul
 			degreD+=ii;//ca c juste pour que eclipse rale pas car ii sert a rien
-			Carto.rotateDeg(degre);
 		} catch (Throwable t) {
 			t.printStackTrace();
 			Delay.msDelay(10000);
@@ -209,8 +208,11 @@ public class Roues {
     @param distance en metre.
 	 */
 	public static void rouleDist (int centimetre, Capteur c) {
-		int facteur=0;//TODO
-		rouleTemps(centimetre*facteur,c);
+		double tourDeRoue = 2.8*Math.PI;//cm
+		double tourDeRoueParMiliSec = 0.234;//23,4 tour toute les 10s
+		double distParMiliSec = tourDeRoueParMiliSec * tourDeRoue;
+		int milisec = (int) Math.round(centimetre / distParMiliSec);
+		rouleTemps(milisec,c);
 	}
 	
 	

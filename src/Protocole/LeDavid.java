@@ -8,7 +8,7 @@ public class LeDavid {
 	private Capteur c;
 	private EV3Client ev;
 	private Pince pince = new Pince();
-	//private Boussole b;
+	private Boussole boussole = new Boussole();
 	
 	public LeDavid() {
 		initialiseCapteurC();
@@ -75,6 +75,7 @@ public class LeDavid {
 		int[] adressePalaisProche = ev.getAdressesInstantT()[idcPalaisProche];
 		int angle = (int) ev.getAngleRobotToAdresse(adressePalaisProche);
 		Roues.pivote(angle);
+		boussole.rotateDeg(angle);
 		int distance = ev.getDistanceRobotToAdresse(adressePalaisProche)-35;
 		Roues.rouleDist(distance, c); //Vérif facteur rouledist et capteurscapte
 		calibrageFaceAuPalais(adressePalaisProche);
@@ -86,6 +87,7 @@ public class LeDavid {
 		ev.refreshAvecLocalisation(adresseDuPalaisQueAllaisChercher);
 		int angle = (int) ev.getAngleRobotToAdresse(adresseArrivee);
 		Roues.pivote(angle);
+		boussole.rotateDeg(angle);
 		int distance = ev.getDistanceRobotToAdresse(adresseArrivee)-35;
 		Roues.rouleDist(distance, c);	
 		deposePalais();
@@ -118,7 +120,7 @@ public class LeDavid {
 		if(bredouille) retourBredouille(adresseDuPalaisQueAllaisChercher);
 		else {
 			recupererPalais();
-			//retourVictorieux();
+			retourVictorieux(adresseDuPalaisQueAllaisChercher);
 		}
 	}
 	
@@ -126,7 +128,8 @@ public class LeDavid {
 		pince.ouverture();
 		Roues.rouleDist(35, c);
 		pince.fermeture(c);
-		//Pivoter de -angle enregistré chez b
+		Roues.pivote(-boussole.get());
+		boussole.set(0);
 	}
 	public int[] retourBredouille(int[] adresseDuPalaisQueAllaisChercher){
 		//FAIRE UN PIVOTE POUR QUE L'ANGLE DE CARTO REVIENNE A ZERO
@@ -136,6 +139,9 @@ public class LeDavid {
 			//Robot.launcheMusiqueFin(); //Checker si on a win ou non
 		}
 		else{
+			Roues.moteur_droit.rotateTo(-130, false);
+			Roues.pivote(-boussole.get());
+			boussole.set(0);
 			int[] adresseRobot = ev.adresseLaPlusProche(adresseDuPalaisQueAllaisChercher);
 			ev.refreshAvecLocalisation(adresseRobot);
 			return ev.getAdresseRobot();
