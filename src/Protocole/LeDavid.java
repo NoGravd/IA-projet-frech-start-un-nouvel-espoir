@@ -10,11 +10,19 @@ public class LeDavid {
 	private Pince pince = new Pince();
 	private Boussole boussole = new Boussole();
 	
+	
+	
+	/**
+	 initialise tous ce qu'il y a a initialiser : capteur, ev3client
+	 */
 	public LeDavid() {
 		initialiseCapteurC();
 		initialiseClient();
-		//initialiseBoussole();
 	}
+	
+	/**
+	 initialise tout les capteurs et attend la press du bouton pour terminer
+	 */
 	public void initialiseCapteurC() {
 		capteurs = new Capteurs();
 		capteurs.capteurCouleurActive();
@@ -24,6 +32,10 @@ public class LeDavid {
 		Button.ENTER.waitForPress();
 		
 	}
+	
+	/**
+	 initialise ev3client, demande via ecran et boutons sur quel emplacement il se trouve ainsi que le robot adverse
+	 */
 	public void initialiseClient() {
 		System.out.println("Vous etes a droite ou a gauche ?");
 		boolean droitePlateau = true;
@@ -59,15 +71,19 @@ public class LeDavid {
 		System.out.println("Gauche pour true (n'importe pour else)");
 		Button.waitForAnyPress();
 		p = Button.readButtons();
-		if(p==Button.ID_LEFT) marque = true;
-		else marque=false;
-		//ev = new EV3Client(new int[]{x,y}, false);
+		if(p==Button.ID_LEFT) 
+			marque = true;
+		else 
+			marque=false;
+		ev = new EV3Client(new int[]{x,y}, false);
 		
 		System.out.println("");
 		System.out.println("");
 		System.out.println("OK MAN !");
 		Button.ENTER.waitForPress();
 	}
+	
+	
 	
 	public int[] leSangDeSesMorts(int[] emplacement) {
 		//boussole.getEmplacement();
@@ -84,22 +100,32 @@ public class LeDavid {
 		
 	}
 	
+	/**
+	 * se deplace jusqu a la base adv :
+	 * tourne sur lui meme direction base adv
+	 * avance tout droit jusque ligne Blanche
+	 * @param adresseDuPalaisQueAllaisChercher
+	 */
 	public void retourVictorieux(int[] adresseDuPalaisQueAllaisChercher) {
 		ev.refreshAvecLocalisation(adresseDuPalaisQueAllaisChercher);
 		int angle = (int) ev.getAngleRobotToAdresse(adresseArrivee);
 		Roues.pivote(angle);
 		boussole.rotateDeg(angle);
 		int distance = ev.getDistanceRobotToAdresse(adresseArrivee)-35;
-		Roues.rouleDist(distance, capteurs);	
+		Roues.rouleDist(distance, capteurs);//TODO : que faire si robot adv sur trajectoire ?
 		deposePalais();
 	}
 	
+	/**
+	 * ouvre les pince, se recule, referme les pince, fait un demi tour
+	 */
 	public void deposePalais() {
 		Pince.ouverture_music();
 		Roues.recule();
 		pince.fermeture(capteurs);
 		calibrageDemiTour();
 	}
+	
 	public int[] calibrageFaceAuPalais(int[] adresseDuPalaisQueAllaisChercher){
 		//Après avoir rouler une certaine distance en direction du palais
 		//le robot parcours un angle de 60 degré et s'arrète immédiatement 
@@ -174,5 +200,5 @@ public class LeDavid {
 		Roues.demi_tour();
 		Roues.stop();
 	}
-	//public void initialiseBoussole() {}
+	
 }
