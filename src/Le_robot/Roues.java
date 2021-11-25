@@ -8,31 +8,33 @@ import lejos.hardware.motor.Motor;
 import lejos.utility.Delay;
 
 /**
-Une classe qui permet de deplacer le robot
+* Permet de deplacer le robot
+* @author noegr
 */
 public class Roues {
 	
 	/**
-    Instance qui represente le moteur controler par la roue droite.
+	 * Represente le moteur controleur par la roue droite.
 	 */
 	public static final BaseRegulatedMotor moteur_droit = Motor.A;//roue droite
 	/**
-    Instance qui represente le moteur controler par la roue gauche.
+	* Represente le moteur controler par la roue gauche.
 	 */
 	public static final BaseRegulatedMotor moteur_gauche = Motor.C;//roue gauche
 	/**
-    Instance qui represente la liste des moteurs a syncrhoniser avec le moteur A pour avancer et reculer.
+	 * Represente la liste des moteurs a syncrhoniser avec le moteur A pour avancer et reculer.
 	 */
 	static final BaseRegulatedMotor[] l = new BaseRegulatedMotor[] {moteur_gauche};
 	/**
-    Instance qui represente la vitesse max du robot.
+	 * Represente la vitesse max du robot.
 	 */
 	static final int VITESSE_MAX = (int) moteur_gauche.getMaxSpeed();
 	
 	
 	
 	/**
-    Avance tant qu'il detecte un pallet.
+	 * Avance tant qu'il detecte un pallet.
+	 * @author noegr
 	 */
 	public static void avanceTQpalet(Capteurs c, Pince pince) {
 		Pince.ouverture_mobile();
@@ -50,7 +52,8 @@ public class Roues {
 	}
 	
 	/**
-    Arrete les moteurs.
+	 * Arrete tous les moteurs.
+	 * @author noegr
 	 */
 	public static void stop() {
 		moteur_droit.synchronizeWith(l);
@@ -63,7 +66,8 @@ public class Roues {
 	
 	
 	/**
-    Demarre le moteur et recule petit à petit(aceleration).
+	 * Demarre le moteur et recule petit à petit (aceleration).
+	 * @author noegr
 	 */
 	public static void recule() {
 		//accélération
@@ -85,7 +89,8 @@ public class Roues {
 	
 	/**
     Pivote de l'angle fourni en parametre.
-    @param degre Le degre de rotation voulu
+    Pivote toujours sur la droite
+    @param degre : degre de rotation voulu
 	 */
 	public static void pivote (int degre) {
 		double degreD = degre*4.333;

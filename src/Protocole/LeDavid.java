@@ -2,6 +2,15 @@ package Protocole;
 import Le_robot.*;
 import lejos.hardware.Button;
 
+/**
+ * centralise toute les class du robot, et fait des methode utilisable
+ * @author noegr
+ *@author hugoapeloig
+ *@author TheoJ5
+ *
+ *@param adresseDemarrage : coordonnees de depart du robot
+ *@param adresseArrivee : coordonnees TODO
+ */
 public class LeDavid {
 	protected int[] adresseDemarrage;
 	protected int[] adresseArrivee; 
