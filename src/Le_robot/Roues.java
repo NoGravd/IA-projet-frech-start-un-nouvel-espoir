@@ -34,7 +34,7 @@ public class Roues {
 	/**
     Avance tant qu'il detecte un pallet.
 	 */
-	public static void avanceTQpalet(Capteur c) {
+	public static void avanceTQpalet(Capteur c, Pince pince) {
 		Pince.ouverture_mobile();
 		c.demarrerCapteurUltraSon();
 		moteur_droit.forward();
@@ -43,7 +43,7 @@ public class Roues {
 			while (!c.capteurTactileActive())
 				Delay.msDelay(1);
 			stop();
-			Pince.fermeture(c);
+			pince.fermeture(c);
 		}
 		stop();
 		c.eteindreCapteurUltraSon();

@@ -8,6 +8,7 @@ import lejos.utility.Delay;
 Une classe qui permet de controler les pinces du robot.
 */
 public class Pince {
+	private boolean ouverte = false;
 	/**
     Instance qui permet de determiner le temps d'ouverture et de fermetur de la pince
 	 */
@@ -21,23 +22,24 @@ public class Pince {
 	/**
     Ouvre la pince, que si elle est ferme.
 	 */
-	public static void ouverture() {
-		if (!Memoire.getEtatPince()) {//si Pince fermees
-			moteur_pince.rotateTo(20);;
-			Memoire.setEtatPince(true);
+	public void ouverture() {
+		if(!ouverte) {
+			moteur_pince.rotateTo(20);
+			ouverte =true;
 		}
+		
 	}
 	
 	/**
     Ouvre la pince, que si elle est ouverte.
 	 */
-	public static void fermeture(Capteur c) {
-		if (Memoire.getEtatPince()) {//si Pince ouvertes
-			if (c.capteurTactileActive())//si avoir palet
-				Memoire.setAvoirPalet(true);//inscrit memoire
-			moteur_pince.rotateTo(-20);
-			Memoire.setEtatPince(false);
-		}
+	public void fermeture(Capteur c) {
+		//inscrit memoire
+			if(ouverte) {
+				moteur_pince.rotateTo(-20);
+				ouverte = false;
+			}
+		
 	}
 	
 	/**
