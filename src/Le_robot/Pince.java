@@ -66,7 +66,7 @@ public class Pince {
 			try {
 				int angle=20;
 				moteur_pince.rotateTo(angle, true);
-				Music.The_imperial_march();//TODO trouver music dont le tmoteur_pinces est egal ou inf o tmoteur_pinces de fermeture de la pince
+				Music.Mcdo();
 			} catch (Throwable t) {
 				t.printStackTrace();
 				Delay.msDelay(10000);
@@ -85,7 +85,7 @@ public class Pince {
 			try {
 				int angle=20;
 				moteur_pince.rotateTo(angle, true);
-				Music.The_imperial_march();//TODO trouver music dont le tmoteur_pinces est egal ou inf o tmoteur_pinces de fermeture de la pince
+				Music.Mcdo();
 			} catch (Throwable t) {
 				t.printStackTrace();
 				Delay.msDelay(10000);
