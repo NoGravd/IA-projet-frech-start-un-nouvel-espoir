@@ -13,7 +13,7 @@ public class LeDavid {
 	
 	
 	/**
-	 initialise tous ce qu'il y a a initialiser : capteur, ev3client
+	 Initialise tous ce qu'il y a a initialiser : capteur, ev3client
 	 */
 	public LeDavid() {
 		initialiseCapteurC();
@@ -21,7 +21,7 @@ public class LeDavid {
 	}
 	
 	/**
-	 initialise tout les capteurs et attend la press du bouton pour terminer
+	 Initialise tout les capteurs et attend la press du bouton pour terminer
 	 */
 	public void initialiseCapteurC() {
 		capteurs = new Capteurs();
@@ -34,7 +34,7 @@ public class LeDavid {
 	}
 	
 	/**
-	 initialise ev3client, demande via ecran et boutons sur quel emplacement il se trouve ainsi que le robot adverse
+	 Initialise ev3client, demande via ecran et boutons sur quel emplacement il se trouve ainsi que le robot adverse
 	 */
 	public void initialiseClient() {
 		System.out.println("Vous etes a droite ou a gauche ?");
@@ -101,7 +101,7 @@ public class LeDavid {
 	}
 	
 	/**
-	 * se deplace jusqu a la base adv :
+	 * Se deplace jusqu a la base adv :
 	 * tourne sur lui meme direction base adv
 	 * avance tout droit jusque ligne Blanche
 	 * @param adresseDuPalaisQueAllaisChercher
@@ -117,7 +117,7 @@ public class LeDavid {
 	}
 	
 	/**
-	 * ouvre les pince, se recule, referme les pince, fait un demi tour
+	 * Ouvre les pince, se recule, referme les pince, fait un demi tour
 	 */
 	public void deposePalais() {
 		Pince.ouverture_music();
