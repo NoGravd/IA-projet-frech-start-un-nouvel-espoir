@@ -7,6 +7,7 @@ public class LeDavid {
 	protected int[] adresseArrivee; 
 	private Capteur c;
 	private EV3Client ev;
+	private Pince pince = new Pince();
 	//private Boussole b;
 	
 	public LeDavid() {
@@ -93,7 +94,7 @@ public class LeDavid {
 	public void deposePalais() {
 		Pince.ouverture_music();
 		Roues.recule();
-		Pince.fermeture(c);
+		pince.fermeture(c);
 		calibrageDemiTour();
 	}
 	public void calibrageFaceAuPalais(int[] adresseDuPalaisQueAllaisChercher){
@@ -122,9 +123,9 @@ public class LeDavid {
 	}
 	
 	public void recupererPalais() {
-		Pince.ouverture();
+		pince.ouverture();
 		Roues.rouleDist(35, c);
-		Pince.fermeture(c);
+		pince.fermeture(c);
 		//Pivoter de -angle enregistré chez b
 	}
 	public int[] retourBredouille(int[] adresseDuPalaisQueAllaisChercher){
