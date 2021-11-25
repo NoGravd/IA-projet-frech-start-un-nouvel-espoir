@@ -12,7 +12,7 @@ import lejos.hardware.port.*;
 /**
 Une classe qui contient toute les fonctions permettant d'utiliser les capteurs que posede le robot.
 */
-public class Capteur {
+public class Capteurs {
 	
 	/**
     Instance qui contient le port necessaire pour appeler le ColorSensor.
@@ -63,7 +63,7 @@ public class Capteur {
 
 	private float[] donneeTa = new float[1];
 	
-	public Capteur() {
+	public Capteurs() {
 		p1 = BrickFinder.getLocal().getPort("S1");
 		capteurCo = new EV3ColorSensor(p1);
 		p2 = BrickFinder.getLocal().getPort("S3");

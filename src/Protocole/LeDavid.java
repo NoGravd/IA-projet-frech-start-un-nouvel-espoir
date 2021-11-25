@@ -5,7 +5,7 @@ import lejos.hardware.Button;
 public class LeDavid {
 	protected int[] adresseDemarrage;
 	protected int[] adresseArrivee; 
-	private Capteur c;
+	private Capteurs capteurs;
 	private EV3Client ev;
 	private Pince pince = new Pince();
 	private Boussole boussole = new Boussole();
@@ -16,10 +16,10 @@ public class LeDavid {
 		//initialiseBoussole();
 	}
 	public void initialiseCapteurC() {
-		c = new Capteur();
-		c.capteurCouleurActive();
-		c.capteurTactileActive();
-		c.demarrerCapteurUltraSon();
+		capteurs = new Capteurs();
+		capteurs.capteurCouleurActive();
+		capteurs.capteurTactileActive();
+		capteurs.demarrerCapteurUltraSon();
 		System.out.print("Yo, je suis ready !");
 		Button.ENTER.waitForPress();
 		
@@ -78,7 +78,7 @@ public class LeDavid {
 		Roues.pivote(angle);
 		boussole.rotateDeg(angle);
 		int distance = ev.getDistanceRobotToAdresse(adressePalaisProche)-35;
-		Roues.rouleDist(distance, c); //Vérif facteur rouledist et capteurscapte
+		Roues.rouleDist(distance, capteurs); //Vérif facteur rouledist et capteurscapte
 		return calibrageFaceAuPalais(adressePalaisProche);
 		
 		
@@ -90,14 +90,14 @@ public class LeDavid {
 		Roues.pivote(angle);
 		boussole.rotateDeg(angle);
 		int distance = ev.getDistanceRobotToAdresse(adresseArrivee)-35;
-		Roues.rouleDist(distance, c);	
+		Roues.rouleDist(distance, capteurs);	
 		deposePalais();
 	}
 	
 	public void deposePalais() {
 		Pince.ouverture_music();
 		Roues.recule();
-		pince.fermeture(c);
+		pince.fermeture(capteurs);
 		calibrageDemiTour();
 	}
 	public int[] calibrageFaceAuPalais(int[] adresseDuPalaisQueAllaisChercher){
@@ -111,7 +111,7 @@ public class LeDavid {
 		int ii=0;
 		boolean bredouille = true;
 		while (Roues.moteur_droit.isMoving()) {
-			c.capteurUS.getDistanceMode().fetchSample(tab, ii);
+			capteurs.capteurUS.getDistanceMode().fetchSample(tab, ii);
 			if(tab[ii-1]>2*tab[ii]) { //2* à verifier car infinity et tester
 				bredouille=false;
 				break; 
@@ -128,8 +128,8 @@ public class LeDavid {
 	
 	public void recupererPalais() {
 		pince.ouverture();
-		Roues.rouleDist(35, c);
-		pince.fermeture(c);
+		Roues.rouleDist(35, capteurs);
+		pince.fermeture(capteurs);
 		Roues.pivote(-boussole.get());
 		boussole.set(0);
 	}
@@ -153,12 +153,12 @@ public class LeDavid {
 	}
 	public void calibrageDemiTour() {
 		//S'utilise lorsque le robot c'est arrété sur la ligne, après avoir posser le palais
-		c.demarrerCapteurUltraSon();
+		capteurs.demarrerCapteurUltraSon();
 		float[] tab = new float [1000000];
 		Roues.moteur_droit.rotateTo(260,true);
 		int ii=0;
 		while (Roues.moteur_droit.isMoving()) {
-			c.capteurUS.getDistanceMode().fetchSample(tab, ii);
+			capteurs.capteurUS.getDistanceMode().fetchSample(tab, ii);
 			if(tab[ii]<tab[ii-1]) break; 
 			ii++;
 		}
@@ -166,7 +166,7 @@ public class LeDavid {
 		Roues.moteur_droit.rotateTo(-260,true);
 		int i=0;
 		while (Roues.moteur_droit.isMoving()) {
-			c.capteurUS.getDistanceMode().fetchSample(tab, i);
+			capteurs.capteurUS.getDistanceMode().fetchSample(tab, i);
 			if(tab[i]<tab[ii-1]) break; 
 			i++;
 		}

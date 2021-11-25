@@ -35,7 +35,7 @@ public class Pince {
 	/**
     Ouvre la pince, que si elle est ouverte.
 	 */
-	public void fermeture(Capteur c) {
+	public void fermeture(Capteurs c) {
 		//inscrit memoire
 			if(ouverte) {
 				moteur_pince.rotateTo(-20);

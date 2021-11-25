@@ -34,7 +34,7 @@ public class Roues {
 	/**
     Avance tant qu'il detecte un pallet.
 	 */
-	public static void avanceTQpalet(Capteur c, Pince pince) {
+	public static void avanceTQpalet(Capteurs c, Pince pince) {
 		Pince.ouverture_mobile();
 		c.demarrerCapteurUltraSon();
 		moteur_droit.forward();
@@ -107,7 +107,7 @@ public class Roues {
 	/**
     Fonction en chantier.
 	 */
-	public static void pivoteUS (int degre,Capteur c) {
+	public static void pivoteUS (int degre,Capteurs c) {
 		c.demarrerCapteurUltraSon();
 		float[] tab = new float [1000000];
 		double degreD = degre*4.333;
@@ -160,7 +160,7 @@ public class Roues {
     Permet de savoir si le robot est sur une ligne de couleur ou si il y a un obstacle a moin 10 cm.
     @return True si sur une ligne de couleur ou si il y a un obsctacle a moin de 10 cm, false sinon.
 	 */
-	private static boolean capteursCaptent(Capteur c) {
+	private static boolean capteursCaptent(Capteurs c) {
 		int color = (int) c.getCouleur();
 		if (Carto.couleurDuInt(color)!=404)
 			Carto.travLigne(color);
@@ -172,7 +172,7 @@ public class Roues {
 	/**
     Permet d'accelerer de maniere moin brute.
 	 */
-	public static void demare(Capteur c) {
+	public static void demare(Capteurs c) {
 		int nAcc = 200; //definition du nb de marches d'accélération
 		for (int i=0; i<nAcc; i++) {
 			moteur_droit.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
@@ -189,7 +189,7 @@ public class Roues {
     Roule pendant un temps x
     @param temps en mili seconde
 	 */
-	public static void rouleTemps (int milisec, Capteur c) {
+	public static void rouleTemps (int milisec, Capteurs c) {
 		moteur_droit.setSpeed(VITESSE_MAX);
 		moteur_gauche.setSpeed(VITESSE_MAX);
 		moteur_droit.forward();
@@ -207,7 +207,7 @@ public class Roues {
     Roule pendant une distance x
     @param distance en metre.
 	 */
-	public static void rouleDist (int centimetre, Capteur c) {
+	public static void rouleDist (int centimetre, Capteurs c) {
 		double tourDeRoue = 2.8*Math.PI;//cm
 		double tourDeRoueParMiliSec = 0.234;//23,4 tour toute les 10s
 		double distParMiliSec = tourDeRoueParMiliSec * tourDeRoue;

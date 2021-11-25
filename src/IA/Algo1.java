@@ -1,7 +1,5 @@
 package IA;
 
-import Protocole.*;
-
 /**
 Une classe qui contient toute les aglorithmes qui pouront etre utilisee lors du tournois.
 */
