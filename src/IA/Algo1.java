@@ -13,11 +13,11 @@ public class Algo1 {
     @param un tableau de String
 	 */
 	public static void Forest_Gump(String[] args) throws InterruptedException {
-		Starter.Starter1(null);
-		while (1<2) {//boucle infini tkt frero
-			ProtocolesIR.goPaletProche();
-			ProtocolesIR.goMarquer();
-		}
+//		Starter.Starter1(null);
+//		while (1<2) {//boucle infini tkt frero
+//			ProtocolesIR.goPaletProche();
+//			ProtocolesIR.goMarquer();
+//		}
 	}
 
 }
