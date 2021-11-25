@@ -5,7 +5,8 @@ import lejos.hardware.motor.Motor;
 import lejos.utility.Delay;
 
 /**
-Une classe qui permet de controler les pinces du robot.
+ * Permet de controler les pinces du robot.
+ * @author noegr
 */
 public class Pince {
 	private boolean ouverte = false;

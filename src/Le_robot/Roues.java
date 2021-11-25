@@ -1,10 +1,8 @@
 package Le_robot;
 
-import java.util.Arrays;
-
-
 import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.Motor;
+import lejos.robotics.Color;
 import lejos.utility.Delay;
 
 /**
@@ -63,8 +61,6 @@ public class Roues {
 		moteur_droit.endSynchronization();
  	}
  	
-	
-	
 	/**
 	 * Demarre le moteur et recule petit à petit (aceleration).
 	 * @author noegr
@@ -85,12 +81,11 @@ public class Roues {
 			Memoire.setAvoirPalet(false);//alors on a pas/plus de palet
 	}
 	
-	
-	
 	/**
-    Pivote de l'angle fourni en parametre.
-    Pivote toujours sur la droite
-    @param degre : degre de rotation voulu
+	 * Pivote de l'angle fourni en parametre.
+	 * Pivote toujours sur la droite
+	 * @param degre : degre de rotation voulu
+	 * @author noegr
 	 */
 	public static void pivote (int degre) {
 		double degreD = degre*4.333;
@@ -110,47 +105,8 @@ public class Roues {
 	}
 	
 	/**
-    Fonction en chantier.
-	 */
-	public static void pivoteUS (int degre,Capteurs c) {
-		c.demarrerCapteurUltraSon();
-		float[] tab = new float [1000000];
-		double degreD = degre*4.333;
-		int degre2 = (int) Math.round(degreD);
-		try {
-			moteur_droit.rotateTo((-degre2)/2, true);
-			moteur_gauche.rotateTo(degre2/2, true);
-			int ii=0;
-			while (moteur_gauche.isMoving()) {
-				c.capteurUS.getDistanceMode().fetchSample(tab, ii);
-				ii++;//juste pour que le bot calclul
-			}
-			c.eteindreCapteurUltraSon();
-			int jj=0;
-			while(tab[jj]!=(float) 0) {
-				jj++;
-			}
-			tab = Arrays.copyOf(tab, jj);
-			float min = tab[0];
-			int indicdumin = 0;
-			for (int kk=1; kk<tab.length; kk++) {
-				if (min > tab[kk]) {
-					min = tab[kk];
-					indicdumin = kk;
-				}
-			}
-			int angle = (indicdumin/tab.length)*1560;
-			Roues.moteur_droit.rotateTo(angle);
-			System.out.println(""+angle+"   "+tab.length);
-		} catch (Throwable t) {
-			t.printStackTrace();
-			Delay.msDelay(10000);
-			System.exit(0);
-		}
-	}
-	
-	/**
-  Pivote de maniere a faire un demi tour, en partant soit a gauche, soit a droite (determiner de maniere aleatoire.
+	 * Pivote de maniere a faire un demi tour, a droite
+	 * @author noegr
 	 */
 	public static void demi_tour() {
 		pivote (180);
@@ -158,49 +114,53 @@ public class Roues {
 	
 	
 	
-	
 	//-----Avec capteurs :
 	
 	/**
-    Permet de savoir si le robot est sur une ligne de couleur ou si il y a un obstacle a moin 10 cm.
-    @return True si sur une ligne de couleur ou si il y a un obsctacle a moin de 10 cm, false sinon.
+	 * Permet de savoir si le robot est sur une ligne de couleur ou si il y a un obstacle a moin 10 cm.
+	 * @param capteurs : class Capteurs
+	 * @return True si sur une ligne de couleur ou si il y a un obsctacle a moin de 10 cm, false sinon.
+	 * @author noegr
 	 */
-	private static boolean capteursCaptent(Capteurs c) {
-		int color = (int) c.getCouleur();
+	private static boolean capteursCaptent(Capteurs capteurs) {
+		int color = (int) capteurs.getCouleur();
 		if (Carto.couleurDuInt(color)!=404)
 			Carto.travLigne(color);
-		if (c.getDistanceOb()<0.1)
+		if (capteurs.getDistanceOb()<0.1)
 			return true;
 		return false;
 	}
 	
 	/**
-    Permet d'accelerer de maniere moin brute.
+	 * Permet d'accelerer (0 -> VITESSE_MAX), tout en surveillant les rslts des capteurs
+	 * @author noegr
 	 */
-	public static void demare(Capteurs c) {
+	public static void demare(Capteurs capteurs) {
 		int nAcc = 200; //definition du nb de marches d'accélération
 		for (int i=0; i<nAcc; i++) {
 			moteur_droit.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
 			moteur_gauche.setSpeed(VITESSE_MAX/nAcc*i);
 			moteur_droit.forward();//lance le moteur 
 			moteur_gauche.forward();
-			if (capteursCaptent(c)) {stop(); return;}
-			Delay.msDelay(1);// attend 3ms
-			if (capteursCaptent(c)) {stop(); return;}
+			if (capteursCaptent(capteurs)) {stop(); return;}
+			Delay.msDelay(1);// attend 1ms
+			if (capteursCaptent(capteurs)) {stop(); return;}
 		}
 	}
 	
 	/**
-    Roule pendant un temps x
-    @param temps en mili seconde
+	 * Roule (VITESSE_MAX) pendant un temps x milisec, tout en surveillant les rslts des capteurs
+	 * @param temps en mili seconde
+	 * @param capteurs : class Capteurs
+	 * @author noegr
 	 */
-	public static void rouleTemps (int milisec, Capteurs c) {
+	public static void rouleTemps (int milisec, Capteurs capteurs) {
 		moteur_droit.setSpeed(VITESSE_MAX);
 		moteur_gauche.setSpeed(VITESSE_MAX);
 		moteur_droit.forward();
 		moteur_gauche.forward();
 		for (int ii=0; ii<milisec; ii+=3) {
-			if (capteursCaptent(c)) {
+			if (capteursCaptent(capteurs)) {
 				stop();
 				return;
 			}
@@ -209,15 +169,87 @@ public class Roues {
 	}
 	
 	/**
-    Roule pendant une distance x
-    @param distance en metre.
+	 * Roule pendant une distance x centimetre, tout en surveillant les rslts des capteurs
+	 * @param centimetre : int (distance a parcourir)
+	* @param capteurs : class Capteurs
+	* @author noegr
 	 */
-	public static void rouleDist (int centimetre, Capteurs c) {
+	public static void rouleDist (int centimetre, Capteurs capteurs) {
 		double tourDeRoue = 2.8*Math.PI;//cm
 		double tourDeRoueParMiliSec = 0.234;//23,4 tour toute les 10s
 		double distParMiliSec = tourDeRoueParMiliSec * tourDeRoue;
 		int milisec = (int) Math.round(centimetre / distParMiliSec);
-		rouleTemps(milisec,c);
+		rouleTemps(milisec, capteurs);
+	}
+	
+	
+	
+	//-------Juste lignes blanches
+	
+	/**
+	 * Permet de savoir si le robot est sur une ligne blanche ou si il y a un obstacle a moin 10 cm.
+	 * @param capteurs : class Capteurs
+	 * @return True si sur une ligne blanche ou si il y a un obsctacle a moin de 15 cm, false sinon.
+	 * @author noegr
+	 */
+	private static boolean capteursCaptent_onlyBlanc (Capteurs capteurs) {
+		int color = (int) capteurs.getCouleur();
+		if (Carto.couleurDuInt(color)!=404)
+			Carto.travLigne(color);
+		if (capteurs.getDistanceOb()<0.15 || color==Color.WHITE)
+			return true;
+		return false;
+	}
+	
+	/**
+	 * Permet d'accelerer (0 -> VITESSE_MAX), tout en surveillant les rslts des capteurs (ne prend en compte que la couleur blanche)
+	 * @author noegr
+	 */
+	public static void demare_onlyBlanc (Capteurs capteurs) {
+		int nAcc = 200; //definition du nb de marches d'accélération
+		for (int i=0; i<nAcc; i++) {
+			moteur_droit.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
+			moteur_gauche.setSpeed(VITESSE_MAX/nAcc*i);
+			moteur_droit.forward();//lance le moteur 
+			moteur_gauche.forward();
+			if (capteursCaptent_onlyBlanc(capteurs)) {stop(); return;}
+			Delay.msDelay(1);// attend 1ms
+			if (capteursCaptent_onlyBlanc(capteurs)) {stop(); return;}
+		}
+	}
+	
+	/**
+	 * Roule (VITESSE_MAX) pendant un temps x milisec, tout en surveillant les rslts des capteurs (ne prend en compte que la couleur blanche)
+	 * @param temps en mili seconde
+	 * @param capteurs : class Capteurs
+	 * @author noegr
+	 */
+	public static void rouleTemps_onlyBlanc (int milisec, Capteurs capteurs) {
+		moteur_droit.setSpeed(VITESSE_MAX);
+		moteur_gauche.setSpeed(VITESSE_MAX);
+		moteur_droit.forward();
+		moteur_gauche.forward();
+		for (int ii=0; ii<milisec; ii+=3) {
+			if (capteursCaptent_onlyBlanc(capteurs)) {
+				stop();
+				return;
+			}
+			Delay.msDelay(3);
+		}
+	}
+	
+	/**
+	 * Roule pendant une distance x centimetre, tout en surveillant les rslts des capteurs (ne prend en compte que la couleur blanche)
+	 * @param centimetre : int (distance a parcourir)
+	* @param capteurs : class Capteurs
+	* @author noegr
+	 */
+	public static void rouleDist_onlyBlanc (int centimetre, Capteurs capteurs) {
+		double tourDeRoue = 2.8*Math.PI;//cm
+		double tourDeRoueParMiliSec = 0.234;//23,4 tour toute les 10s
+		double distParMiliSec = tourDeRoueParMiliSec * tourDeRoue;
+		int milisec = (int) Math.round(centimetre / distParMiliSec);
+		rouleTemps_onlyBlanc(milisec, capteurs);
 	}
 	
 	
