@@ -1,7 +1,10 @@
 package Le_robot;
 import lejos.hardware.sensor.*;
+import lejos.robotics.Color;
 import lejos.utility.Delay;
 import java.util.Arrays;
+
+import lejos.hardware.BrickFinder;
 import lejos.hardware.Button;
 import lejos.hardware.port.*;
 
@@ -14,67 +17,77 @@ public class Capteur {
 	/**
     Instance qui contient le port necessaire pour appeler le ColorSensor.
 	 */
-	private static Port p1 = lejos.hardware.port.SensorPort.S1;
+	private Port p1;
 	/**
     Instance qui contient le port necessaire pour appeler le TouchSensor.
 	 */
-	private static Port p2 = lejos.hardware.port.SensorPort.S2;
+	private Port p2 = lejos.hardware.port.SensorPort.S2;
 	/**
     Instance qui contient le port necessaire pour appeler le UltrasonicSensor.
 	 */
-	private static Port p3 = lejos.hardware.port.SensorPort.S3;
+	private Port p3 = lejos.hardware.port.SensorPort.S3;
 	
 
 	
 	/**
     Instance du capteur de couleur.
 	 */
-	public static EV3ColorSensor capteurCo = new EV3ColorSensor(p1);
+	public EV3ColorSensor capteurCo;
 	/**
     Instance du capteur tactile.
 	 */
 
 	//Initialisation des instances des 3 capteurs (Ultrason,Couleur et tactile) :
-//	public static EV3ColorSensor capteurCo = new EV3ColorSensor(p1);
+//	public EV3ColorSensor capteurCo = new EV3ColorSensor(p1);
 
-	public static EV3TouchSensor capteurTa = new EV3TouchSensor(p2);
+	public EV3TouchSensor capteurTa;
 	/**
     Instance du capteur ultrason.
 	 */
-	public static EV3UltrasonicSensor capteurUS = new EV3UltrasonicSensor(p3);
+	public EV3UltrasonicSensor capteurUS;
 	
 	//Tableau de Float contennant les donnees des different capteur :
 	/**
     Instance contenant la dernier distance recuperer par la fonction distanceOb().
 	 */
-	public static float[] donneeSe = new float[1];
+	public float[] donneeSe = new float[1];
 
 	
-	private static float[] donneeCo = new float[1];	//Pas utilisée pour le moment 
+	private float[] donneeCo = new float[1];	//Pas utilisée pour le moment 
 	
 	/**
     Instance contenant le dernier etat du capteur tactile recuperer par la fonction capteurTactileActive().
 	 */
 
-//	private static float[] donneeCo = new float[1];
+//	private float[] donneeCo = new float[1];
 
-	private static float[] donneeTa = new float[1];
+	private float[] donneeTa = new float[1];
 	
+	public Capteur() {
+		p1 = BrickFinder.getLocal().getPort("S1");
+		capteurCo = new EV3ColorSensor(p1);
+		p2 = BrickFinder.getLocal().getPort("S3");
+		capteurTa = new EV3TouchSensor(p2);
+		p3 = BrickFinder.getLocal().getPort("S2");
+		capteurUS = new EV3UltrasonicSensor(p3);
+
+	}
 	
 	
 	//------------------UltraSon------------------
 	
+
 	/**
     Demarre le capteur d'Ultrason.
 	 */
-	public static void demarrerCapteurUltraSon() {
+	public void demarrerCapteurUltraSon() {
 		capteurUS.enable();
 	}
 	
 	/**
     Eteit le capteur d'Ultrason.
 	 */
-	public static void eteindreCapteurUltraSon() {
+	public void eteindreCapteurUltraSon() {
 		capteurUS.disable();
 	}
 	
@@ -82,7 +95,7 @@ public class Capteur {
 	/**
     Place dans l'instance donneeSe la distance de l'obstacle en face du robot.
 	 */
-	public static void distanceOb() {
+	public void distanceOb() {
 		
 
 		capteurUS.enable();
@@ -99,7 +112,7 @@ public class Capteur {
     Retourne la derniere distance mesurer par le robot.
     @return La valeur de la derniere distance mesurer avec distanceOb().
 	 */
-	public static float getDistanceOb() {
+	public float getDistanceOb() {
 		return donneeSe[0];
 	}
 	
@@ -149,7 +162,7 @@ public class Capteur {
     Permet de determiner si le capteur tactile est activer ou non.
     @return true si le capteur est active, false sinon.
 	 */
-	static public boolean capteurTactileActive() {
+	public boolean capteurTactileActive() {
 		capteurTa.getTouchMode().fetchSample(donneeTa, 0);
 		if (donneeTa[0] == 1){
 			return true;
@@ -162,11 +175,14 @@ public class Capteur {
 	
 	//-------------------Couleur----------------------
 	
-
+	public void capteurCouleurActive() {
+	capteurCo.setFloodlight(true);
+	capteurCo.setFloodlight(Color.WHITE);
+	}
 	/**
     Place l'ID de la couleur detecter dans le tableau donneeCo.
 	 */
-//	public static void couleurDetectee() {
+//	public void couleurDetectee() {
 //		
 //		capteurCo.getColorID().fetchSample(donneeCo, 0);
 //		
@@ -176,18 +192,18 @@ public class Capteur {
     Permet de savoir qu'elle est la couleur detecte par le robot.
     @return l'ID de la couleur detecter.
 	 */
-	public static float getCouleur() {			//Pas utile pour le moment
+	public float getCouleur() {			//Pas utile pour le moment
 		return donneeCo [0];
 	}
 
-//	public static int couleurDetectee() {
+//	public int couleurDetectee() {
 //		//Donne ID de la couleur detecter par le capteur de couleur en mode RGB
 ////		capteurCo.getColorIDMode();
 //		capteurCo.setFloodlight(false);
 //		return capteurCo.getColorID();
 //	}
 //	
-//	public static float getCouleur() {
+//	public float getCouleur() {
 //		return donneeCo [0];
 //	}
 	

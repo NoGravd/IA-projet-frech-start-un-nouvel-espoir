@@ -17,8 +17,8 @@ public class EV3Client {
 		//Initialise en prenant une adresse de démarrage (50,30 pour en bas à gauche par exemple)
 		this(adresseDemarrage);
 		this.autreJoueurMarque=autreJoueurMarque;
-		if(autreJoueurMarque) nbPalais = (adressesInstantT.length/2)-2; //Si il y a un autre joueur, alors le nb de palais c'est le nb total -2
-		else nbPalais = (adressesInstantT.length/2)-1; //sinon on enlève uniquement notre robot 
+		if(autreJoueurMarque) nbPalais = (adressesInstantT.length)-2; //Si il y a un autre joueur, alors le nb de palais c'est le nb total -2
+		else nbPalais = (adressesInstantT.length)-1; //sinon on enlève uniquement notre robot 
 		palaisALeurPlace = palaisPossible();
 	}
 	public EV3Client(int[] adresseDemarrage) {
@@ -69,8 +69,8 @@ public class EV3Client {
 		adresseRobot = adresseSimple;
 		indiceAdresseRobot = ad[0];
 		adressesInstantT=getAdresses();
-		if(autreJoueurMarque) nbPalais = (adressesInstantT.length/2)-2; 
-		else nbPalais = (adressesInstantT.length/2)-1;
+		if(autreJoueurMarque) nbPalais = (adressesInstantT.length)-2; 
+		else nbPalais = (adressesInstantT.length)-1;
 		palaisALeurPlace = palaisPossible();
 	}
   
@@ -172,6 +172,25 @@ public class EV3Client {
 	  return adressesActuelles[indice];
   }
   
+  public int getIndicePalaisLePlusProcheDuRobot() {
+	  int i=0; int idc=0;
+	  if(indiceAdresseRobot==i) {
+		  i++;
+		  idc=idc++;
+	  }
+	  int[] dif =differenceAuRobot(adressesInstantT[i]);
+	  for(i=i+1; i<adressesInstantT.length; i++) {
+		  if(i==indiceAdresseRobot) i++;
+		  else {
+			  int x = adressesInstantT[i][0];
+			  int y = adressesInstantT[i][1];
+			  int xMinimum = adressesInstantT[idc][0];
+			  int yMinimum = adressesInstantT[idc][1];
+			  if(x+y<xMinimum+yMinimum) idc = i;
+		  }
+	  }
+	  return idc;
+  }
   public int[] differenceAuRobot(int[] adresse) {
 	  //Retourne le vecteur différence du robot à l'adresse choisie
 	  return differenceAdresse(adresseRobot,adresse);
@@ -182,7 +201,7 @@ public class EV3Client {
 	  int xAdresse2 = adresse2[0];
 	  int yAdresse = adresse[1];
 	  int yAdresse2 = adresse2[1];
-	  int[] difference = {xAdresse-xAdresse2,yAdresse-yAdresse2};
+	  int[] difference = {xAdresse2-xAdresse,yAdresse2-yAdresse};
 	  return difference;
   }
   public double getAngleRobotToAdresse(int[] adresse) {
@@ -191,6 +210,14 @@ public class EV3Client {
 	  int[] dif = differenceAuRobot(adresse);
 	  double angle = Math.atan((double)dif[0]/(double)dif[1]);
 	  return angle;
+  }
+  public int getDistanceRobotToAdresse(int[] adresse) {
+	  int[] dif = differenceAuRobot(adresse);
+	  int x = adresse[0];
+	  int y = adresse[1];
+	  double distanceD = Math.sqrt((x*x)+(y*y));
+	  int distance = (int) distanceD;
+	  return distance;
   }
   public int[] palaisPossible() {
 		int[] adressePalaisTheorique = {50,90,100,90,150,90,50,150,100,150,150,150,50,210,100,210,150,210};
@@ -214,6 +241,9 @@ public class EV3Client {
 	  //demi-tour. Et on reboucle dans le while
 	  //Quand on sors du while on va au centre et on lance la musique
 	  return nbPalais==0;
+  }
+  public String toString() {
+	  return "["+this.adresseRobot[0]+","+this.adresseRobot[1]+"] et le nb de palais :"+this.nbPalais;
   }
 }
            

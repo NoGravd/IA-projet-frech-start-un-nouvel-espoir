@@ -31,9 +31,9 @@ public class Pince {
 	/**
     Ouvre la pince, que si elle est ouverte.
 	 */
-	public static void fermeture() {
+	public static void fermeture(Capteur c) {
 		if (Memoire.getEtatPince()) {//si Pince ouvertes
-			if (Capteur.capteurTactileActive())//si avoir palet
+			if (c.capteurTactileActive())//si avoir palet
 				Memoire.setAvoirPalet(true);//inscrit memoire
 			moteur_pince.rotateTo(-20);
 			Memoire.setEtatPince(false);

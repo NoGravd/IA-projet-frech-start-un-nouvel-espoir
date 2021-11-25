@@ -23,30 +23,30 @@ public class Roues {
 	/**
     Instance qui represente la liste des moteurs a syncrhoniser avec le moteur A pour avancer et reculer.
 	 */
-	public static final BaseRegulatedMotor[] l = new BaseRegulatedMotor[] {moteur_gauche};
+	static final BaseRegulatedMotor[] l = new BaseRegulatedMotor[] {moteur_gauche};
 	/**
     Instance qui represente la vitesse max du robot.
 	 */
-	public static final int VITESSE_MAX = (int) moteur_gauche.getMaxSpeed();
+	static final int VITESSE_MAX = (int) moteur_gauche.getMaxSpeed();
 	
 	
 	
 	/**
     Avance tant qu'il detecte un pallet.
 	 */
-	public static void avanceTQpalet() {
+	public static void avanceTQpalet(Capteur c) {
 		Pince.ouverture_mobile();
-		Capteur.demarrerCapteurUltraSon();
+		c.demarrerCapteurUltraSon();
 		moteur_droit.forward();
 		moteur_gauche.forward();
-		while (Capteur.getDistanceOb()>1) { //tant qu'il ne fonce pas dans 1 mur
-			while (!Capteur.capteurTactileActive())
+		while (c.getDistanceOb()>1) { //tant qu'il ne fonce pas dans 1 mur
+			while (!c.capteurTactileActive())
 				Delay.msDelay(1);
 			stop();
-			Pince.fermeture();
+			Pince.fermeture(c);
 		}
 		stop();
-		Capteur.eteindreCapteurUltraSon();
+		c.eteindreCapteurUltraSon();
 	}
 	
 	/**
@@ -75,7 +75,6 @@ public class Roues {
 			moteur_droit.backward();//lance le moteur 
 			moteur_gauche.backward();
 			Delay.msDelay(1);// attend 1ms
-			capteursCaptent();
 		}
 		stop();
 		if (Memoire.getEtatPince())//si les pince sont ouvertes
@@ -109,8 +108,8 @@ public class Roues {
 	/**
     Fonction en chantier.
 	 */
-	public static void pivoteUS (int degre) {
-		Capteur.demarrerCapteurUltraSon();
+	public static void pivoteUS (int degre,Capteur c) {
+		c.demarrerCapteurUltraSon();
 		float[] tab = new float [1000000];
 		double degreD = degre*4.333;
 		int degre2 = (int) Math.round(degreD);
@@ -119,10 +118,10 @@ public class Roues {
 			moteur_gauche.rotateTo(degre2/2, true);
 			int ii=0;
 			while (moteur_gauche.isMoving()) {
-				Capteur.capteurUS.getDistanceMode().fetchSample(tab, ii);
+				c.capteurUS.getDistanceMode().fetchSample(tab, ii);
 				ii++;//juste pour que le bot calclul
 			}
-			Capteur.eteindreCapteurUltraSon();
+			c.eteindreCapteurUltraSon();
 			int jj=0;
 			while(tab[jj]!=(float) 0) {
 				jj++;
@@ -162,11 +161,11 @@ public class Roues {
     Permet de savoir si le robot est sur une ligne de couleur ou si il y a un obstacle a moin 10 cm.
     @return True si sur une ligne de couleur ou si il y a un obsctacle a moin de 10 cm, false sinon.
 	 */
-	private static boolean capteursCaptent() {
-		int color = (int) Capteur.getCouleur();
+	private static boolean capteursCaptent(Capteur c) {
+		int color = (int) c.getCouleur();
 		if (Carto.couleurDuInt(color)!=404)
 			Carto.travLigne(color);
-		if (Capteur.getDistanceOb()<0.1)
+		if (c.getDistanceOb()<0.1)
 			return true;
 		return false;
 	}
@@ -174,16 +173,16 @@ public class Roues {
 	/**
     Permet d'accelerer de maniere moin brute.
 	 */
-	public static void demare() {
+	public static void demare(Capteur c) {
 		int nAcc = 200; //definition du nb de marches d'accélération
 		for (int i=0; i<nAcc; i++) {
 			moteur_droit.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
 			moteur_gauche.setSpeed(VITESSE_MAX/nAcc*i);
 			moteur_droit.forward();//lance le moteur 
 			moteur_gauche.forward();
-			if (capteursCaptent()) {stop(); return;}
+			if (capteursCaptent(c)) {stop(); return;}
 			Delay.msDelay(1);// attend 3ms
-			if (capteursCaptent()) {stop(); return;}
+			if (capteursCaptent(c)) {stop(); return;}
 		}
 	}
 	
@@ -191,13 +190,13 @@ public class Roues {
     Roule pendant un temps x
     @param temps en mili seconde
 	 */
-	public static void rouleTemps (int milisec) {
+	public static void rouleTemps (int milisec, Capteur c) {
 		moteur_droit.setSpeed(VITESSE_MAX);
 		moteur_gauche.setSpeed(VITESSE_MAX);
 		moteur_droit.forward();
 		moteur_gauche.forward();
 		for (int ii=0; ii<milisec; ii+=3) {
-			if (capteursCaptent()) {
+			if (capteursCaptent(c)) {
 				stop();
 				return;
 			}
@@ -209,13 +208,11 @@ public class Roues {
     Roule pendant une distance x
     @param distance en metre.
 	 */
-	public static void rouleDist (int centimetre) {
-		double tourDeRoue = 2.8*Math.PI;//cm
-		double tourDeRoueParMiliSec = 0.234;//23,4 tour toute les 10s
-		double distParMiliSec = tourDeRoueParMiliSec * tourDeRoue;
-		int milisec = (int) Math.round(centimetre / distParMiliSec);
-		rouleTemps(milisec);
+	public static void rouleDist (int centimetre, Capteur c) {
+		int facteur=0;//TODO
+		rouleTemps(centimetre*facteur,c);
 	}
+	
 	
 
 }
