@@ -2,7 +2,7 @@ package Le_robot;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import lejos.hardware.Button;
+
 
 public class EV3Client {
 	private int[]adresseRobot; //Adresse du robot à l'instant du dernier Refresh (ou init)
@@ -82,7 +82,8 @@ public class EV3Client {
 	      int port = 8888;
 
 	      // Create a socket to listen on the port.
-	      DatagramSocket dsocket = new DatagramSocket(port);
+	      @SuppressWarnings("resource")
+		DatagramSocket dsocket = new DatagramSocket(port);
 
 	      // Create a buffer to read datagrams into. If a
 	      // packet is larger than this buffer, the
@@ -178,7 +179,8 @@ public class EV3Client {
 		  i++;
 		  idc=idc++;
 	  }
-	  int[] dif =differenceAuRobot(adressesInstantT[i]);
+	  @SuppressWarnings("unused")
+	int[] dif =differenceAuRobot(adressesInstantT[i]);
 	  for(i=i+1; i<adressesInstantT.length; i++) {
 		  if(i==indiceAdresseRobot) i++;
 		  else {
@@ -212,7 +214,8 @@ public class EV3Client {
 	  return angle;
   }
   public int getDistanceRobotToAdresse(int[] adresse) {
-	  int[] dif = differenceAuRobot(adresse);
+	  @SuppressWarnings("unused")
+	int[] dif = differenceAuRobot(adresse);
 	  int x = adresse[0];
 	  int y = adresse[1];
 	  double distanceD = Math.sqrt((x*x)+(y*y));

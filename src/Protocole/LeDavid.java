@@ -52,7 +52,8 @@ public class LeDavid {
 		adresseArrivee = new int[2];
 		adresseArrivee[0] = xArrive;
 		adresseArrivee[1] = yArrive;
-		
+	
+		@SuppressWarnings("unused")
 		boolean marque=false;
 		System.out.println("L'adversaire est-il marque");
 		System.out.println("Gauche pour true (n'importe pour else)");
