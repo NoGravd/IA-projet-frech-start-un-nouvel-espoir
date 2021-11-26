@@ -3,13 +3,12 @@ import Le_robot.*;
 import lejos.hardware.Button;
 
 /**
- * centralise toute les class du robot, et fait des methode utilisable
- * @author noegr
- *@author hugoapeloig
- *@author TheoJ5
- *
- *@param adresseDemarrage : coordonnees de depart du robot
- *@param adresseArrivee : coordonnees TODO
+ * Centralise toute les class du robot, et fait des methode utilisable
+ * @param adresseDemarrage : int[] (coordonnees de depart du robot)
+ * @param adresseArrivee : int[] (coordonnees... TODO)
+ * 
+ * @author hugoapeloig
+ * @author TheoJ5
  */
 public class LeDavid {
 	protected int[] adresseDemarrage;
@@ -129,9 +128,9 @@ public class LeDavid {
 	 * Ouvre les pince, se recule, referme les pince, fait un demi tour
 	 */
 	public void deposePalais() {
-		Pince.ouverture_music();
+		pince.ouverture_music();
 		Roues.recule();
-		pince.fermeture(capteurs);
+		pince.fermeture();
 		calibrageDemiTour();
 	}
 	
@@ -164,7 +163,7 @@ public class LeDavid {
 	public void recupererPalais() {
 		pince.ouverture();
 		Roues.rouleDist(35, capteurs);
-		pince.fermeture(capteurs);
+		pince.fermeture();
 		Roues.pivote(-boussole.get());
 		boussole.set(0);
 	}

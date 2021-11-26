@@ -7,6 +7,11 @@ import lejos.utility.Delay;
 
 /**
 * Permet de deplacer le robot
+* @param moteur_droit : BaseRegulatedMotor (moteur droit/A)
+* @param moteur_gauche : BaseRegulatedMotor (moteur gauche/C)
+* @param l : BaseRegulatedMotor[] (liste contenant moteur_gauche)
+* @param VITESSE_MAX : int (vitesse maximal des moteurs)
+* 
 * @author noegr
 */
 public class Roues {
@@ -32,21 +37,24 @@ public class Roues {
 	
 	/**
 	 * Avance tant qu'il detecte un pallet.
+	 * @param capteurs : Capteurs
+	 * @param pince : Pince
+	 * 
 	 * @author noegr
 	 */
-	public static void avanceTQpalet(Capteurs c, Pince pince) {
-		Pince.ouverture_mobile();
-		c.demarrerCapteurUltraSon();
+	public static void avanceTQpalet(Capteurs capteurs, Pince pince) {
+		pince.ouverture_mobile();
+		capteurs.demarrerCapteurUltraSon();
 		moteur_droit.forward();
 		moteur_gauche.forward();
-		while (c.getDistanceOb()>1) { //tant qu'il ne fonce pas dans 1 mur
-			while (!c.capteurTactileActive())
+		while (capteurs.getDistanceOb()>1) { //tant qu'il ne fonce pas dans 1 mur
+			while (!capteurs.capteurTactileActive())
 				Delay.msDelay(1);
 			stop();
-			pince.fermeture(c);
+			pince.fermeture();
 		}
 		stop();
-		c.eteindreCapteurUltraSon();
+		capteurs.eteindreCapteurUltraSon();
 	}
 	
 	/**
@@ -170,9 +178,9 @@ public class Roues {
 	
 	/**
 	 * Roule pendant une distance x centimetre, tout en surveillant les rslts des capteurs
-	 * @param centimetre : int (distance a parcourir)
-	* @param capteurs : class Capteurs
-	* @author noegr
+	 *@param centimetre : int (distance a parcourir)
+	 * @param capteurs : class Capteurs
+	 * @author noegr
 	 */
 	public static void rouleDist (int centimetre, Capteurs capteurs) {
 		double tourDeRoue = 2.8*Math.PI;//cm
@@ -241,8 +249,8 @@ public class Roues {
 	/**
 	 * Roule pendant une distance x centimetre, tout en surveillant les rslts des capteurs (ne prend en compte que la couleur blanche)
 	 * @param centimetre : int (distance a parcourir)
-	* @param capteurs : class Capteurs
-	* @author noegr
+	 * @param capteurs : class Capteurs
+	 * @author noegr
 	 */
 	public static void rouleDist_onlyBlanc (int centimetre, Capteurs capteurs) {
 		double tourDeRoue = 2.8*Math.PI;//cm

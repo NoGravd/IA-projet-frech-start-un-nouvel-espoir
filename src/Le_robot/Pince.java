@@ -6,25 +6,33 @@ import lejos.utility.Delay;
 
 /**
  * Permet de controler les pinces du robot.
+ * @param ouverte : boolean (etat des pinces)
+ * @param moteur_pince : BaseRegulatedMotor (moteur des pinces)
+ * 
  * @author noegr
 */
 public class Pince {
+	
+	/**
+	 * Determine si les pinces sont ouvertes ou non
+	 */
 	private boolean ouverte = false;
 	/**
-    Instance qui permet de determiner le temps d'ouverture et de fermetur de la pince
-	 */
-	@SuppressWarnings("unused")
-	private static final int TIME_PINCE = 3000; //pas touche : ca marche
-	/**
-    Instance qui represente le moteur qui controle les pinces
+	 * Represente le moteur qui controle les pinces
 	 */
 	static final BaseRegulatedMotor moteur_pince = Motor.B;//moteur pince
 	
+	
+	
 	/**
-    Ouvre la pince, que si elle est ferme.
+	 * Constructeur inutil mais necessaire de la class Pince
+	 * @author hugoApeloig
 	 */
 	public Pince() {
 	}
+	
+	
+	
 	public void ouverture() {
 		if(!ouverte) {
 			moteur_pince.rotateTo(20);
@@ -34,10 +42,10 @@ public class Pince {
 	}
 	
 	/**
-    Ouvre la pince, que si elle est ouverte.
+	 * Ouvre la pince, que si elle est ouverte.
+	 * @author noegr
 	 */
-	public void fermeture(Capteurs c) {
-		//inscrit memoire
+	public void fermeture() {
 			if(ouverte) {
 				moteur_pince.rotateTo(-20);
 				ouverte = false;
@@ -45,11 +53,13 @@ public class Pince {
 		
 	}
 	
+	
 	/**
-    Ouvre la pince, que si elle est fermer.
+	 * Ouvre la pince, que si elle est fermer.
+	 * @author noegr
 	 */
-	public static void ouverture_mobile() {
-		if (!Memoire.getEtatPince()) {//si Pince fermees
+	public void ouverture_mobile() {
+		if (!ouverte) {//si Pince fermees
 			try {
 				int angle=20;
 				moteur_pince.rotateTo(angle, true);
@@ -59,15 +69,17 @@ public class Pince {
 				System.exit(0);
 			}
 			moteur_pince.stop();
-			Memoire.setEtatPince(true);
+			ouverte = true;
 		}
 	}
 	
+	
 	/**
-    Ouvre la pince en musique, que si elle est fermer.
+	 * Ouvre la pince en musique, que si elle est fermer.
+	 * @author noegr
 	 */
-	public static void ouverture_music() {
-		if (!Memoire.getEtatPince()) {//si Pince fermer
+	public void ouverture_music() {
+		if (!ouverte) {//si Pince fermer
 			try {
 				int angle=20;
 				moteur_pince.rotateTo(angle, true);
@@ -78,15 +90,17 @@ public class Pince {
 				System.exit(0);
 			}
 			moteur_pince.stop();
-			Memoire.setEtatPince(false);
+			ouverte = true;
 		}
 	}
 	
+	
 	/**
-    Ferme la pince en musique, que si elle est ouverte.
+	 * Ferme la pince en musique, que si elle est ouverte.
+	 * @author noegr
 	 */
-	public static void fermeture_music() {
-		if (Memoire.getEtatPince()) {//si Pince ouverte
+	public void fermeture_music() {
+		if (ouverte) {//si Pince ouverte
 			try {
 				int angle=20;
 				moteur_pince.rotateTo(angle, true);
@@ -97,7 +111,7 @@ public class Pince {
 				System.exit(0);
 			}
 			moteur_pince.stop();
-			Memoire.setEtatPince(false);
+			ouverte = false;
 		}
 	}
 }

@@ -10,59 +10,74 @@ import lejos.hardware.port.*;
 
 
 /**
-Une classe qui contient toute les fonctions permettant d'utiliser les capteurs que posede le robot.
+ * Contient toute les fonctions permettant d'utiliser les capteurs que posede le robot.
+ * @param p1 : Port
+ * @param p2 : Port
+ * @param p3 : Port
+ * @param capteurCo : EV3ColorSensor
+ * @param capteurTa : EV3TouchSensor
+ * @param capteurUS : EV3UltrasonicSensor
+ * @param donneeSe : float[1] (distance mesurer par capteurUS)
+ * @param donneeCo : float[1] (useless TODO)
+ * @param donneeTa : float[1] (activation du capteurTa)
+ * 
+ * @author noegr
+ * @author hugoapeloig
+ * @author TheoJ5
 */
 public class Capteurs {
 	
 	/**
-    Instance qui contient le port necessaire pour appeler le ColorSensor.
+	 * Contient le port necessaire pour appeler le ColorSensor.
 	 */
 	private Port p1;
 	/**
-    Instance qui contient le port necessaire pour appeler le TouchSensor.
+	 * Contient le port necessaire pour appeler le TouchSensor.
 	 */
-	private Port p2 = lejos.hardware.port.SensorPort.S2;
+	private Port p2;
 	/**
-    Instance qui contient le port necessaire pour appeler le UltrasonicSensor.
+	 * Contient le port necessaire pour appeler le UltrasonicSensor.
 	 */
-	private Port p3 = lejos.hardware.port.SensorPort.S3;
+	private Port p3;
 	
 
 	
 	/**
-    Instance du capteur de couleur.
+	 * Represente le capteur de couleur.
 	 */
 	public EV3ColorSensor capteurCo;
+	
 	/**
-    Instance du capteur tactile.
+	 * Represente le capteur tactile.
 	 */
-
-	//Initialisation des instances des 3 capteurs (Ultrason,Couleur et tactile) :
-//	public EV3ColorSensor capteurCo = new EV3ColorSensor(p1);
-
 	public EV3TouchSensor capteurTa;
+	
 	/**
-    Instance du capteur ultrason.
+	 * Represente le capteur ultrason.
 	 */
 	public EV3UltrasonicSensor capteurUS;
 	
-	//Tableau de Float contennant les donnees des different capteur :
+	
+	
+	//Tableaux de Float contennant les donnees des different capteur :
+	
 	/**
-    Instance contenant la dernier distance recuperer par la fonction distanceOb().
+	 * Contient la dernier distance recupere par la fonction distanceOb().
 	 */
 	public float[] donneeSe = new float[1];
-
 	
-	private float[] donneeCo = new float[1];	//Pas utilisée pour le moment 
+	private float[] donneeCo = new float[1];	//Pas utilisée pour le moment TODO
 	
 	/**
-    Instance contenant le dernier etat du capteur tactile recuperer par la fonction capteurTactileActive().
+	 * Contient le dernier etat du capteur tactile recuperer par la fonction capteurTactileActive().
 	 */
-
-//	private float[] donneeCo = new float[1];
-
 	private float[] donneeTa = new float[1];
 	
+	
+	/**
+	 * Constructeur de la class Capteurs
+	 * @author hugoapeloig
+	 */
 	public Capteurs() {
 		p1 = BrickFinder.getLocal().getPort("S1");
 		capteurCo = new EV3ColorSensor(p1);
@@ -78,14 +93,16 @@ public class Capteurs {
 	
 
 	/**
-    Demarre le capteur d'Ultrason.
+	 * Demarre le capteur d'Ultrason
+	 * @author TheoJ5
 	 */
 	public void demarrerCapteurUltraSon() {
 		capteurUS.enable();
 	}
 	
 	/**
-    Eteit le capteur d'Ultrason.
+	 * Eteit le capteur d'Ultrason
+	 * @author TheoJ5
 	 */
 	public void eteindreCapteurUltraSon() {
 		capteurUS.disable();
@@ -93,31 +110,32 @@ public class Capteurs {
 	
 	
 	/**
-    Place dans l'instance donneeSe la distance de l'obstacle en face du robot.
+	 * Place dans l'instance donneeSe la distance de l'obstacle en face du robot
+	 * @author TheoJ5
+	 * @author noegr
 	 */
 	public void distanceOb() {
-		
-
 		capteurUS.enable();
 		capteurUS.getDistanceMode().fetchSample(donneeSe, 0);
 		capteurUS.disable();
-
-//		capteurUS.enable();
-		capteurUS.getDistanceMode(); //.fetchSample(donneeSe, 0);
-//		capteurUS.disable();
-
+		capteurUS.getDistanceMode();
 	}
 	
 	/**
-    Retourne la derniere distance mesurer par le robot.
-    @return La valeur de la derniere distance mesurer avec distanceOb().
+	 * Retourne la derniere distance mesurer par le robot.
+	 * @return doneeSe[0] : float (la valeur de la derniere distance mesurer avec distanceOb())
+	 * 
+	 * @author TheoJ5
 	 */
 	public float getDistanceOb() {
 		return donneeSe[0];
 	}
 	
 	/**
-    Fait un tour sur lui-meme afin de trouver l'obstacle le plus proche et se tourne dans la direction de celui-ci.
+	 * Fait un tour sur lui-meme afin de trouver l'obstacle le plus proche et se tourne dans la direction de celui ci
+	 * @author noegr
+	 * @author hugoapeloig
+	 * @author TheoJ5
 	 */
 	public void sonnar() {
 		try {
@@ -159,8 +177,9 @@ public class Capteurs {
 	//-------------------Tactile---------------------
 	
 	/**
-    Permet de determiner si le capteur tactile est activer ou non.
-    @return true si le capteur est active, false sinon.
+	 * Permet de determiner si le capteur tactile est activer ou non.
+	 * @return boolean (true si le capteur est active, false sinon)
+	 * @author TheoJ5
 	 */
 	public boolean capteurTactileActive() {
 		capteurTa.getTouchMode().fetchSample(donneeTa, 0);
@@ -175,36 +194,23 @@ public class Capteurs {
 	
 	//-------------------Couleur----------------------
 	
+	/**
+	 * Active le capteur de couleur
+	 * @author hugoapeloig
+	 * @author TheoJ5
+	 */
 	public void capteurCouleurActive() {
 	capteurCo.setFloodlight(true);
 	capteurCo.setFloodlight(Color.WHITE);
 	}
-	/**
-    Place l'ID de la couleur detecter dans le tableau donneeCo.
-	 */
-//	public void couleurDetectee() {
-//		
-//		capteurCo.getColorID().fetchSample(donneeCo, 0);
-//		
-//	}
 	
 	/**
-    Permet de savoir qu'elle est la couleur detecte par le robot.
-    @return l'ID de la couleur detecter.
+	 * Permet de savoir qu'elle est la couleur detecte par le robot.
+	 * @return donneCo[0] : float (ID de la couleur detecter)
+	 * @author TheoJ5
 	 */
 	public float getCouleur() {			//Pas utile pour le moment
 		return donneeCo [0];
 	}
-
-//	public int couleurDetectee() {
-//		//Donne ID de la couleur detecter par le capteur de couleur en mode RGB
-////		capteurCo.getColorIDMode();
-//		capteurCo.setFloodlight(false);
-//		return capteurCo.getColorID();
-//	}
-//	
-//	public float getCouleur() {
-//		return donneeCo [0];
-//	}
 	
 }

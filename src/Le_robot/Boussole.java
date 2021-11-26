@@ -6,6 +6,8 @@ package Le_robot;
  * 0 = direction de depart du robot
  * 90 = le robot et tourner de 90 degre sur la droit par rapport a sa position de depart
  * 270 = idem mais sur la gauche
+ * @param boussole : int
+ * 
  * @author noegr
  */
 public class Boussole {
@@ -21,7 +23,8 @@ public class Boussole {
 	
 	/**
 	 * Modifie les valeurs des boussoles car le robot et en train de pivoter de [int degre].
-	 * @param degre Le degre de rotation du robot
+	 * @param degre : int (degre de rotation du robot)
+	 * 
 	 * @author noegr
 	 */
 	public void rotateDeg (int degre) {
@@ -33,8 +36,9 @@ public class Boussole {
 	}
 	
 	/**
-	 * retrourne la valeur de la boussole
-	 * @return int (la valeur de la boussole)
+	 * Retrourne la valeur de la boussole
+	 * @return boussole : int (la valeur de la boussole)
+	 * 
 	 * @author noegr
 	 */
 	public int get() {
@@ -42,8 +46,10 @@ public class Boussole {
 	}
 	
 	/**
-	 * modifie la valeur de la boussole
-	 * @param int (angle)
+	 * Modifie la valeur de la boussole
+	 * @param angle : int
+	 * 
+	 * @author hugoapeloig
 	 */
 	public void set (int angle){
 		boussole=0;

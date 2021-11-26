@@ -3,26 +3,80 @@ package Le_robot;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
-
+/**
+ * Gere tout se qu'il y a gerer par rapport a la camera infrarouge
+ * @param adresseRobot : int[] (coordonnee du robot)
+ * @param indiceAdresseRobot : int (TODO g pa compris)
+ * @param adresseInstantT : int[][] (TODO idem)
+ * @param nbPalais : int (nombre de palet sur le plateau)
+ * @param autreJoueurMarque : boolean (TODO je C pa)
+ * @param palaisALeurPlace : int[][] (coordonee de base des palets)
+ * @param adresseDeDemarrage : int[] (coordonne de demarage du robot)
+ * 
+ * @author hugoapeloig
+ * @author TheoJ5
+ */
 public class EV3Client {
-	private int[]adresseRobot; //Adresse du robot à l'instant du dernier Refresh (ou init)
-	private int indiceAdresseRobot; //indice de l'adresse du robot au dernier refresh (ou init)
-	private int[][] adressesInstantT; //Toute les adresse sous forme [x,y,x1,y1,x2,y2,etc.] (au dernier refresh)
-	private int nbPalais; //nombre de palais sur la plateau au dernier refresh
-	private boolean autreJoueurMarque;
-	private int[] palaisALeurPlace;
-	private int[] adresseDeDemarrage; //Une valeur FIXE qui est simplement l'adresse du démarrage
+	/**
+	 * Adresse du robot à l'instant du dernier Refresh (ou init)
+	 */
+	private int[] adresseRobot; 
 	
+	/**
+	 * Indice de l'adresse du robot au dernier refresh (ou init)
+	 */
+	private int indiceAdresseRobot; 
+	
+	/**
+	 * Toute les adresse sous forme [x,y,x1,y1,x2,y2,etc.] (au dernier refresh)
+	 */
+	private int[][] adressesInstantT;
+	
+	/**
+	 * Nombre de palais sur la plateau au dernier refresh
+	 */
+	private int nbPalais;
+	
+	/**
+	 * TODO
+	 */
+	private boolean autreJoueurMarque;
+	
+	/**
+	 * TODO
+	 */
+	private int[] palaisALeurPlace;
+	
+	/**
+	 * Valeur FIXE qui est simplement l'adresse du démarrage
+	 */
+	private int[] adresseDeDemarrage;
+	
+	
+	/**
+	 * Initialise en prenant une adresse de démarrage (50,30 pour en bas à gauche par exemple)
+	 * @param adresseDemarrage : int[] (coordonnee de depart du robot)
+	 * @param autreJoueurMarque : boolean (TODO)
+	 * 
+	 * @author hugoapeloig
+	 * @author TheoJ5
+	 */
 	public EV3Client(int[] adresseDemarrage, boolean autreJoueurMarque) {
-		//Initialise en prenant une adresse de démarrage (50,30 pour en bas à gauche par exemple)
 		this(adresseDemarrage);
 		this.autreJoueurMarque=autreJoueurMarque;
 		if(autreJoueurMarque) nbPalais = (adressesInstantT.length)-2; //Si il y a un autre joueur, alors le nb de palais c'est le nb total -2
 		else nbPalais = (adressesInstantT.length)-1; //sinon on enlève uniquement notre robot 
 		palaisALeurPlace = palaisPossible();
 	}
+	
+	/**
+	 * Initialise les adresses et l'indice du robot
+	 * @param adresseDemarrage
+	 * 
+	 * @author hugoapeloig
+	 * @author TheoJ5
+	 */
 	public EV3Client(int[] adresseDemarrage) {
-		//Initialise les adresses et l'indice du robot
 		int[] ad = adresseLaPlusProcheTotale(adresseDemarrage);
 		int[] adresseSimple = {ad[1],ad[2]}; //L'adresse la plus proche parmis toute celle du tableau
 		adresseRobot = adresseSimple; 
