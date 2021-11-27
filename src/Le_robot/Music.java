@@ -2,9 +2,11 @@ package Le_robot;
 
 import lejos.hardware.Sound;
 
+/**
+ * Contient des methodes static qui font faire de la musique au robot
+ * @author Noe GRAVRAND
+ */
 public class Music {
-	//class qui fait de la Zic'mu
-	//@author ${NG_le_musicos}
 	//ne me jugez pas j'ai beaucoup trop de temps libre
 	
 //	DO	
@@ -33,79 +35,79 @@ public class Music {
 	
 	//frequences des notes :
 	/**
-    Instance qui represente la frequence de la note DO.
+	 * Represente la frequence de la note DO.
 	 */
 	static private final int DO = 262;
 	/**
-    Instance qui represente la frequence de la note RE.
+	 * Represente la frequence de la note RE.
 	 */
 	static private final int RE = 287;
 	/**
-    Instance qui represente la frequence de la note MI.
+	 * Represente la frequence de la note MI.
 	 */
 	static private final int MI = 320;
 	/**
-    Instance qui represente la frequence de la note FA.
+	 * Represente la frequence de la note FA.
 	 */
 	static private final int FA = 349;
 	/**
-    Instance qui represente la frequence de la note SOL.
+	 * Represente la frequence de la note SOL.
 	 */
 	static private final int SOL = 392;
 	/**
-    Instance qui represente la frequence de la note LA.
+	 * Represente la frequence de la note LA.
 	 */
 	static private final int LA = 440;
 	/**
-    Instance qui represente la frequence de la note SI.
+	 * Represente la frequence de la note SI.
 	 */
 	static private final int SI = 494;
 	
 	//durees des notes (basees sur 1 sec) :
 	/**
-    Instance qui represente la durée d'une note noir.
+	 * Represente la durée d'une note noir.
 	 */
 	static private int T = 1000;//noire
 	/**
-    Instance qui represente la durée d'une note ronde.
+	 * Represente la durée d'une note ronde.
 	 */
 	static private int T1 = T*4;//ronde
 	/**
-    Instance qui represente la durée d'une note blanche.
+	 * Represente la durée d'une note blanche.
 	 */
 	static private int T2 = T*2;//blanche
 	/**
-    Instance qui represente la durée d'une note noir.
+	 * Represente la durée d'une note noir.
 	 */
 	static private int T3 = T;//noire
 	/**
-    Instance qui represente la durée d'un croche.
+	 * Represente la durée d'un croche.
 	 */
 	static private int T4 = T/2;//croche
 	/**
-    Instance qui represente la durée d'un double croche.
+	 * Represente la durée d'un double croche.
 	 */
 	static private int T5 = T/4;//double-croche
 	
 	@SuppressWarnings("unused")
 	/**
-    Instance qui represente le tempo n1.
+    Represente le tempo n1.
 	 */
 	static private int T1P = 6*T;
 	/**
-    Instance qui represente le tempo n2.
+	 * Represente le tempo n2.
 	 */
 	static private int T2P = 3*T;
 	/**
-    Instance qui represente le tempo n3.
+	 * Represente le tempo n3.
 	 */
 	static private int T3P = T3+(T/2);
 	/**
-    Instance qui represente le tempo n4.
+	 * Represente le tempo n4.
 	 */
 	static private int T4P = T4+(T/4);
 	/**
-    Instance qui represente le tempo n5.
+	 * Represente le tempo n5.
 	 */
 	@SuppressWarnings("unused")
 	static private int T5P = T5+(T/8);
@@ -114,8 +116,10 @@ public class Music {
 	//-----outils-------
 	
 	/**
-    Methode qui calcul le tempo.
-    @param temps en mili secondes.
+	 * <b>Calcul le tempo</b>
+	 * @param milisec : int
+	 * 
+	 * @author Noe GRAVRAND
 	 */
 	private static void tempo (int milisec) {
 		 int T =(int) milisec;//noire
@@ -135,9 +139,11 @@ public class Music {
 	}
 	
 	/**
-    Methode qui joue une note.
-    @param La note a jouer.
-    @param le temps de la note.
+	 * <b>Joue une note</b>
+	 * @param note : <i>int</i>
+	 * @param sec : <i>int</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
 	private static void note (int note, int sec) throws InterruptedException {
 		Sound.playTone(note,sec);//frequence note, duree sec
@@ -145,16 +151,20 @@ public class Music {
 	}
 	
 	/**
-    Methode qui permet de ne pas faire de sons pendant un certain temps.
-    @param temps en seconde.
+	* <b>Permet de ne pas faire de sons pendant un certain temps</b>
+	 * @param sec : <i>int</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
 	private static void silence (int sec) throws InterruptedException {
 		Thread.sleep(sec); // ne fait rien
 	}
 	
 	/**
-    Methode qui convertie des BPM en seconde.
-    @param temps en BPM.
+	 * <b>Methode qui convertie des BPM en secondes</b>
+	 * @param bpm : <i>int</i> (nombre de batement par minute
+	 * 
+	 * @author Noe GRAVRAND
 	 */
 	private static int milisecFromBPM (int bpm) {
 		return (int) (1000/Math.round(bpm/60));
@@ -164,7 +174,9 @@ public class Music {
 	//------music--------
 	
 	/**
-    Methode qui permet de tester la fonctionalite de la musique.
+	 * <b>Permet de tester la fonctionalite de la musique</b>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
 	public static void test() throws InterruptedException {
 		Sound.playTone(300,500);// frequence 300, duree 1/2 seconde
@@ -178,7 +190,8 @@ public class Music {
 		}
 	
 	/**
-    Methode qui permet de jouer hot cross buns.
+	 * <b>Permet de jouer Hot cross buns</b>
+	 * @author Noe GRAVRAND
 	 */
 	public static void Hot_Cross_Buns() throws InterruptedException {
 		tempo (1000);
@@ -203,7 +216,8 @@ public class Music {
 	}
 	
 	/**
-    Methode qui permet de jouer kalinka.
+	 * <b>Permet de jouer la Kalinka</b>
+	 * @author Noe GRAVRAND
 	 */
 	public static void Kalinka() throws InterruptedException {
 		for (int ii=0; ii<4; ii++) {//joue 4x
@@ -244,7 +258,7 @@ public class Music {
 	}
 	
 	/**
-    Methode qui permet de jouer Terminator main theme.
+	 * <b>Permet de jouer Terminator main theme.</b>
 	 */
 	public static void Terminator_main_theme() throws InterruptedException {
 		tempo (300);
@@ -293,7 +307,8 @@ public class Music {
 	}
 	
 	/**
-    Methode qui permet de jouer gonna fly now.
+	 * <b>Permet de jouer gonna fly now</b>
+	 * @author Noe GRAVRAND
 	 */
 	public static void Gonna_Fly_Now() throws InterruptedException {
 		tempo (500);
@@ -364,7 +379,8 @@ public class Music {
 	}
 	
 	/**
-    Methode qui permet de jouer Korobeiniki.
+	 * Permet de jouer Korobeiniki </b>
+	 * @author Noe GRAVRAND
 	 */
 	public static void Korobeiniki() throws InterruptedException {
 		tempo (milisecFromBPM(180));
@@ -435,7 +451,8 @@ public class Music {
 	}
 	
 	/**
-    Methode qui permet de jouer les gammes.
+	 * <b>Permet de jouer une gammes de notes</b>
+	 * @author Noe GRAVRAND
 	 */
 	public static void Gamme() throws InterruptedException {
 		note (DO, T3);
@@ -448,7 +465,8 @@ public class Music {
 	}
 	
 	/**
-    Methode qui permet de jouer la marseillaise.
+	 * <b>Permet de jouer la marseillaise</b>
+	 * @author Noe GRAVRAND
 	 */
 	public static void Marseillaise() throws InterruptedException {
 		tempo (milisecFromBPM(115));
@@ -671,7 +689,8 @@ public class Music {
 	}
 	
 	/**
-    Methode qui permet de jouer The imperial march.
+	 * Permet de jouer The imperial march</b>
+	 * @author Noe GRAVRAND
 	 */
 	public static void The_imperial_march() throws InterruptedException {
 		tempo(milisecFromBPM(180));
@@ -738,6 +757,10 @@ public class Music {
 		note (LA, T2);
 	}
 
+	/**
+	 * <b>Permet de jouer le jingle de Mcdo</b>
+	 * @author Noe GRAVRAND
+	 */
 	public static void Mcdo() throws InterruptedException {
 		tempo(milisecFromBPM(180));
 		

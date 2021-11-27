@@ -6,13 +6,13 @@ import lejos.robotics.Color;
 import lejos.utility.Delay;
 
 /**
-* Permet de deplacer le robot
-* @param moteur_droit : BaseRegulatedMotor (moteur droit/A)
-* @param moteur_gauche : BaseRegulatedMotor (moteur gauche/C)
-* @param l : BaseRegulatedMotor[] (liste contenant moteur_gauche)
-* @param VITESSE_MAX : int (vitesse maximal des moteurs)
+* <b>Permet de deplacer le robot</b>
+* @param moteur_droit : <i>BaseRegulatedMotor</i> (moteur droit/A)
+* @param moteur_gauche : <i>BaseRegulatedMotor</i> (moteur gauche/C)
+* @param liste : <i>BaseRegulatedMotor[]<i> (liste contenant moteur_gauche)
+* @param VITESSE_MAX : <i>int</i> (vitesse maximal des moteurs)
 * 
-* @author noegr
+* @author Noe GRAVRAND
 */
 public class Roues {
 	
@@ -27,7 +27,7 @@ public class Roues {
 	/**
 	 * Represente la liste des moteurs a syncrhoniser avec le moteur A pour avancer et reculer.
 	 */
-	static final BaseRegulatedMotor[] l = new BaseRegulatedMotor[] {moteur_gauche};
+	static final BaseRegulatedMotor[] liste = new BaseRegulatedMotor[] {moteur_gauche};
 	/**
 	 * Represente la vitesse max du robot.
 	 */
@@ -36,11 +36,11 @@ public class Roues {
 	
 	
 	/**
-	 * Avance tant qu'il detecte un pallet.
-	 * @param capteurs : Capteurs
-	 * @param pince : Pince
+	 * <b>Avance tant qu'il detecte un pallet</b>
+	 * @param capteurs : <i>Capteurs</i>
+	 * @param pince : <i>Pince</i>
 	 * 
-	 * @author noegr
+	 * @author Noe GRAVRAND
 	 */
 	public static void avanceTQpalet(Capteurs capteurs, Pince pince) {
 		pince.ouverture_mobile();
@@ -58,11 +58,11 @@ public class Roues {
 	}
 	
 	/**
-	 * Arrete tous les moteurs.
-	 * @author noegr
+	 * <b>Arrete tous les moteurs</b>
+	 * @author Noe GRAVRAND
 	 */
 	public static void stop() {
-		moteur_droit.synchronizeWith(l);
+		moteur_droit.synchronizeWith(liste);
 		moteur_droit.startSynchronization();
 		moteur_gauche.stop();
 		moteur_droit.stop();
@@ -70,8 +70,8 @@ public class Roues {
  	}
  	
 	/**
-	 * Demarre le moteur et recule petit à petit (aceleration).
-	 * @author noegr
+	 * <b>Demarre le moteur et recule petit a petit (aceleration)</b>
+	 * @author Noe GRAVRAND
 	 */
 	public static void recule() {
 		//accélération
@@ -90,10 +90,10 @@ public class Roues {
 	}
 	
 	/**
-	 * Pivote de l'angle fourni en parametre.
+	 * <b>Pivote de l'angle fourni en parametre</b><p>
 	 * Pivote toujours sur la droite
-	 * @param degre : degre de rotation voulu
-	 * @author noegr
+	 * @param degre : <i>int</i> (degre de rotation voulu)
+	 * @author Noe GRAVRAND
 	 */
 	public static void pivote (int degre) {
 		double degreD = degre*4.333;
@@ -113,8 +113,8 @@ public class Roues {
 	}
 	
 	/**
-	 * Pivote de maniere a faire un demi tour, a droite
-	 * @author noegr
+	 * <b>Pivote de maniere a faire un demi tour, a droite</b>
+	 * @author Noe GRAVRAND
 	 */
 	public static void demi_tour() {
 		pivote (180);
@@ -125,10 +125,10 @@ public class Roues {
 	//-----Avec capteurs :
 	
 	/**
-	 * Permet de savoir si le robot est sur une ligne de couleur ou si il y a un obstacle a moin 10 cm.
-	 * @param capteurs : class Capteurs
-	 * @return True si sur une ligne de couleur ou si il y a un obsctacle a moin de 10 cm, false sinon.
-	 * @author noegr
+	 * <b>Permet de savoir si le robot est sur une ligne de couleur ou si il y a un obstacle a moin 10 cm</b>
+	 * @param capteurs : <i>Capteurs</i>
+	 * @return <i>boolean</i> : <b>true</b> si sur une ligne de couleur ou si il y a un obsctacle a moin de 10 cm, <b>false</b> sinon.
+	 * @author Noe GRAVRAND
 	 */
 	private static boolean capteursCaptent(Capteurs capteurs) {
 		int color = (int) capteurs.getCouleur();
@@ -140,8 +140,8 @@ public class Roues {
 	}
 	
 	/**
-	 * Permet d'accelerer (0 -> VITESSE_MAX), tout en surveillant les rslts des capteurs
-	 * @author noegr
+	 * <b>Permet d'accelerer (0 -> VITESSE_MAX), tout en surveillant les rslts des capteurs</b>
+	 * @author Noe GRAVRAND
 	 */
 	public static void demare(Capteurs capteurs) {
 		int nAcc = 200; //definition du nb de marches d'accélération
@@ -157,10 +157,10 @@ public class Roues {
 	}
 	
 	/**
-	 * Roule (VITESSE_MAX) pendant un temps x milisec, tout en surveillant les rslts des capteurs
-	 * @param temps en mili seconde
-	 * @param capteurs : class Capteurs
-	 * @author noegr
+	 * <b>Roule (VITESSE_MAX) pendant un temps x milisec, tout en surveillant les rslts des capteurs</b>
+	 * @param milisec : <i>int</i> (temps de deplacement)
+	 * @param capteurs : <i>Capteurs</i>
+	 * @author Noe GRAVRAND
 	 */
 	public static void rouleTemps (int milisec, Capteurs capteurs) {
 		moteur_droit.setSpeed(VITESSE_MAX);
@@ -177,10 +177,10 @@ public class Roues {
 	}
 	
 	/**
-	 * Roule pendant une distance x centimetre, tout en surveillant les rslts des capteurs
-	 *@param centimetre : int (distance a parcourir)
-	 * @param capteurs : class Capteurs
-	 * @author noegr
+	 * <b>Roule pendant une distance x centimetre, tout en surveillant les rslts des capteurs</b>
+	 * @param centimetre : <i>int</i> (distance a parcourir)
+	 * @param capteurs : <i>Capteurs</i>
+	 * @author Noe GRAVRAND
 	 */
 	public static void rouleDist (int centimetre, Capteurs capteurs) {
 		double tourDeRoue = 2.8*Math.PI;//cm
@@ -195,10 +195,10 @@ public class Roues {
 	//-------Juste lignes blanches
 	
 	/**
-	 * Permet de savoir si le robot est sur une ligne blanche ou si il y a un obstacle a moin 10 cm.
-	 * @param capteurs : class Capteurs
-	 * @return True si sur une ligne blanche ou si il y a un obsctacle a moin de 15 cm, false sinon.
-	 * @author noegr
+	 * <b>Permet de savoir si le robot est sur une ligne blanche ou si il y a un obstacle a moin 10 cm</b>
+	 * @param capteurs : <i>Capteurs</i>
+	 * @return <i>boolean</i> : <b>true</b> si sur une ligne blanche ou si il y a un obsctacle a moin de 15 cm, <b>false</b> sinon.
+	 * @author Noe GRAVRAND
 	 */
 	private static boolean capteursCaptent_onlyBlanc (Capteurs capteurs) {
 		int color = (int) capteurs.getCouleur();
@@ -210,8 +210,8 @@ public class Roues {
 	}
 	
 	/**
-	 * Permet d'accelerer (0 -> VITESSE_MAX), tout en surveillant les rslts des capteurs (ne prend en compte que la couleur blanche)
-	 * @author noegr
+	 * <b>Permet d'accelerer (0 -> VITESSE_MAX), tout en surveillant les rslts des capteurs (ne prend en compte que la couleur blanche)</b>
+	 * @author Noe GRAVRAND
 	 */
 	public static void demare_onlyBlanc (Capteurs capteurs) {
 		int nAcc = 200; //definition du nb de marches d'accélération
@@ -227,10 +227,10 @@ public class Roues {
 	}
 	
 	/**
-	 * Roule (VITESSE_MAX) pendant un temps x milisec, tout en surveillant les rslts des capteurs (ne prend en compte que la couleur blanche)
-	 * @param temps en mili seconde
-	 * @param capteurs : class Capteurs
-	 * @author noegr
+	 * <b>Roule (VITESSE_MAX) pendant un temps x milisec, tout en surveillant les rslts des capteurs (ne prend en compte que la couleur blanche)</b>
+	 * @param milisec : <i>int</i> (temps de deplacement)
+	 * @param capteurs : <i>Capteurs</i>
+	 * @author Noe GRAVRAND
 	 */
 	public static void rouleTemps_onlyBlanc (int milisec, Capteurs capteurs) {
 		moteur_droit.setSpeed(VITESSE_MAX);
@@ -247,10 +247,10 @@ public class Roues {
 	}
 	
 	/**
-	 * Roule pendant une distance x centimetre, tout en surveillant les rslts des capteurs (ne prend en compte que la couleur blanche)
-	 * @param centimetre : int (distance a parcourir)
-	 * @param capteurs : class Capteurs
-	 * @author noegr
+	 * <b>Roule pendant une distance x centimetre, tout en surveillant les rslts des capteurs (ne prend en compte que la couleur blanche)</b>
+	 * @param centimetre : <i>int</i> (distance a parcourir)
+	 * @param capteurs : <i>Capteurs</i>
+	 * @author Noe GRAVRAND
 	 */
 	public static void rouleDist_onlyBlanc (int centimetre, Capteurs capteurs) {
 		double tourDeRoue = 2.8*Math.PI;//cm

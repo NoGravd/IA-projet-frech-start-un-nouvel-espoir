@@ -4,17 +4,15 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
 /**
- * Gere tout se qu'il y a gerer par rapport a la camera infrarouge
- * @param adresseRobot : int[] (coordonnee du robot)
- * @param indiceAdresseRobot : int (TODO g pa compris)
- * @param adresseInstantT : int[][] (TODO idem)
- * @param nbPalais : int (nombre de palet sur le plateau)
- * @param autreJoueurMarque : boolean (TODO je C pa)
- * @param palaisALeurPlace : int[][] (coordonee de base des palets)
- * @param adresseDeDemarrage : int[] (coordonne de demarage du robot)
- * 
- * @author hugoapeloig
- * @author TheoJ5
+ * <b>Gere tout se qu'il y a gerer par rapport a la camera infrarouge</b>
+ * @param adresseRobot : <i>int[]</i> (coordonnee du robot)
+ * @param indiceAdresseRobot : <i>int</i> (TODO g pa compris)
+ * @param adresseInstantT : <i>int[][]</i> (TODO idem)
+ * @param nbPalais : <i>int</i> (nombre de palet sur le plateau)
+ * @param autreJoueurMarque : <i>boolean</i> (TODO je C pa)
+ * @param palaisALeurPlace : <i>int[][]</i> (coordonee de base des palets)
+ * @param adresseDeDemarrage : <i>int[]</i> (coordonne de demarage du robot)
+ * @author Hugo Apeloig, Theo Julliat
  */
 public class EV3Client {
 	/**
@@ -48,18 +46,17 @@ public class EV3Client {
 	private int[] palaisALeurPlace;
 	
 	/**
-	 * Valeur FIXE qui est simplement l'adresse du démarrage
+	 * Valeur FIXE qui est simplement l'adresse du demarrage
 	 */
 	private int[] adresseDeDemarrage;
 	
 	
 	/**
-	 * Initialise en prenant une adresse de démarrage (50,30 pour en bas à gauche par exemple)
-	 * @param adresseDemarrage : int[] (coordonnee de depart du robot)
-	 * @param autreJoueurMarque : boolean (TODO)
+	 * Initialise en prenant une adresse de dzmarrage (50,30 pour en bas a gauche par exemple)
+	 * @param adresseDemarrage : <i>int[]</i> (coordonnee de depart du robot)
+	 * @param autreJoueurMarque : <i>boolean</i> (TODO)
 	 * 
-	 * @author hugoapeloig
-	 * @author TheoJ5
+	 * @author Hugo Apeloig, Theo Julliat
 	 */
 	public EV3Client(int[] adresseDemarrage, boolean autreJoueurMarque) {
 		this(adresseDemarrage);
@@ -71,12 +68,12 @@ public class EV3Client {
 	
 	/**
 	 * Initialise les adresses et l'indice du robot
-	 * @param adresseDemarrage
+	 * @param adresseDemarrage : <i> int[]</i>
 	 * 
-	 * @author hugoapeloig
-	 * @author TheoJ5
+	 * @author Hugo Apeloig, Theo Julliat
 	 */
 	public EV3Client(int[] adresseDemarrage) {
+
 		int[] ad = adresseLaPlusProcheTotale(adresseDemarrage);
 		int[] adresseSimple = {ad[1],ad[2]}; //L'adresse la plus proche parmis toute celle du tableau
 		adresseRobot = adresseSimple; 

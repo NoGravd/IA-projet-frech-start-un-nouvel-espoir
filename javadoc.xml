@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="." destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="IA,Protocole,Le_robot" source="1.7" sourcepath="src" splitindex="true" use="true" version="true">
+            <link href="https://docs.oracle.com/en/java/javase/12/docs/api/"/>
+            <link href="file:/C:/Users/noegr/Desktop/fac/Licence%20MIASHS/L3%20MIASHS/S5/IA/le%20dos%20du%20prjt/IA-projet-frech-start-un-nouvel-espoir/doc/"/>
+        </javadoc>
+    </target>
+</project>

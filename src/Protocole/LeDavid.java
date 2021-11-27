@@ -4,11 +4,10 @@ import lejos.hardware.Button;
 
 /**
  * Centralise toute les class du robot, et fait des methode utilisable
- * @param adresseDemarrage : int[] (coordonnees de depart du robot)
- * @param adresseArrivee : int[] (coordonnees... TODO)
+ * @param adresseDemarrage : <i>int[]</i> (coordonnees de depart du robot)
+ * @param adresseArrivee : <i>int[]</i> (coordonnees... TODO)
  * 
- * @author hugoapeloig
- * @author TheoJ5
+ * @author Hugo Apeloig, Theo Julliat
  */
 public class LeDavid {
 	protected int[] adresseDemarrage;
@@ -21,7 +20,8 @@ public class LeDavid {
 	
 	
 	/**
-	 Initialise tous ce qu'il y a a initialiser : capteur, ev3client
+	 * <b>Initialise tous ce qu'il y a a initialiser : capteur, ev3client</b>
+	 * @author Hugo Apeloig, Theo Julliat
 	 */
 	public LeDavid() {
 		initialiseCapteurC();
@@ -29,7 +29,8 @@ public class LeDavid {
 	}
 	
 	/**
-	 Initialise tout les capteurs et attend la press du bouton pour terminer
+	 * <b>Initialise tout les capteurs et attend la press du bouton pour terminer</b>
+	 * @author Hugo Apeloig, Theo Julliat
 	 */
 	public void initialiseCapteurC() {
 		capteurs = new Capteurs();
@@ -42,7 +43,9 @@ public class LeDavid {
 	}
 	
 	/**
-	 Initialise ev3client, demande via ecran et boutons sur quel emplacement il se trouve ainsi que le robot adverse
+	 * <b>Initialise ev3client :</b><p>
+	 * Demande via ecran et boutons quel est l'emplacement du robot se trouve ainsi que celui du robot adverse</b>
+	 * @author Hugo Apeloig, Theo Julliat
 	 */
 	public void initialiseClient() {
 		System.out.println("Vous etes a droite ou a gauche ?");
@@ -93,6 +96,13 @@ public class LeDavid {
 	
 	
 	
+	/**
+	 * TODO
+	 * @param emplacement : <i>int[]</i>
+	 * @return <i>int[]</i> : TODO
+	 * 
+	 * @author Hugo Apeloig, Theo Julliat
+	 */
 	public int[] leSangDeSesMorts(int[] emplacement) {
 		//boussole.getEmplacement();
 		ev.refreshAvecLocalisation(emplacement);
@@ -109,10 +119,12 @@ public class LeDavid {
 	}
 	
 	/**
-	 * Se deplace jusqu a la base adv :
-	 * tourne sur lui meme direction base adv
-	 * avance tout droit jusque ligne Blanche
-	 * @param adresseDuPalaisQueAllaisChercher
+	 * <il><b>Se deplace jusqu a la base adv :</b></il>
+	 * <ul>Tourne sur lui meme direction base adv</ul>
+	 * <ul>Avance tout droit jusque ligne Blanche</ul>
+	 * @param adresseDuPalaisQueAllaisChercher : <i>int[]</i>
+	 * 
+	 * @author Hugo Apeloig, Theo Julliat
 	 */
 	public void retourVictorieux(int[] adresseDuPalaisQueAllaisChercher) {
 		ev.refreshAvecLocalisation(adresseDuPalaisQueAllaisChercher);
@@ -125,7 +137,8 @@ public class LeDavid {
 	}
 	
 	/**
-	 * Ouvre les pince, se recule, referme les pince, fait un demi tour
+	 * <b>Ouvre les pince, se recule, referme les pince, fait un demi tour</b>
+	 * @author Hugo Apeloig, Theo Julliat
 	 */
 	public void deposePalais() {
 		pince.ouverture_music();
@@ -134,6 +147,13 @@ public class LeDavid {
 		calibrageDemiTour();
 	}
 	
+	/**
+	 * TODO
+	 * @param adresseDuPalaisQueAllaisChercher : <i>int[]</i>
+	 * @return <i>int[]</i> : TODO
+	 * 
+	 * @author Hugo Apeloig, Theo Julliat
+	 */
 	public int[] calibrageFaceAuPalais(int[] adresseDuPalaisQueAllaisChercher){
 		//Après avoir rouler une certaine distance en direction du palais
 		//le robot parcours un angle de 60 degré et s'arrète immédiatement 

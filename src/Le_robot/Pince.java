@@ -5,16 +5,17 @@ import lejos.hardware.motor.Motor;
 import lejos.utility.Delay;
 
 /**
- * Permet de controler les pinces du robot.
- * @param ouverte : boolean (etat des pinces)
- * @param moteur_pince : BaseRegulatedMotor (moteur des pinces)
+ * <b>Permet de controler les pinces du robot</b>
+ * @param ouverte : <i>boolean</i> (etat des pinces)
+ * @param moteur_pince : <i>BaseRegulatedMotor</i> (moteur des pinces)
+ * @param angle : <i>int</i> (angle de rotation des moteur necessaire)
  * 
- * @author noegr
+ * @author Noe GRAVRAND
 */
 public class Pince {
 	
 	/**
-	 * Determine si les pinces sont ouvertes ou non
+	 * Represente si les pinces sont ouvertes ou non
 	 */
 	private boolean ouverte = false;
 	/**
@@ -22,32 +23,41 @@ public class Pince {
 	 */
 	static final BaseRegulatedMotor moteur_pince = Motor.B;//moteur pince
 	
+	/**
+	 * Represente l'angle de rotation des moteurs necessaire pour ouvrire les pinces
+	 */
+	private final int angle=20;
+	
 	
 	
 	/**
-	 * Constructeur inutil mais necessaire de la class Pince
-	 * @author hugoApeloig
+	 * <b>Constructeur inutil mais necessaire de la class Pince</b>
+	 * @author Hugo Apeloig
 	 */
 	public Pince() {
 	}
 	
 	
 	
+	/**
+	 * <b>Ouvre les pince, que si elles sont fermes</b>
+	 * @author Noe GRAVRAND
+	 */
 	public void ouverture() {
 		if(!ouverte) {
-			moteur_pince.rotateTo(20);
+			moteur_pince.rotateTo(angle);
 			ouverte =true;
 		}
 		
 	}
 	
 	/**
-	 * Ouvre la pince, que si elle est ouverte.
-	 * @author noegr
+	 * <b>Ouvre les pinces, que si elles sont ouvertes</b>
+	 * @author Noe GRAVRAND
 	 */
 	public void fermeture() {
 			if(ouverte) {
-				moteur_pince.rotateTo(-20);
+				moteur_pince.rotateTo(-angle);
 				ouverte = false;
 			}
 		
@@ -55,13 +65,12 @@ public class Pince {
 	
 	
 	/**
-	 * Ouvre la pince, que si elle est fermer.
-	 * @author noegr
+	 * <b>Ouvre les pinces, que si elles sont fermes</b>
+	 * @author Noe GRAVRAND
 	 */
 	public void ouverture_mobile() {
-		if (!ouverte) {//si Pince fermees
+		if (!ouverte) {//si pinces fermees
 			try {
-				int angle=20;
 				moteur_pince.rotateTo(angle, true);
 			} catch (Throwable t) {
 				t.printStackTrace();
@@ -75,13 +84,12 @@ public class Pince {
 	
 	
 	/**
-	 * Ouvre la pince en musique, que si elle est fermer.
-	 * @author noegr
+	 * <b>Ouvre les pinces en musique, que si elles sont fermes</b>
+	 * @author Noe GRAVRAND
 	 */
 	public void ouverture_music() {
-		if (!ouverte) {//si Pince fermer
+		if (!ouverte) {//si pinces fermes
 			try {
-				int angle=20;
 				moteur_pince.rotateTo(angle, true);
 				Music.Mcdo();
 			} catch (Throwable t) {
@@ -96,14 +104,13 @@ public class Pince {
 	
 	
 	/**
-	 * Ferme la pince en musique, que si elle est ouverte.
-	 * @author noegr
+	 * <b>Ferme les pinces en musique, que si elles sont ouvertes</b>
+	 * @author Noe GRAVRAND
 	 */
 	public void fermeture_music() {
-		if (ouverte) {//si Pince ouverte
+		if (ouverte) {//si pinces ouvertes
 			try {
-				int angle=20;
-				moteur_pince.rotateTo(angle, true);
+				moteur_pince.rotateTo(-angle, true);
 				Music.Mcdo();
 			} catch (Throwable t) {
 				t.printStackTrace();

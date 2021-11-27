@@ -10,20 +10,18 @@ import lejos.hardware.port.*;
 
 
 /**
- * Contient toute les fonctions permettant d'utiliser les capteurs que posede le robot.
- * @param p1 : Port
- * @param p2 : Port
- * @param p3 : Port
- * @param capteurCo : EV3ColorSensor
- * @param capteurTa : EV3TouchSensor
- * @param capteurUS : EV3UltrasonicSensor
- * @param donneeSe : float[1] (distance mesurer par capteurUS)
- * @param donneeCo : float[1] (useless TODO)
- * @param donneeTa : float[1] (activation du capteurTa)
+ * <b>Contient toute les fonctions permettant d'utiliser les capteurs que posede le robot</b>
+ * @param p1 : <i>Port</i>
+ * @param p2 : <i>Port</i>
+ * @param p3 : <i>Port</i>
+ * @param capteurCo : <i>EV3ColorSensor</i>
+ * @param capteurTa : <i>EV3TouchSensor</i>
+ * @param capteurUS : <i>EV3UltrasonicSensor</i>
+ * @param donneeSe : <i>float[]</i> (distance mesurer par capteurUS)
+ * @param donneeCo : <i>float[]</i> (useless TODO)
+ * @param donneeTa : <i>float[]</i> (activation du capteurTa)
  * 
- * @author noegr
- * @author hugoapeloig
- * @author TheoJ5
+ * @author Noe GRAVRAND, Hugo Apeloig, Theo Julliat
 */
 public class Capteurs {
 	
@@ -75,8 +73,8 @@ public class Capteurs {
 	
 	
 	/**
-	 * Constructeur de la class Capteurs
-	 * @author hugoapeloig
+	 * <b>Constructeur de la class Capteurs</b>
+	 * @author Hugo Apeloig
 	 */
 	public Capteurs() {
 		p1 = BrickFinder.getLocal().getPort("S1");
@@ -93,26 +91,24 @@ public class Capteurs {
 	
 
 	/**
-	 * Demarre le capteur d'Ultrason
-	 * @author TheoJ5
+	 * <b>Demarre le capteur d'Ultrason</b>
+	 * @author Theo Julliat
 	 */
 	public void demarrerCapteurUltraSon() {
 		capteurUS.enable();
 	}
 	
 	/**
-	 * Eteit le capteur d'Ultrason
-	 * @author TheoJ5
+	 * <b>Eteit le capteur d'Ultrason</b>
+	 * @author Theo Julliat
 	 */
 	public void eteindreCapteurUltraSon() {
 		capteurUS.disable();
 	}
 	
-	
 	/**
-	 * Place dans l'instance donneeSe la distance de l'obstacle en face du robot
-	 * @author TheoJ5
-	 * @author noegr
+	 * <b>Place dans l'instance donneeSe la distance de l'obstacle en face du robot</b>
+	 * @author Noe GRAVRAND, Theo Julliat
 	 */
 	public void distanceOb() {
 		capteurUS.enable();
@@ -122,20 +118,18 @@ public class Capteurs {
 	}
 	
 	/**
-	 * Retourne la derniere distance mesurer par le robot.
-	 * @return doneeSe[0] : float (la valeur de la derniere distance mesurer avec distanceOb())
+	 * <b>Retourne la derniere distance mesurer par le robot</b>
+	 * @return doneeSe[0] : <i>float</i> (la valeur de la derniere distance mesurer avec distanceOb())
 	 * 
-	 * @author TheoJ5
+	 * @author Theo Julliat
 	 */
 	public float getDistanceOb() {
 		return donneeSe[0];
 	}
 	
 	/**
-	 * Fait un tour sur lui-meme afin de trouver l'obstacle le plus proche et se tourne dans la direction de celui ci
-	 * @author noegr
-	 * @author hugoapeloig
-	 * @author TheoJ5
+	 * <b>Fait un tour sur lui meme afin de trouver l'obstacle le plus proche et se tourne dans la direction de celui ci</b>
+	 * @author Hugo Apeloig, Noe GRAVRAND, Theo Julliat
 	 */
 	public void sonnar() {
 		try {
@@ -177,9 +171,9 @@ public class Capteurs {
 	//-------------------Tactile---------------------
 	
 	/**
-	 * Permet de determiner si le capteur tactile est activer ou non.
-	 * @return boolean (true si le capteur est active, false sinon)
-	 * @author TheoJ5
+	 * <b>Permet de determiner si le capteur tactile est activer ou non</b>
+	 * @return <i>boolean</i> : <b>true</b> si le capteur est active, <b>false</b> sinon
+	 * @author Theo Julliat
 	 */
 	public boolean capteurTactileActive() {
 		capteurTa.getTouchMode().fetchSample(donneeTa, 0);
@@ -195,9 +189,8 @@ public class Capteurs {
 	//-------------------Couleur----------------------
 	
 	/**
-	 * Active le capteur de couleur
-	 * @author hugoapeloig
-	 * @author TheoJ5
+	 * <b>Active le capteur de couleur</b>
+	 * @author Hugo Apeloig, Theo Julliat
 	 */
 	public void capteurCouleurActive() {
 	capteurCo.setFloodlight(true);
@@ -205,11 +198,11 @@ public class Capteurs {
 	}
 	
 	/**
-	 * Permet de savoir qu'elle est la couleur detecte par le robot.
-	 * @return donneCo[0] : float (ID de la couleur detecter)
-	 * @author TheoJ5
+	 * <b>Permet de savoir qu'elle est la couleur detecte par le robot</b>
+	 * @return donneCo[] : <i>float</i> (ID de la couleur detecter)
+	 * @author Theo Julliat
 	 */
-	public float getCouleur() {			//Pas utile pour le moment
+	public float getCouleur() {//Pas utile pour le moment
 		return donneeCo [0];
 	}
 	
