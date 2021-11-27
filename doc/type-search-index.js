@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"Le_robot","l":"EV3Client"}]
+typeSearchIndex = [{"p":"IA","l":"Algo1"},{"l":"All Classes","url":"allclasses-index.html"},{"p":"Le_robot","l":"Boussole"},{"p":"Le_robot","l":"Capteurs"},{"p":"Le_robot","l":"Carto"},{"p":"Le_robot","l":"EV3Client"},{"p":"Protocole","l":"Launcher"},{"p":"Protocole","l":"LeDavid"},{"p":"Le_robot","l":"Memoire"},{"p":"Le_robot","l":"Music"},{"p":"Le_robot","l":"Pince"},{"p":"Le_robot","l":"Roues"}]
