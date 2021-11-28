@@ -19,11 +19,11 @@ public class Roues {
 	/**
 	 * Represente le moteur controleur par la roue droite.
 	 */
-	public static final BaseRegulatedMotor moteur_droit = Motor.A;//roue droite
+	public static final BaseRegulatedMotor moteur_droit = Motor.A;//roue droite 
 	/**
 	* Represente le moteur controler par la roue gauche.
 	 */
-	public static final BaseRegulatedMotor moteur_gauche = Motor.C;//roue gauche
+	public static final BaseRegulatedMotor moteur_gauche = Motor.C;//roue gauche 
 	/**
 	 * Represente la liste des moteurs a syncrhoniser avec le moteur A pour avancer et reculer.
 	 */
@@ -261,5 +261,37 @@ public class Roues {
 	}
 	
 	
+	
+	//-------Aveugle
+	
+	/**
+	 * <b>Roule pendant une distance x centimetre, ne prend pas en compte les capteurs</b>
+	 * @param centimetre : <i>int</i>
+	 * 
+	 * @author Noe GRAVRAND
+	 */
+	public static void rouleDist_aveugle(int centimetre) {
+		double tourDeRoue = 2.8*Math.PI;//cm
+		double tourDeRoueParMiliSec = 0.234;//23,4 tour toute les 10s
+		double distParMiliSec = tourDeRoueParMiliSec * tourDeRoue;
+		int milisec = (int) Math.round(centimetre / distParMiliSec);
+		rouleTemps_aveugle(milisec);
+	}
+	
+	/**
+	 * <b>Roule (VITESSE_MAX) pendant un temps x milisec, ne prend pas en compte les capteurs</b>
+	 * @param milisec : <i>int</i>
+	 * 
+	 * @author Noe GRAVRAND
+	 */
+	public static void rouleTemps_aveugle(int milisec) {
+		moteur_droit.setSpeed(VITESSE_MAX);
+		moteur_gauche.setSpeed(VITESSE_MAX);
+		moteur_droit.forward();
+		moteur_gauche.forward();
+		for (int ii=0; ii<milisec; ii+=3) {
+			Delay.msDelay(3);
+		}
+	}
 
 }

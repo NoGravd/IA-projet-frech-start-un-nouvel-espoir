@@ -21,7 +21,7 @@ public class Pince {
 	/**
 	 * Represente le moteur qui controle les pinces
 	 */
-	static final BaseRegulatedMotor moteur_pince = Motor.B;//moteur pince
+	static final BaseRegulatedMotor moteur_pince = Motor.B;//moteur pince 
 	
 	/**
 	 * Represente l'angle de rotation des moteurs necessaire pour ouvrire les pinces
