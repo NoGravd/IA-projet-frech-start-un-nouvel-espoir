@@ -85,8 +85,8 @@ public class Roues {
 			Delay.msDelay(1);// attend 1ms
 		}
 		stop();
-		if (Memoire.getEtatPince())//si les pince sont ouvertes
-			Memoire.setAvoirPalet(false);//alors on a pas/plus de palet
+//		if (Memoire.getEtatPince())//si les pince sont ouvertes
+//			Memoire.setAvoirPalet(false);//alors on a pas/plus de palet
 	}
 	
 	/**
@@ -130,10 +130,10 @@ public class Roues {
 	 * @return <i>boolean</i> : <b>true</b> si sur une ligne de couleur ou si il y a un obsctacle a moin de 10 cm, <b>false</b> sinon.
 	 * @author Noe GRAVRAND
 	 */
-	private static boolean capteursCaptent(Capteurs capteurs) {
+	private static boolean capteursCaptent(Capteurs capteurs, Memoire memoire, Carto carto) {
 		int color = (int) capteurs.getCouleur();
-		if (Carto.couleurDuInt(color)!=404)
-			Carto.travLigne(color);
+		if (carto.couleurDuInt(color, memoire)!=404)
+			carto.travLigne(color, memoire);
 		if (capteurs.getDistanceOb()<0.1)
 			return true;
 		return false;
@@ -143,16 +143,16 @@ public class Roues {
 	 * <b>Permet d'accelerer (0 -> VITESSE_MAX), tout en surveillant les rslts des capteurs</b>
 	 * @author Noe GRAVRAND
 	 */
-	public static void demare(Capteurs capteurs) {
+	public static void demare(Capteurs capteurs, Memoire memoire, Carto carto) {
 		int nAcc = 200; //definition du nb de marches d'accélération
 		for (int i=0; i<nAcc; i++) {
 			moteur_droit.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
 			moteur_gauche.setSpeed(VITESSE_MAX/nAcc*i);
 			moteur_droit.forward();//lance le moteur 
 			moteur_gauche.forward();
-			if (capteursCaptent(capteurs)) {stop(); return;}
+			if (capteursCaptent(capteurs, memoire, carto)) {stop(); return;}
 			Delay.msDelay(1);// attend 1ms
-			if (capteursCaptent(capteurs)) {stop(); return;}
+			if (capteursCaptent(capteurs, memoire, carto)) {stop(); return;}
 		}
 	}
 	
@@ -162,13 +162,13 @@ public class Roues {
 	 * @param capteurs : <i>Capteurs</i>
 	 * @author Noe GRAVRAND
 	 */
-	public static void rouleTemps (int milisec, Capteurs capteurs) {
+	public static void rouleTemps (int milisec, Capteurs capteurs, Memoire memoire, Carto carto) {
 		moteur_droit.setSpeed(VITESSE_MAX);
 		moteur_gauche.setSpeed(VITESSE_MAX);
 		moteur_droit.forward();
 		moteur_gauche.forward();
 		for (int ii=0; ii<milisec; ii+=3) {
-			if (capteursCaptent(capteurs)) {
+			if (capteursCaptent(capteurs, memoire, carto)) {
 				stop();
 				return;
 			}
@@ -182,12 +182,12 @@ public class Roues {
 	 * @param capteurs : <i>Capteurs</i>
 	 * @author Noe GRAVRAND
 	 */
-	public static void rouleDist (int centimetre, Capteurs capteurs) {
+	public static void rouleDist (int centimetre, Capteurs capteurs, Memoire memoire, Carto carto) {
 		double tourDeRoue = 2.8*Math.PI;//cm
 		double tourDeRoueParMiliSec = 0.234;//23,4 tour toute les 10s
 		double distParMiliSec = tourDeRoueParMiliSec * tourDeRoue;
 		int milisec = (int) Math.round(centimetre / distParMiliSec);
-		rouleTemps(milisec, capteurs);
+		rouleTemps(milisec, capteurs, memoire, carto);
 	}
 	
 	
@@ -202,8 +202,6 @@ public class Roues {
 	 */
 	private static boolean capteursCaptent_onlyBlanc (Capteurs capteurs) {
 		int color = (int) capteurs.getCouleur();
-		if (Carto.couleurDuInt(color)!=404)
-			Carto.travLigne(color);
 		if (capteurs.getDistanceOb()<0.15 || color==Color.WHITE)
 			return true;
 		return false;

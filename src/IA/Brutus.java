@@ -14,7 +14,7 @@ public class Brutus {
 	 * @author Noe GRAVRAND
 	 */
 	public static void main(String[] args) {
-		Central brutus = new Central(new int[] {0});
+		Central brutus = new Central();
 		int distCase= 50;
 		brutus.pinces.ouverture_mobile();
 		Roues.rouleDist_aveugle(distCase);

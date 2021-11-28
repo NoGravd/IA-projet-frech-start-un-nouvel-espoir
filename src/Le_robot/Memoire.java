@@ -338,6 +338,9 @@ public class Memoire {
 		initialiseGrilleIR(robotAdvIR);
 	}
 	
+	public Memoire() {
+	}
+	
 	
 	
 		//------Carto----------

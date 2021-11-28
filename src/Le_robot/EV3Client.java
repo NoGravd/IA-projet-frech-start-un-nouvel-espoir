@@ -51,6 +51,10 @@ public class EV3Client {
 	private int[] adresseDeDemarrage;
 	
 	
+	
+	public EV3Client() {
+	}
+	
 	/**
 	 * Initialise en prenant une adresse de dzmarrage (50,30 pour en bas a gauche par exemple)
 	 * @param adresseDemarrage : <i>int[]</i> (coordonnee de depart du robot)

@@ -18,11 +18,11 @@ public class Central {
 	
 	public Capteurs capteurs;
 	
-//	public Carto carto;
+	public Carto carto;
 	
 	public EV3Client ev3Client;
 	
-//	public Memoire memoire;
+	public Memoire memoire;
 	
 	public Pince pinces;
 	
@@ -39,9 +39,23 @@ public class Central {
 	public Central(int[] adresseDemarrage) {
 		boussole = new Boussole();
 		capteurs = new Capteurs();
-//		carto = new Carto();
+		carto = new Carto();
 		ev3Client = new EV3Client(adresseDemarrage);
-//		memoire = new Memoire();
+		memoire = new Memoire();
+		pinces = new Pince();
+		roues = new Roues();
+	}
+	
+	/**
+	 * <b>Constructeur de <i>Central</i> (initialise toutes les class du robot)</b>
+	 * @author Noe GRAVRAND
+	 */
+	public Central() {
+		boussole = new Boussole();
+		capteurs = new Capteurs();
+		carto = new Carto();
+		ev3Client = new EV3Client();
+		memoire = new Memoire();
 		pinces = new Pince();
 		roues = new Roues();
 	}
