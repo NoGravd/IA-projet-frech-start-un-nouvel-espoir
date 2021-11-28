@@ -15,118 +15,122 @@ public class Carto {
 	/**
     Instance qui represente l'ID de la couleur blanche.
 	 */
-	private final static int BLANC = 0;//x1 ou x5
+	private final  int BLANC = 0;//x1 ou x5
 	/**
     Instance qui represente l'ID de la couleur noire.
 	 */
-	private final static int NOIRE = 1;//x3 ou y2
+	private final  int NOIRE = 1;//x3 ou y2
 	/**
     Instance qui represente l'ID de la couleur rouge.
 	 */
-	private final static int ROUGE = 2;//y3
+	private final  int ROUGE = 2;//y3
 	/**
     Instance qui represente l'ID de la couleur vert.
 	 */
-	private final static int VERT = 3;//x2
+	private final  int VERT = 3;//x2
 	/**
     Instance qui represente l'ID de la couleur jaune.
 	 */
-	private final static int JAUNE = 4;//y1
+	private final  int JAUNE = 4;//y1
 	/**
     Instance qui represente l'ID de la couleur bleu.
 	 */
-	private final static int BLEU = 5;//x4
+	private final  int BLEU = 5;//x4
 	/**
     Instance qui represente une erreur.
 	 */
-	private final static int RIEN= 404;//ptt D-ja triee par class Capteur mais a garder pour debug
+	private final  int RIEN= 404;//ptt D-ja triee par class Capteur mais a garder pour debug
 	
 	/**
     Instance qui represente la position NORD.
 	 */
-	private final static int NORD = 0;
+	private final  int NORD = 0;
 	/**
     Instance qui represente la position EST.
 	 */
-	private final static int EST = 1;
+	private final  int EST = 1;
 	/**
     Instance qui represente la position SUD.
 	 */
-	private final static int SUD = 2;
+	private final  int SUD = 2;
 	/**
     Instance qui represente la position OUEST.
 	 */
-	private final static int OUEST = 3;
+	private final  int OUEST = 3;
+	
+	
+	public Carto() {
+	}
 	
 	
 	/**
     Traite tout ce qu'il y a a traiter dans la Carto quand le robot traverse une ligne.
     @param color ID d'une couleur.
 	 */
-	public static void travLigne (int color) {
-		int couleur = couleurDuInt(color);
+	public  void travLigne (int color, Memoire memoire) {
+		int couleur = couleurDuInt(color, memoire);
 		if (couleur == BLANC)
-			ligneBlanche();
+			ligneBlanche(memoire);
 		else
-			horsBase();
-		calculPositionC(couleur);
-		calculPositionP(couleur);
+			horsBase(memoire);
+		calculPositionC(couleur, memoire);
+		calculPositionP(couleur, memoire);
 //		travLigneBouss(couleur);//en faite C useless
-		Memoire.setLastLigne(couleur);
+		memoire.setLastLigne(couleur);
 	}
 	
 	/**
     Calcul la position certaine du Robot.
     @param color ID d'une couleur.
 	 */
-	private static void calculPositionC (int couleur) {
+	private  void calculPositionC (int couleur, Memoire memoire) {
 		if (couleur == NOIRE)
-			Memoire.setPositionsCertaine (new int[][] {{1,1},{1,2},{2,0},{2,1},{2,2},{2,3},{3,0},{3,1},{3,2},{3,3},{4,1},{4,2}});
+			memoire.setPositionsCertaine (new int[][] {{1,1},{1,2},{2,0},{2,1},{2,2},{2,3},{3,0},{3,1},{3,2},{3,3},{4,1},{4,2}});
 		if (couleur == ROUGE)
-			Memoire.setPositionsCertaine (new int[][] {{1,2},{1,3},{2,2},{2,3},{3,2},{3,3},{4,2},{4,3},{5,2},{5,3}});
+			memoire.setPositionsCertaine (new int[][] {{1,2},{1,3},{2,2},{2,3},{3,2},{3,3},{4,2},{4,3},{5,2},{5,3}});
 		if (couleur == VERT)
-			Memoire.setPositionsCertaine (new int[][] {{1,1},{3,2},{3,3},{3,4},{2,1},{2,2},{2,3},{2,4}});
+			memoire.setPositionsCertaine (new int[][] {{1,1},{3,2},{3,3},{3,4},{2,1},{2,2},{2,3},{2,4}});
 		if (couleur == JAUNE)
-			Memoire.setPositionsCertaine (new int[][] {{1,0},{1,1},{2,0},{2,1},{3,0},{3,1},{4,0},{4,1},{5,0},{5,1}});
+			memoire.setPositionsCertaine (new int[][] {{1,0},{1,1},{2,0},{2,1},{3,0},{3,1},{4,0},{4,1},{5,0},{5,1}});
 		if (couleur == BLEU)
-			Memoire.setPositionsCertaine (new int[][] {{3,1},{3,2},{3,3},{3,4},{4,1},{4,2},{4,3},{4,4}});
+			memoire.setPositionsCertaine (new int[][] {{3,1},{3,2},{3,3},{3,4},{4,1},{4,2},{4,3},{4,4}});
 	}
 	
 	/**
     Modifie la positionPresice dans la memoire en fonction de la ligne que le robot vient de traverser, est appele par travLigne.
     @param couleur ID d'une couleur.
 	 */
-	private static void calculPositionP (int couleur) {
+	private  void calculPositionP (int couleur, Memoire memoire) {
 		//modifie la positionPresice dans la memoire en fonction de la ligne que le robot vient de traverser
 		//est appele par travLigne
 		
-		if (IllogiquePositionP(couleur))
+		if (IllogiquePositionP(couleur, memoire))
 			return;
 		int[] newPosition = new int[2];
-		if (Memoire.getBoussole() == NORD) {
-			newPosition [0] = Memoire.getPositionPrecise() [0];
-			newPosition [1] = Memoire.getPositionPrecise() [1] + 1;
-		} else if (Memoire.getBoussole() == SUD) {
-			newPosition [0] = Memoire.getPositionPrecise() [0];
-			newPosition [1] = Memoire.getPositionPrecise() [1] - 1;
-		} else if (Memoire.getBoussole() == EST) {
-			newPosition [0] = Memoire.getPositionPrecise() [0] + 1;
-			newPosition [1] = Memoire.getPositionPrecise() [1];
-		} else if (Memoire.getBoussole() == OUEST) {
-			newPosition [0] = Memoire.getPositionPrecise() [0] - 1;
-			newPosition [1] = Memoire.getPositionPrecise() [1];
+		if (memoire.getBoussole() == NORD) {
+			newPosition [0] = memoire.getPositionPrecise() [0];
+			newPosition [1] = memoire.getPositionPrecise() [1] + 1;
+		} else if (memoire.getBoussole() == SUD) {
+			newPosition [0] = memoire.getPositionPrecise() [0];
+			newPosition [1] = memoire.getPositionPrecise() [1] - 1;
+		} else if (memoire.getBoussole() == EST) {
+			newPosition [0] = memoire.getPositionPrecise() [0] + 1;
+			newPosition [1] = memoire.getPositionPrecise() [1];
+		} else if (memoire.getBoussole() == OUEST) {
+			newPosition [0] = memoire.getPositionPrecise() [0] - 1;
+			newPosition [1] = memoire.getPositionPrecise() [1];
 		}
-		Memoire.setLastPositionP(Memoire.getPositionPrecise());
-		Memoire.setPositionPrecise(newPosition);
+		memoire.setLastPositionP(memoire.getPositionPrecise());
+		memoire.setPositionPrecise(newPosition);
 	}
 	
 	/**
     Permet de se reperer de nouveau en cas de position absurde.
     @param color ID d'une couleur.
 	 */
-	private static boolean IllogiquePositionP (int couleur) {
+	private  boolean IllogiquePositionP (int couleur, Memoire memoire) {
 		//si la PositionP est illogique, la réévalu en fonction des deux dernieres lignes
-		int[] positionP = Memoire.getPositionPrecise();
+		int[] positionP = memoire.getPositionPrecise();
 		boolean boul = false;
 		if (couleur==ROUGE) 
 			if (positionP[1]==1||positionP[1]==2)
@@ -141,7 +145,7 @@ public class Carto {
 			if (positionP[1]!=4&&positionP[1]!=5)
 				boul = true;
 		if (couleur==NOIRE)
-			if (Memoire.getEtreBase() || (positionP[0]==1 && positionP[1]==0)|| (positionP[0]==1 && positionP[1]==3)|| (positionP[0]==4 && positionP[1]==0)|| (positionP[0]==4 && positionP[1]==3))
+			if (memoire.getEtreBase() || (positionP[0]==1 && positionP[1]==0)|| (positionP[0]==1 && positionP[1]==3)|| (positionP[0]==4 && positionP[1]==0)|| (positionP[0]==4 && positionP[1]==3))
 				boul = true;
 		if (couleur==BLANC)
 			if (positionP[0]==2 || positionP[0]==3)
@@ -163,7 +167,7 @@ public class Carto {
     Traite les couleurs en int donner par le sensor.
     @param leInt ID d'une couleur.
 	 */
-	public static int couleurDuInt (int leInt) {
+	public  int couleurDuInt (int leInt, Memoire memoire) {
 		//traite les couleurs en int donner par le sensor
 		
 		//version 1 :
@@ -198,15 +202,15 @@ public class Carto {
     Permet de savoir si ce qui est en face du robot est un mur.
     @param distance de l'obstacle.
 	 */
-	public static boolean IsIt_mur (int dist) {
+	public  boolean IsIt_mur (int dist, Memoire memoire) {
 		boolean boul = false;
 		//TODO
 		if (boul)
-			Mur(dist);
+			Mur(dist, memoire);
 		return boul;
 	}
 	
-	private static void Mur (int dist) {
+	private  void Mur (int dist, Memoire memoire) {
 		//TODO
 	}
 	
@@ -215,7 +219,7 @@ public class Carto {
 	//boussole :
 	
 	@SuppressWarnings("unused")
-	private static void travLigneBouss (int color) {
+	private  void travLigneBouss (int color, Memoire memoire) {
 			//bah en fait je crois qu'il ne se passe rien ici
 			//je c pa
 			//le nono se remet a parler tout seul !!
@@ -225,7 +229,7 @@ public class Carto {
 	   Rotate de x; doit calculer x en fonction du mur (US).
 	   @param color ID d'une couleur.
 	 */
-	public void corrigeAngleMur (int color) {//couleur = Rouge/Jaune
+	public void corrigeAngleMur (int color, Memoire memoire) {//couleur = Rouge/Jaune
 		if (color!=ROUGE&&color!=JAUNE)
 			return;
 		//info : la distance entre la ligne et le mur est de 50cm; US = ligne + 4cm; distance entre l'axe de rotation et la ligne + 9cm
@@ -234,32 +238,32 @@ public class Carto {
 		
 		Roues.pivote(xx);
 		if (color==ROUGE) {
-			Memoire.setBoussole(NORD);
-			Memoire.setSuperBoussole(NORD);
+			memoire.setBoussole(NORD);
+			memoire.setSuperBoussole(NORD);
 		} else {
-			Memoire.setBoussole(SUD);
-			Memoire.setSuperBoussole(SUD);
+			memoire.setBoussole(SUD);
+			memoire.setSuperBoussole(SUD);
 		}
 	}
 	
 	/**
 	   Inverse les valeurs de la boussole.
 	 */
-	public static void inverseBouss() {
+	public  void inverseBouss(Memoire memoire) {
 		
-		switch(Memoire.getBoussole()) {
-		case NORD : Memoire.setBoussole(SUD);
-		case EST : Memoire.setBoussole(OUEST);
-		case SUD : Memoire.setBoussole(NORD);
-		case OUEST : Memoire.setBoussole(EST);
+		switch(memoire.getBoussole()) {
+		case NORD : memoire.setBoussole(SUD);
+		case EST : memoire.setBoussole(OUEST);
+		case SUD : memoire.setBoussole(NORD);
+		case OUEST : memoire.setBoussole(EST);
 		}
-		rotateDeg (180);//superBoussole
+		rotateDeg (180, memoire);//superBoussole
 	}
 	
 	/**
     Permet de se repositioner en fonction des lignes de couleurs.
 	 */
-	public void corrigeAngleLignes() {
+	public void corrigeAngleLignes(Memoire memoire) {
 		//TODO
 		//il faut :
 		//-avoir travese 2 lignes diffs
@@ -276,33 +280,33 @@ public class Carto {
 	/**
 	   La superBoussole corrige la valeur de la boussole, est appele par rotateDeg.
 	 */
-	private static void superBoussCorrige() {
+	private  void superBoussCorrige(Memoire memoire) {
 	
-		double sb = Memoire.getSuperBoussole(); //pour la visibilite et par flemme de tout recopier 100x
+		double sb = memoire.getSuperBoussole(); //pour la visibilite et par flemme de tout recopier 100x
 		if (sb>45 && sb<=135)
-			Memoire.setBoussole(EST);
+			memoire.setBoussole(EST);
 		else if (sb>135 && sb<=225)
-			Memoire.setBoussole(SUD);
+			memoire.setBoussole(SUD);
 		else if (sb>225 && sb<=315)
-			Memoire.setBoussole(OUEST);
+			memoire.setBoussole(OUEST);
 		else
-			Memoire.setBoussole(NORD);
+			memoire.setBoussole(NORD);
 	}
 	
 	/**
 	  Modifie les valeurs des boussoles car le robot et en train de pivoter de [int degre].
 	  @param degre Le degre de rotation du robot
 	 */
-	public static void rotateDeg (int degre) {
+	public  void rotateDeg (int degre, Memoire memoire) {
 		
-		double sb = Memoire.getSuperBoussole();
+		double sb = memoire.getSuperBoussole();
 		sb += degre;
 		if (sb>=360)
 			sb -= 360;
 		else if (sb<=0)
 			sb += 360;
-		Memoire.setSuperBoussole(sb);
-		superBoussCorrige();
+		memoire.setSuperBoussole(sb);
+		superBoussCorrige(memoire);
 	}
 	
 	
@@ -312,42 +316,42 @@ public class Carto {
 	/**
 	  Dit à la memoire ou le robot se trouve sachant qu'il vient de traverser un ligne blanche, est appele par travLigne.
 	 */
-	private static void ligneBlanche() {
-		if (Memoire.getEtreBase()) {//si on sort de la base
-			boolean feuBonneBase = Memoire.getEreBonneBase();
-			horsBase();
-			int xHorsBonneBase = Memoire.getLaBonneBase() == OUEST ? 1 : 4;
-			int xHorsMauvaiseBase = Memoire.getLaMauvaiseBase() == OUEST ? 1 : 4;
+	private  void ligneBlanche(Memoire memoire) {
+		if (memoire.getEtreBase()) {//si on sort de la base
+			boolean feuBonneBase = memoire.getEreBonneBase();
+			horsBase(memoire);
+			int xHorsBonneBase = memoire.getLaBonneBase() == OUEST ? 1 : 4;
+			int xHorsMauvaiseBase = memoire.getLaMauvaiseBase() == OUEST ? 1 : 4;
 			int xBase = feuBonneBase ? xHorsBonneBase : xHorsMauvaiseBase;
-			Memoire.setPositionsCertaine(new int[][] {{xBase,0},{xBase,1},{xBase,2},{xBase,3}});
-			baseBouss(true);
+			memoire.setPositionsCertaine(new int[][] {{xBase,0},{xBase,1},{xBase,2},{xBase,3}});
+			baseBouss(true, memoire);
 		} else {//si on rentre dans la base
-			Memoire.setEtreBase(true);
-			quelleBase();
-			if (Memoire.getEreBonneBase()) {//si on est dans la bonne base
-				int xBonneBase = Memoire.getLaBonneBase() == OUEST ? 0 : 5;
-				Memoire.setPositionsCertaine(new int[][] {{xBonneBase,0},{xBonneBase,1},{xBonneBase,2},{xBonneBase,3}});
+			memoire.setEtreBase(true);
+			quelleBase(memoire);
+			if (memoire.getEreBonneBase()) {//si on est dans la bonne base
+				int xBonneBase = memoire.getLaBonneBase() == OUEST ? 0 : 5;
+				memoire.setPositionsCertaine(new int[][] {{xBonneBase,0},{xBonneBase,1},{xBonneBase,2},{xBonneBase,3}});
 			} else {//si on est dans la mauvaise base
-				int xMauvaiseBase = Memoire.getLaMauvaiseBase() == OUEST ? 0 : 5;
-				Memoire.setPositionsCertaine(new int[][] {{xMauvaiseBase,0},{xMauvaiseBase,1},{xMauvaiseBase,2},{xMauvaiseBase,3}});
+				int xMauvaiseBase = memoire.getLaMauvaiseBase() == OUEST ? 0 : 5;
+				memoire.setPositionsCertaine(new int[][] {{xMauvaiseBase,0},{xMauvaiseBase,1},{xMauvaiseBase,2},{xMauvaiseBase,3}});
 			}
 		}
-		calculPositionP(BLANC);
+		calculPositionP(BLANC, memoire);
 	}
 	
 	/**
 	  Dit a la memoire que le robot est hors des base, est appele par travLigne et ligneBlanche.
 	 */
-	private static void horsBase() {
+	private  void horsBase(Memoire memoire) {
 		
-		Memoire.setEtreBase(false);
-		Memoire.setEtreBonneBase(false);
+		memoire.setEtreBase(false);
+		memoire.setEtreBonneBase(false);
 	}
 	
 	/**
-	  Determine si le robot est dans la bonne base et donne son rslt dans la Memoire, est appele par ligneBlanche.
+	  Determine si le robot est dans la bonne base et donne son rslt dans la memoire, est appele par ligneBlanche.
 	 */
-	private static void quelleBase() {
+	private  void quelleBase(Memoire memoire) {
 		boolean etreBonneBase;
 		//------------------
 		//vais faire system de point :
@@ -362,9 +366,9 @@ public class Carto {
 		int nbPoints = 0;
 		
 		//positionsCertaine :
-		int[][] positionsC = Memoire.getPositionsCertaine();
+		int[][] positionsC = memoire.getPositionsCertaine();
 		int scorePC=0;
-		if (Memoire.getLaBonneBase()==1) {//bonne base a l'EST
+		if (memoire.getLaBonneBase()==1) {//bonne base a l'EST
 			for (int ii=0; ii<positionsC.length; ii++) {
 				if (positionsC[ii][0]==5)
 					scorePC=1;
@@ -387,9 +391,9 @@ public class Carto {
 		
 		
 		//positionPrecise :
-		int[] positionsP = Memoire.getPositionPrecise();
+		int[] positionsP = memoire.getPositionPrecise();
 		int scorePP=0;
-		if (Memoire.getLaBonneBase()==1) {//bonne base a l'EST
+		if (memoire.getLaBonneBase()==1) {//bonne base a l'EST
 			for (int ii=0; ii<positionsP.length; ii++) {
 				if (positionsP[0]==5)
 					scorePP=1;
@@ -411,17 +415,17 @@ public class Carto {
 		
 		
 		//lastLigne :
-		int ligneAdj = Memoire.getLaBonneBase()==1 ? BLEU : VERT; //ligneAdj a la base que l'on souhaite / 1==EST
-		if (Memoire.getLastLigne() == ligneAdj)
+		int ligneAdj = memoire.getLaBonneBase()==1 ? BLEU : VERT; //ligneAdj a la base que l'on souhaite / 1==EST
+		if (memoire.getLastLigne() == ligneAdj)
 			nbPoints++;
-		else if (Memoire.getLastLigne() != NOIRE && Memoire.getLastLigne() != ROUGE && Memoire.getLastLigne() != JAUNE)
+		else if (memoire.getLastLigne() != NOIRE && memoire.getLastLigne() != ROUGE && memoire.getLastLigne() != JAUNE)
 			nbPoints--;
 		
 		
 		//boussole :
-		if (Memoire.getBoussole()==Memoire.getLaBonneBase())
+		if (memoire.getBoussole()==memoire.getLaBonneBase())
 			nbPoints++;
-		else if (Memoire.getBoussole()==Memoire.getLaMauvaiseBase())
+		else if (memoire.getBoussole()==memoire.getLaMauvaiseBase())
 			nbPoints--;
 		
 		
@@ -431,27 +435,27 @@ public class Carto {
 		else
 			etreBonneBase = false;
 		//------fin system de point--------
-		Memoire.setEtreBonneBase(etreBonneBase);
-		baseBouss(false);
+		memoire.setEtreBonneBase(etreBonneBase);
+		baseBouss(false, memoire);
 	}
 	
 	/**
 	  Modifie les valeurs de la boussole dans la memoire sachant que le robot rentre dans une base, est appele par ligneBlanche et quelleBase.
 	  @param sortir Si le robot est sortie ou non de la base
 	 */
-	private static void baseBouss (boolean sortir) {
+	private  void baseBouss (boolean sortir, Memoire memoire) {
 	
 		if (!sortir) {
-			Memoire.setBoussole(Memoire.getLaBonneBase());
-			if (!Memoire.getEreBonneBase())
-				inverseBouss();
+			memoire.setBoussole(memoire.getLaBonneBase());
+			if (!memoire.getEreBonneBase())
+				inverseBouss(memoire);
 		}
 		if (sortir) {
-			Memoire.setBoussole(Memoire.getLaMauvaiseBase());
-			if (Memoire.getEreBonneBase())
-				inverseBouss();
-			Memoire.setEtreBase(false);
-			Memoire.setEtreBonneBase(false);
+			memoire.setBoussole(memoire.getLaMauvaiseBase());
+			if (memoire.getEreBonneBase())
+				inverseBouss(memoire);
+			memoire.setEtreBase(false);
+			memoire.setEtreBonneBase(false);
 		}
 	}
 	
