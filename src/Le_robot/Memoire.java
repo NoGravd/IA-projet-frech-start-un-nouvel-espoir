@@ -2,21 +2,45 @@ package Le_robot;
 
 /**
 <b>Une classe où l'on stock tout se qui est a stocker</b>
+@param nbBut : <i>int</i>
+@param avoirPalet : <i>boolean</i>
+@param etatPince : <i>boolean</i>
+@param etreBase : <i>boolean</i>
+@param etreBonneBase : <i>boolean</i>
+@param laBonneBase : <i>int</i>
+@param laMauvaiseBase : <i>int</i>
+@param positionsCertaine : <i>int[][]</i>
+@param positionPrecise : <i>int[]</i>
+@param positionPaletPris : <i>int[][]</i>
+@param boussole : <i>int</i>
+@param superBoussole : <i>double</i>
+@param lastLigne : <i>int</i>
+@param lastPositionP : <i>int[]</i>
+@param zone2recherche : <i>int[][]</i>
+@param grilleIR : <i>int[][]</i>
+@param positionIR : <i>int[]</i>
+@param positionPaletsIR : <i>int[][]</i>
+@param positionAdvIR : <i>int[]</i>
+@param nbPointsIR : <i>int</i>
+
 @author Noe GRAVRAND
 */
 public class Memoire {
 	
 	/**
-    Instance de compter le nombre de but marquer.
+	 * Instance de compter le nombre de but marquer.
 	 */
 	private int nbBut = 0;
 	/**
-    Methode qui nous permet de savoir le nombre de but marquer.
-    @return Le nombre de but marquer.
+	 * <b>Methode qui nous permet de savoir le nombre de but marquer</b>
+	 * @return Le nombre de but marquer
+	 * 
+	 * @author Noe GRAVRAND
 	 */
 	public int getNbBut() {return nbBut;}
 	/**
-    Methode qui increment le nombre de but par 1.
+	 * <b>Methode qui increment le nombre de but par 1</b>
+	 * @author Noe GRAVRAND
 	 */
 	public void IncrementeNbBut() {nbBut++;}
 	
@@ -24,25 +48,27 @@ public class Memoire {
 	//----------pince----------------
 	
 	/**
-    Instance qui nous permet de savoir si le robot a un palet.
+	 * Instance qui nous permet de savoir si le robot a un palet.
 	 */
 	private boolean avoirPalet = false;
 	/**
-    Methode qui nous permet de modifier l'instance avoirPalet
+	 * <b>Methode qui nous permet de modifier l'instance avoirPalet</b>
+	 * @author Noe GRAVRAND
 	 */
 	public void setAvoirPalet (boolean boul) {avoirPalet = boul;}
 	/**
-    Methode qui nous permet de connaitre si l on possede un palet ou non
-    @return True si le robot possede un palet, False sinon
+	 * <b>Methode qui nous permet de connaitre si l on possede un palet ou non</b>
+	 * @return <b>true</b> si le robot possede un palet, <b>false</b> sinon
 	 */
 	public boolean getAvoirPalet() {return avoirPalet;}
 	
 	/**
-    Instance qui nous permet de savoir si le robot les pince ouverte.
+	 * Instance qui nous permet de savoir si le robot les pince ouverte.
 	 */
 	private boolean etatPince = false;
 	/**
-    Methode qui nous permet de modifier l'instance etatPince
+	 * <b>Methode qui nous permet de modifier l'instance etatPince</b>
+	 * @author Noe GRAVRAND
 	 */
 	public void setEtatPince (boolean boul) {etatPince = boul;}
 	/**
