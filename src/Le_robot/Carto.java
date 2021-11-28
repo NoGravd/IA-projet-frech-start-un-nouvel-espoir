@@ -1,14 +1,13 @@
 package Le_robot;
 
-
-/**
-Une classe qui calculera les positions du david.
-@author NG
-*/
-
 import lejos.robotics.Color;
 
 
+
+/**
+<b>Calcul les positions du robot, grace au capteur couleur</b>
+@author Noe GRAVRAND
+*/
 public class Carto {
 	
 	//pas obligatoire mais pratik : (int arbitraires)
@@ -59,31 +58,44 @@ public class Carto {
 	private final  int OUEST = 3;
 	
 	
+	/**
+	 * <b>Constructeur inutil mais necessaire de la class <i>Carto</i></b>
+	 *  @author Noe GRAVRAND
+	 */
 	public Carto() {
 	}
 	
 	
 	/**
-    Traite tout ce qu'il y a a traiter dans la Carto quand le robot traverse une ligne.
-    @param color ID d'une couleur.
+	 * <b>Traite tout ce qu'il y a a traiter dans la Carto quand le robot traverse une ligne</b>
+	 * @param color : <i>int</i>
+	 * @param memoire : <i>Memoire</i>
+	 * @return memoire : <i>Memoire</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
-	public  void travLigne (int color, Memoire memoire) {
+	public Memoire travLigne (int color, Memoire memoire) {
 		int couleur = couleurDuInt(color, memoire);
 		if (couleur == BLANC)
 			ligneBlanche(memoire);
 		else
 			horsBase(memoire);
-		calculPositionC(couleur, memoire);
-		calculPositionP(couleur, memoire);
+		memoire = calculPositionC(couleur, memoire);
+		memoire = calculPositionP(couleur, memoire);
 //		travLigneBouss(couleur);//en faite C useless
 		memoire.setLastLigne(couleur);
+		return memoire;
 	}
 	
 	/**
-    Calcul la position certaine du Robot.
-    @param color ID d'une couleur.
+	 * <b>Calcul la position certaine du Robot</b>
+	 * @param color : <i>int</i>
+	 * @param memoire : <i>Memoire</i>
+	 * @return memoire : <i>Memoire</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
-	private  void calculPositionC (int couleur, Memoire memoire) {
+	private Memoire calculPositionC (int couleur, Memoire memoire) {
 		if (couleur == NOIRE)
 			memoire.setPositionsCertaine (new int[][] {{1,1},{1,2},{2,0},{2,1},{2,2},{2,3},{3,0},{3,1},{3,2},{3,3},{4,1},{4,2}});
 		if (couleur == ROUGE)
@@ -94,18 +106,24 @@ public class Carto {
 			memoire.setPositionsCertaine (new int[][] {{1,0},{1,1},{2,0},{2,1},{3,0},{3,1},{4,0},{4,1},{5,0},{5,1}});
 		if (couleur == BLEU)
 			memoire.setPositionsCertaine (new int[][] {{3,1},{3,2},{3,3},{3,4},{4,1},{4,2},{4,3},{4,4}});
+	return memoire;
 	}
 	
 	/**
-    Modifie la positionPresice dans la memoire en fonction de la ligne que le robot vient de traverser, est appele par travLigne.
-    @param couleur ID d'une couleur.
+	 * <b>Modifie la positionPresice dans la memoire en fonction de la ligne que le robot vient de traverser, est appele par travLigne</b>
+	 * @param couleur : <i>int</i>
+	 * @param memoire : <i>Memoire</i>
+	 * @return memoire : <i>Memoire</i>
+	 * 
+	 * @author Noe GRAVRAND
+	 * @return 
 	 */
-	private  void calculPositionP (int couleur, Memoire memoire) {
+	private Memoire calculPositionP (int couleur, Memoire memoire) {
 		//modifie la positionPresice dans la memoire en fonction de la ligne que le robot vient de traverser
 		//est appele par travLigne
 		
 		if (IllogiquePositionP(couleur, memoire))
-			return;
+			return memoire;
 		int[] newPosition = new int[2];
 		if (memoire.getBoussole() == NORD) {
 			newPosition [0] = memoire.getPositionPrecise() [0];
@@ -122,13 +140,17 @@ public class Carto {
 		}
 		memoire.setLastPositionP(memoire.getPositionPrecise());
 		memoire.setPositionPrecise(newPosition);
+		return memoire;
 	}
 	
 	/**
-    Permet de se reperer de nouveau en cas de position absurde.
-    @param color ID d'une couleur.
+	 * <b>Permet de se reperer de nouveau en cas de position absurde</b>
+	 * @param color : <i>int</i>
+	 * @param memoire : <i>Memoire</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
-	private  boolean IllogiquePositionP (int couleur, Memoire memoire) {
+	private boolean IllogiquePositionP (int couleur, Memoire memoire) {
 		//si la PositionP est illogique, la réévalu en fonction des deux dernieres lignes
 		int[] positionP = memoire.getPositionPrecise();
 		boolean boul = false;
@@ -164,10 +186,13 @@ public class Carto {
 	}
 	
 	/**
-    Traite les couleurs en int donner par le sensor.
-    @param leInt ID d'une couleur.
+	 * <b>Traite les couleurs en int donner par le sensor</b>
+	 * @param leInt : <i>int</i>
+	 * @param memoire : <i>Memoire</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
-	public  int couleurDuInt (int leInt, Memoire memoire) {
+	public int couleurDuInt (int leInt, Memoire memoire) {
 		//traite les couleurs en int donner par le sensor
 		
 		//version 1 :
@@ -199,8 +224,11 @@ public class Carto {
 	
 	
 	/**
-    Permet de savoir si ce qui est en face du robot est un mur.
-    @param distance de l'obstacle.
+	 * <b>Permet de savoir si ce qui est en face du robot est un mur</b>
+	 * @param distance de l'obstacle.
+	 * @param memoire : <i>Memoire</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
 	public  boolean IsIt_mur (int dist, Memoire memoire) {
 		boolean boul = false;
@@ -210,7 +238,15 @@ public class Carto {
 		return boul;
 	}
 	
-	private  void Mur (int dist, Memoire memoire) {
+	/**
+	 * <b>Traite l'information suivante : il y a un mur a dist devant le robot</b><p>
+	 * Attention : pas coder
+	 * @param dist
+	 * @param memoire
+	 * 
+	 * @author Noe GRAVRAND
+	 */
+	private void Mur (int dist, Memoire memoire) {
 		//TODO
 	}
 	
@@ -219,15 +255,18 @@ public class Carto {
 	//boussole :
 	
 	@SuppressWarnings("unused")
-	private  void travLigneBouss (int color, Memoire memoire) {
+	private void travLigneBouss (int color, Memoire memoire) {
 			//bah en fait je crois qu'il ne se passe rien ici
 			//je c pa
 			//le nono se remet a parler tout seul !!
 	}
 	
 	/**
-	   Rotate de x; doit calculer x en fonction du mur (US).
-	   @param color ID d'une couleur.
+	 * <b>Rotate de x; doit calculer x en fonction du mur (US)</b><p>
+	 * Attention : pas coder
+	 * @param color : <i>int</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
 	public void corrigeAngleMur (int color, Memoire memoire) {//couleur = Rouge/Jaune
 		if (color!=ROUGE&&color!=JAUNE)
@@ -247,30 +286,39 @@ public class Carto {
 	}
 	
 	/**
-	   Inverse les valeurs de la boussole.
+	 * <b>Inverse les valeurs de la boussole</b>
+	 * @param memoire : <i>Memoire</i>
+	 * @return memoire : <i>Memoire</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
-	public  void inverseBouss(Memoire memoire) {
-		
+	public Memoire inverseBouss(Memoire memoire) {
 		switch(memoire.getBoussole()) {
 		case NORD : memoire.setBoussole(SUD);
 		case EST : memoire.setBoussole(OUEST);
 		case SUD : memoire.setBoussole(NORD);
 		case OUEST : memoire.setBoussole(EST);
 		}
-		rotateDeg (180, memoire);//superBoussole
+		memoire = rotateDeg (180, memoire);//superBoussole
+		return memoire;
 	}
 	
 	/**
-    Permet de se repositioner en fonction des lignes de couleurs.
+	 * <b>Permet de se repositioner en fonction des lignes de couleurs</b><p>
+	 * Attention : pas coder
+	 * @param memoire : <i>Memoire</i>
+	 * @return memoire : <i>Memoire</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
-	public void corrigeAngleLignes(Memoire memoire) {
+	public Memoire corrigeAngleLignes(Memoire memoire) {
 		//TODO
 		//il faut :
 		//-avoir travese 2 lignes diffs
 		//-avoir mesurer la distance entre ces 2 traversees
 		//-ne pas avoir tourne
 		//ici on calculera l'angle entre les 2 lignes et le robot
-		
+		return memoire;//TODO
 	}
 	
 	
@@ -278,9 +326,13 @@ public class Carto {
 	//superBoussole :
 	
 	/**
-	   La superBoussole corrige la valeur de la boussole, est appele par rotateDeg.
+	 * <b>La superBoussole corrige la valeur de la boussole, est appele par rotateDeg</b>
+	 * @param memoire : <i>Memoire</i>
+	 * @return memoire : <i>Memoire</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
-	private  void superBoussCorrige(Memoire memoire) {
+	private Memoire superBoussCorrige(Memoire memoire) {
 	
 		double sb = memoire.getSuperBoussole(); //pour la visibilite et par flemme de tout recopier 100x
 		if (sb>45 && sb<=135)
@@ -291,14 +343,18 @@ public class Carto {
 			memoire.setBoussole(OUEST);
 		else
 			memoire.setBoussole(NORD);
+		return memoire;
 	}
 	
 	/**
-	  Modifie les valeurs des boussoles car le robot et en train de pivoter de [int degre].
-	  @param degre Le degre de rotation du robot
+	 * <b>Modifie les valeurs des boussoles car le robot et en train de pivoter de [int degre]</b>
+	 * @param degre : <i>int</i>
+	 * @param memoire : <i>Memoire</i>
+	 * @return memoire : <i>Memoire</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
-	public  void rotateDeg (int degre, Memoire memoire) {
-		
+	public Memoire rotateDeg (int degre, Memoire memoire) {
 		double sb = memoire.getSuperBoussole();
 		sb += degre;
 		if (sb>=360)
@@ -306,7 +362,8 @@ public class Carto {
 		else if (sb<=0)
 			sb += 360;
 		memoire.setSuperBoussole(sb);
-		superBoussCorrige(memoire);
+		memoire = superBoussCorrige(memoire);
+		return memoire;
 	}
 	
 	
@@ -314,9 +371,13 @@ public class Carto {
 	//bases :
 	
 	/**
-	  Dit à la memoire ou le robot se trouve sachant qu'il vient de traverser un ligne blanche, est appele par travLigne.
+	 * <b>Dit à la memoire ou le robot se trouve sachant qu'il vient de traverser un ligne blanche, est appele par travLigne</b>
+	 * @param memoire : <i>Memoire</i>
+	 * @return memoire : <i>Memoire</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
-	private  void ligneBlanche(Memoire memoire) {
+	private Memoire ligneBlanche(Memoire memoire) {
 		if (memoire.getEtreBase()) {//si on sort de la base
 			boolean feuBonneBase = memoire.getEreBonneBase();
 			horsBase(memoire);
@@ -336,22 +397,31 @@ public class Carto {
 				memoire.setPositionsCertaine(new int[][] {{xMauvaiseBase,0},{xMauvaiseBase,1},{xMauvaiseBase,2},{xMauvaiseBase,3}});
 			}
 		}
-		calculPositionP(BLANC, memoire);
+		memoire = calculPositionP(BLANC, memoire);
+		return memoire;
 	}
 	
 	/**
-	  Dit a la memoire que le robot est hors des base, est appele par travLigne et ligneBlanche.
+	 * <b>Dit a la memoire que le robot est hors des base, est appele par travLigne et ligneBlanche</b>
+	 * @param memoire : <i>Memoire</i>
+	 * @return memoire : <i>Memoire</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
-	private  void horsBase(Memoire memoire) {
-		
+	private Memoire horsBase(Memoire memoire) {
 		memoire.setEtreBase(false);
 		memoire.setEtreBonneBase(false);
+		return memoire;
 	}
 	
 	/**
-	  Determine si le robot est dans la bonne base et donne son rslt dans la memoire, est appele par ligneBlanche.
+	 * <b>Determine si le robot est dans la bonne base et donne son rslt dans la memoire, est appele par ligneBlanche</b>
+	 * @param memoire : <i>Memoire</i>
+	 * @return memoire : <i>Memoire</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
-	private  void quelleBase(Memoire memoire) {
+	private Memoire quelleBase(Memoire memoire) {
 		boolean etreBonneBase;
 		//------------------
 		//vais faire system de point :
@@ -436,15 +506,19 @@ public class Carto {
 			etreBonneBase = false;
 		//------fin system de point--------
 		memoire.setEtreBonneBase(etreBonneBase);
-		baseBouss(false, memoire);
+		memoire = baseBouss(false, memoire);
+		return memoire;
 	}
 	
 	/**
-	  Modifie les valeurs de la boussole dans la memoire sachant que le robot rentre dans une base, est appele par ligneBlanche et quelleBase.
-	  @param sortir Si le robot est sortie ou non de la base
+	 * <b>Modifie les valeurs de la boussole dans la memoire sachant que le robot rentre dans une base, est appele par ligneBlanche et quelleBase</b>
+	 * @param sortir : <i>boolean</i> (<b>true</b> si le robot sort de la base, <b>false</b> sinon)
+	 * @param memoire : <i>Memoire</i>
+	 * @return memoire : <i>Memoire</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
-	private  void baseBouss (boolean sortir, Memoire memoire) {
-	
+	private Memoire baseBouss (boolean sortir, Memoire memoire) {
 		if (!sortir) {
 			memoire.setBoussole(memoire.getLaBonneBase());
 			if (!memoire.getEreBonneBase())
@@ -457,6 +531,7 @@ public class Carto {
 			memoire.setEtreBase(false);
 			memoire.setEtreBonneBase(false);
 		}
+		return memoire;
 	}
 	
 }

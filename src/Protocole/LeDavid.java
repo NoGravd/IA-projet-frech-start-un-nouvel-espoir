@@ -112,7 +112,7 @@ public class LeDavid {
 		Roues.pivote(angle);
 		boussole.rotateDeg(angle);
 		int distance = ev.getDistanceRobotToAdresse(adressePalaisProche)-35;
-		Roues.rouleDist(distance, capteurs); //Vérif facteur rouledist et capteurscapte
+		Roues.rouleDist_onlyBlanc(distance, capteurs);//Vérif facteur rouledist et capteurscapte
 		return calibrageFaceAuPalais(adressePalaisProche);
 		
 		
@@ -132,7 +132,7 @@ public class LeDavid {
 		Roues.pivote(angle);
 		boussole.rotateDeg(angle);
 		int distance = ev.getDistanceRobotToAdresse(adresseArrivee)-35;
-		Roues.rouleDist(distance, capteurs);//TODO : que faire si robot adv sur trajectoire ?
+		Roues.rouleDist_onlyBlanc(distance, capteurs);//TODO : que faire si robot adv sur trajectoire ?
 		deposePalais();
 	}
 	
@@ -182,7 +182,7 @@ public class LeDavid {
 	
 	public void recupererPalais() {
 		pince.ouverture();
-		Roues.rouleDist(35, capteurs);
+		Roues.rouleDist_onlyBlanc(35, capteurs);
 		pince.fermeture();
 		Roues.pivote(-boussole.get());
 		boussole.set(0);
