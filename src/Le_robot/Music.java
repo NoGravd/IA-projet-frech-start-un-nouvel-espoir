@@ -117,7 +117,7 @@ public class Music {
 	
 	/**
 	 * <b>Calcul le tempo</b>
-	 * @param milisec : int
+	 * @param milisec : <i>int</i>
 	 * 
 	 * @author Noe GRAVRAND
 	 */
@@ -161,8 +161,8 @@ public class Music {
 	}
 	
 	/**
-	 * <b>Methode qui convertie des BPM en secondes</b>
-	 * @param bpm : <i>int</i> (nombre de batement par minute
+	 * <b>Convertie des BPM en secondes</b>
+	 * @param bpm : <i>int</i> (nombre de batement par minute)
 	 * 
 	 * @author Noe GRAVRAND
 	 */
