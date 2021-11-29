@@ -19,11 +19,11 @@ public class Roues {
 	/**
 	 * Represente le moteur controleur par la roue droite.
 	 */
-	public static final BaseRegulatedMotor moteur_droit = Motor.A;//roue droite 
+	public static final BaseRegulatedMotor moteur_droit = Motor.A;//roue droite
 	/**
 	* Represente le moteur controler par la roue gauche.
 	 */
-	public static final BaseRegulatedMotor moteur_gauche = Motor.C;//roue gauche 
+	public static final BaseRegulatedMotor moteur_gauche = Motor.C;//roue gauche
 	/**
 	 * Represente la liste des moteurs a syncrhoniser avec le moteur A pour avancer et reculer.
 	 */
