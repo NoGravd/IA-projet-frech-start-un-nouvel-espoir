@@ -19,10 +19,10 @@ public class Forest_Gump {
 		Central forest_Gump = new Central();
 		Protocoles_noe protocoles = new Protocoles_noe(forest_Gump);
 		while (1<2) {//boucle infini tkt frero
-			protocoles.goZone2Recherche();
+			forest_Gump = protocoles.goZone2Recherche();
 			forest_Gump.capteurs.sonnar();
 			Roues.avanceTQpalet(forest_Gump.capteurs, forest_Gump.pinces);
-			protocoles.goMarquer();
+			forest_Gump = protocoles.goMarquer();
 		}
 	}
 

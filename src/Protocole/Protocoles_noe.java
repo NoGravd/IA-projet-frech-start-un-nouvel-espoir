@@ -5,6 +5,8 @@ import Le_robot.*;
 /**
  * Une classe qui regroupe des protocoles utilisables dans les algorithmes IA
  * @param robot : <i>Central</i>
+ * 
+ * @author Noe GRAVRAND
  */
 public class Protocoles_noe {
 	
@@ -24,6 +26,8 @@ public class Protocoles_noe {
 	
 	/**
 	 * <b>Permet au robot d'aller jusqu a la zone adverse puis d'y déposer un palet</b>
+	 * @return leDavid = <i>Central</i>
+	 * 
 	 * @author Noe GRAVRAND
 	 */
 	public Central goMarquer() {
@@ -42,6 +46,8 @@ public class Protocoles_noe {
 	/**
 	 * <b>Permet de lacher le palets et de reculer un fois le but marqué</b>
 	 * Incremente le nombre de but marque.
+	 * @return leDavid = <i>Central</i>
+	 * 
 	 * @autor Noe GRAVRAND
 	 */
 	public Central marquer() {
@@ -55,16 +61,21 @@ public class Protocoles_noe {
 	}
 	
 	/**
-	Une methode qui effectue une action si le robot adverse est en conflit avec notre robot.
-	@param distance du robot adverse
+	 * Effectue une action si le robot adverse est en conflit avec notre robot</b>
+	 * <p>Attention : pas coder
+	 * @param dist : <i>int</i>
+	 * @return leDavid = <i>Central</i>
 	 */
-	public  void conflit_robotAdv (int dist) {
+	public Central conflit_robotAdv (int dist) {
 		//TODO : contourne le robot adv
-		
+		return robot;
 	}
 	
 	/**
-	Une methode qui permet au robot d'aller dans les zone de recherche
+	 * <b>Permet au robot d'aller dans les zones de recherche</b>
+	 * @return leDavid = <i>Central</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
 	public Central goZone2Recherche() {
 		int[][] zone2recherche = robot.memoire.getZone2Recherche();
@@ -84,8 +95,11 @@ public class Protocoles_noe {
 	}
 	
 	/**
-	Une methode qui permet au robot d'aller dans une zone.
-	@param La zone dans lequel le robot doit se rendre.
+	 * <b>Permet au robot d'aller dans une zone</b>
+	 * @param zone : <i>int[]</i>
+	 * @return leDavid = <i>Central</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
 	public Central goTo (int[] zone) {
 		pivoteVersZone(zone);
@@ -95,8 +109,11 @@ public class Protocoles_noe {
 	}
 	
 	/**
-	Une methode qui fait pivoter le robot vers une zone.
-	@param La zone dans lequel le robot doit se pivoter.
+	 * <b>Fait pivoter le robot vers une zone</b>
+	 * @param zone : <i>int[]</i>
+	 * @return leDavid = <i>Central</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
 	public Central pivoteVersZone (int[] zone) {
 		int[] position = robot.memoire.getPositionPrecise();
@@ -121,8 +138,11 @@ public class Protocoles_noe {
 	}
 	
 	/**
-	Une methode qui permet de calculer la distance jusqu a la zone objectif.
-	@param La zone dans lequel le robot doit se rendre.
+	 * <b>Permet de calculer la distance jusqu a la zone objectif</b>
+	 * @param zone : <i>int[]</i>
+	 * @return zone : <i>int</i>
+	 * 
+	 * @author Noe GRAVRAND
 	 */
 	public int calcDistanceZone (int[] zone) {
 		int[] position = robot.memoire.getPositionPrecise();
