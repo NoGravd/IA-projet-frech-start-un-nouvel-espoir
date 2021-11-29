@@ -28,15 +28,15 @@ public class Capteurs {
 	/**
 	 * Contient le port necessaire pour appeler le ColorSensor.
 	 */
-	private Port p1;
+	private Port p1; 
 	/**
 	 * Contient le port necessaire pour appeler le TouchSensor.
 	 */
-	private Port p2;
+	private Port p2; 
 	/**
 	 * Contient le port necessaire pour appeler le UltrasonicSensor.
 	 */
-	private Port p3;
+	private Port p3; 
 	
 
 	

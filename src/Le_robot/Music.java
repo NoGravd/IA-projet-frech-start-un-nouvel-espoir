@@ -3,7 +3,7 @@ package Le_robot;
 import lejos.hardware.Sound;
 
 /**
- * Contient des methodes static qui font faire de la musique au robot
+ * <b>Contient des methodes static qui font faire de la musique au robot<b>s
  * @author Noe GRAVRAND
  */
 public class Music {

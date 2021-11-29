@@ -3,7 +3,7 @@ import Le_robot.*;
 import lejos.hardware.Button;
 
 /**
- * Centralise toute les class du robot, et fait des methode utilisable
+ * <b>Centralise toute les class du robot, et fait des methode utilisable</b>
  * @param adresseDemarrage : <i>int[]</i> (coordonnees de depart du robot)
  * @param adresseArrivee : <i>int[]</i> (coordonnees... TODO)
  * 

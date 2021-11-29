@@ -1,7 +1,7 @@
 package Le_robot;
 
 /**
- * <b> Centralise toutes les class du robot</b>
+ * <b>Centralise toutes les class du robot</b>
  * @param boussole : <i>Boussole</i>
  * @param capteurs : <i>Capteurs</i>
  * @param carto : <i>Carto</i>
