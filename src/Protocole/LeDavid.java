@@ -7,7 +7,7 @@ import lejos.hardware.Button;
  * @param adresseDemarrage : <i>int[]</i> (coordonnees de depart du robot)
  * @param adresseArrivee : <i>int[]</i> (coordonnees... TODO)
  * 
- * @author Hugo Apeloig, Theo Julliat
+ * @author Hugo APELOIG, Theo JULLIAT
  */
 public class LeDavid {
 	protected int[] adresseDemarrage;
@@ -21,7 +21,7 @@ public class LeDavid {
 	
 	/**
 	 * <b>Initialise tous ce qu'il y a a initialiser : capteur, ev3client</b>
-	 * @author Hugo Apeloig, Theo Julliat
+	 * @author Hugo APELOIG, Theo JULLIAT
 	 */
 	public LeDavid() {
 		initialiseCapteurC();
@@ -30,7 +30,7 @@ public class LeDavid {
 	
 	/**
 	 * <b>Initialise tout les capteurs et attend la press du bouton pour terminer</b>
-	 * @author Hugo Apeloig, Theo Julliat
+	 * @author Hugo APELOIG, Theo JULLIAT
 	 */
 	public void initialiseCapteurC() {
 		capteurs = new Capteurs();
@@ -45,7 +45,7 @@ public class LeDavid {
 	/**
 	 * <b>Initialise ev3client :</b><p>
 	 * Demande via ecran et boutons quel est l'emplacement du robot se trouve ainsi que celui du robot adverse</b>
-	 * @author Hugo Apeloig, Theo Julliat
+	 * @author Hugo APELOIG, Theo JULLIAT
 	 */
 	public void initialiseClient() {
 		System.out.println("Vous etes a droite ou a gauche ?");
@@ -101,7 +101,7 @@ public class LeDavid {
 	 * @param emplacement : <i>int[]</i>
 	 * @return <i>int[]</i> : TODO
 	 * 
-	 * @author Hugo Apeloig, Theo Julliat
+	 * @author Hugo APELOIG, Theo JULLIAT
 	 */
 	public int[] leSangDeSesMorts(int[] emplacement) {
 		//boussole.getEmplacement();
@@ -124,7 +124,7 @@ public class LeDavid {
 	 * <ul>Avance tout droit jusque ligne Blanche</ul>
 	 * @param adresseDuPalaisQueAllaisChercher : <i>int[]</i>
 	 * 
-	 * @author Hugo Apeloig, Theo Julliat
+	 * @author Hugo APELOIG, Theo JULLIAT
 	 */
 	public void retourVictorieux(int[] adresseDuPalaisQueAllaisChercher) {
 		ev.refreshAvecLocalisation(adresseDuPalaisQueAllaisChercher);
@@ -138,7 +138,7 @@ public class LeDavid {
 	
 	/**
 	 * <b>Ouvre les pince, se recule, referme les pince, fait un demi tour</b>
-	 * @author Hugo Apeloig, Theo Julliat
+	 * @author Hugo APELOIG, Theo JULLIAT
 	 */
 	public void deposePalais() {
 		pince.ouverture_music();
@@ -152,7 +152,7 @@ public class LeDavid {
 	 * @param adresseDuPalaisQueAllaisChercher : <i>int[]</i>
 	 * @return <i>int[]</i> : TODO
 	 * 
-	 * @author Hugo Apeloig, Theo Julliat
+	 * @author Hugo APELOIG, Theo JULLIAT
 	 */
 	public int[] calibrageFaceAuPalais(int[] adresseDuPalaisQueAllaisChercher){
 		//Après avoir rouler une certaine distance en direction du palais

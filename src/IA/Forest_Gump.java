@@ -1,7 +1,12 @@
 package IA;
 
+import Le_robot.Central;
+import Le_robot.Roues;
+import Protocole.Protocoles_noe;
+
 /**
-<b>Une classe qui contient l'aglorithmes qui pourra etre utilisee lors du tournois</b>
+<b>Contient l'aglorithmes Forest_Gump qui pourra etre utilisee lors du tournois</b><p>
+Forest Gump : il est simple mais rapide
 @author Noe GRAVRAND
 */
 public class Forest_Gump {
@@ -11,11 +16,14 @@ public class Forest_Gump {
 	 * @author Noe GRAVRAND
 	 */
 	public static void main(String[] args) throws InterruptedException {
-//		Starter.Starter1(null);
-//		while (1<2) {//boucle infini tkt frero
-//			ProtocolesIR.goPaletProche();
-//			ProtocolesIR.goMarquer();
-//		}
+		Central forest_Gump = new Central();
+		Protocoles_noe protocoles = new Protocoles_noe(forest_Gump);
+		while (1<2) {//boucle infini tkt frero
+			protocoles.goZone2Recherche();
+			forest_Gump.capteurs.sonnar();
+			Roues.avanceTQpalet(forest_Gump.capteurs, forest_Gump.pinces);
+			protocoles.goMarquer();
+		}
 	}
 
 }

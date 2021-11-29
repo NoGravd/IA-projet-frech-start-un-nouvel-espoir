@@ -3,8 +3,8 @@ package IA;
 import Le_robot.*;
 
 /**
- * <b> Contient l'algorithme Brutus a utiliser lors de la competition</b>
- * @author noegr
+ * <b> Contient l'algorithme Brutus qui pourra etre utiliser lors du tournoi</b>
+ * @author Noe GRAVRAND
  */
 public class Brutus {
 	
