@@ -10,7 +10,7 @@ package Le_robot;
  * @param pinces : <i>Pince</i>
  * @param roues : <i>Roues</i>
  * 
- * @author noegr
+ * @author Noe GRAVRAND
  */
 public class Central {
 	

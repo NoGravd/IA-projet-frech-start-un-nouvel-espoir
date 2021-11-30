@@ -31,12 +31,12 @@ public class LeDavid {
 	private Central leDavid;
 	
 	
+	
 	/**
 	 * <b>Constructeur de la class LeDavid</b><p>
 	 * Initialise les capteurs et l'ev3client
-	 * @throws InterruptedException 
 	 */
-	public LeDavid() throws InterruptedException {
+	public LeDavid() {
 		//Constructeur
 		leDavid = new Central(false);
 		initialiseCapteurC();
@@ -45,14 +45,12 @@ public class LeDavid {
 	
 	/**
 	 * <b>Démarre les capteurs et attend qu'on lui dise que c'est bon</b>
-	 * @throws InterruptedException
 	 */
-	public void initialiseCapteurC() throws InterruptedException {
+	public void initialiseCapteurC() {
 		leDavid.capteurs = new Capteurs();
 		leDavid.capteurs.capteurCouleurActive();
 		leDavid.capteurs.capteurTactileActive();
 		leDavid.capteurs.demarrerCapteurUltraSon();
-		Music.Mcdo();
 		System.out.print("Yo, je suis ready !");
 		Button.ENTER.waitForPress();
 		
@@ -120,12 +118,11 @@ public class LeDavid {
 		Button.ENTER.waitForPress();
 	}
 	
+	/**
+	 * Va chercher le premier palais en brut puis calcul à l'aide de l'infrarouge l'angle et la distance à l'arrivé<p>
+	 * Prends en compte de quel côté du plateau on se trouve
+	 */
 	public void brutusPremierPalais() {
-		//Va chercher le premier palais en brut puis calcul à 
-		//l'aide de l'infrarouge l'angle et la distance à l'
-		//arrivé
-		//Prends en compte de quel côté du plateau on se trouve
-		
 		if(aDroiteDuPlateau) {
 			leDavid.pinces.ouverture();
 			Roues.rouleDist_aveugle(61);
@@ -156,14 +153,12 @@ public class LeDavid {
 	
 	
 	/**
-	 * Prends le palais le plus proche donné par le serveur<p>
+	 * <b>Prends le palais le plus proche donné par le serveur</b><p>
 	 * Calcul l'angle et pivote puis avance de la longueur -35 centimètre car cela permettera  de tester si le palais est bien là
 	 * @param emplacement
 	 * @return TODO
 	 */
 	public int[] leSangDeSesMorts(int[] emplacement) {
-		//
-
 		ev.refreshAvecLocalisation(emplacement); //Refresh le serveur ainsi que ses instances en placant le robot à la bonne adresse etc
 		int idcPalaisProche = ev.getIndicePalaisLePlusProcheDuRobot();
 		int[] adressePalaisProche = ev.getAdressesInstantT()[idcPalaisProche];
@@ -177,10 +172,11 @@ public class LeDavid {
 		
 	}
 	
+	/**
+	 * <b>Une fois le palais recupere, retourne à la ligne d'arrive, depose le palais et ensuite verifie si la partie est finis ou non</b>
+	 * @param adresseDuPalaisQueAllaisChercher
+	 */
 	public void retourVictorieux(int[] adresseDuPalaisQueAllaisChercher) {
-		//Une fois le palais recupere, retourne à la ligne d'arrive, depose
-		//le palais et ensuite verifie si la partie est finis ou non
-		
 		Roues.pivote(180); //Se replace en direction de l'arrivee
 		int distance = ev.getDistanceAdresseToAdresse(adresseDuPalaisQueAllaisChercher,adresseArrivee);
 		Roues.rouleDist_onlyBlanc(distance,leDavid.capteurs); //Roule + verif si ligne blanche
@@ -192,22 +188,24 @@ public class LeDavid {
 			leSangDeSesMorts(adresseArrivee); //Sinon va chercher le palais le plus proche
 	}
 	
+	/**
+	 * <b>S'utilise une fois arrive à la ligne blanche</b><p>
+	 * Ouvre les pince, recule, ferme les pinces (quand le moteur des pinces ne bug pas)<p>
+	 * Puis se recalibre dos au mur
+	 */
 	public void deposePalais() {
-		//S'utilise une fois arrive à la ligne blanche
-		//Ouvre les pince, recule, ferme les pinces (quand le moteur des pinces ne bug pas)
-		//Puis se recalibre dos au mur
-		
 		leDavid.pinces.ouverture();
 		Roues.recule();
 		leDavid.pinces.fermeture();
 		calibrageDemiTour();
 	}
 	
+	/**
+	 * <b>Après avoir rouler une certaine distance en direction du palais le robot parcours un angle de 60 degré et s'arrète immédiatement lorsque la différence entre son avant dernière valeur vue et la dernière est trop grande (il détecte le palais dans ces 60 degrés)</b>
+	 * @param adresseDuPalaisQueAllaisChercher
+	 * @return TODO
+	 */
 	public int[] calibrageFaceAuPalais(int[] adresseDuPalaisQueAllaisChercher){
-		//Après avoir rouler une certaine distance en direction du palais
-		//le robot parcours un angle de 60 degré et s'arrète immédiatement 
-		//lorsque la différence entre son avant dernière valeur vue et la
-		//dernière est trop grande (il détecte le palais dans ces 60 degrés)
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		ArrayList <Float> tab = new ArrayList();
 		float[] tab2 = new float[1];
@@ -242,22 +240,22 @@ public class LeDavid {
 		}
 	}
 	
+	/**
+	 * <b>Une fois le palais detecte il ouvre ses pinces avance de 35 ou s'arrète avant si touche ferme ses pince puis active le retour a l'arrivee</b>
+	 */
 	public void recupererPalais() {
-		//Une fois le palais detecte il ouvre ses pinces
-		//avance de 35 ou s'arrète avant si touche
-		//ferme ses pince puis active le retour a l'arrivee
 		leDavid.pinces.ouverture();
 		Roues.rouleDistAvecGestionTouche(35,leDavid.capteurs);
 		leDavid.pinces.fermeture();
 	}
 	
+	/**
+	 * <b>Dans la situation ou le palais n'a pas ete trouve (il peut s'agir d'un palais saisi par l'adversaire ou tout simplement que la caméra avait selectionné un adversaire)</b><p>
+	 * Il refresh en disant que le palais se trouve a l'adresse la plus proche de celle de l'ancien palais
+	 * @param adresseDuPalaisQueAllaisChercher
+	 * @return TODO
+	 */
 	public int[] retourBredouille(int[] adresseDuPalaisQueAllaisChercher){
-		//Dans la situation ou le palais n'a pas ete trouve (il peut 
-		//s'agir d'un palais saisi par l'adversaire ou tout simplement
-		//que la caméra avait selectionné un adversaire
-		//Il refresh en disant que le palais se trouve a l'adresse la 
-		//plus proche de celle de l'ancien palais
-		
 		ev.refreshAvecLocalisation(adresseDuPalaisQueAllaisChercher);
 		if(ev.finDePartie()) { //Si c'est finis
 			return ev.getAdresseRobot();
@@ -267,10 +265,11 @@ public class LeDavid {
 		}
 	}
 	
+	/**
+	 * <b>S'utilise lorsque le robot c'est arrété sur la ligne, après avoir posser le palais</b>
+	 * <p>Le robot fait demi-tour en se calibrant à l'aide du mur
+	 */
 	public void calibrageDemiTour() {
-		//S'utilise lorsque le robot c'est arrété sur la ligne, après avoir posser le palais
-		//Le robot fait demi-tour en se calibrant à l'aide du mur
-		
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		ArrayList <Float> tab = new ArrayList();
 		leDavid.capteurs.demarrerCapteurUltraSon();
