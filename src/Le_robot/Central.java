@@ -48,13 +48,44 @@ public class Central {
 	
 	/**
 	 * <b>Constructeur de <i>Central</i> (initialise toutes les class du robot)</b>
+	 * @param adresseDemarrage : <i>int[]</i>
+	 * @param pincesOuvertes : <i>boolean</i>
+	 * 
+	 * @author Noe GRAVRAND
+	 */
+	public Central(int[] adresseDemarrage, boolean pincesOuvertes) {
+		boussole = new Boussole();
+		capteurs = new Capteurs();
+		carto = new Carto();
+		ev3Client = new EV3Client(adresseDemarrage);
+		memoire = new Memoire();
+		pinces = new Pince(pincesOuvertes);
+		roues = new Roues();
+	}
+	
+	/**
+	 * <b>Constructeur de <i>Central</i> (initialise toutes les class du robot)</b>
+	 * @param pincesOuvertes : <i>boolean</i>
+	 * 
+	 * @author Noe GRAVRAND
+	 */
+	public Central(boolean pincesOuvertes) {
+		boussole = new Boussole();
+		capteurs = new Capteurs();
+		carto = new Carto();
+		memoire = new Memoire();
+		pinces = new Pince(pincesOuvertes);
+		roues = new Roues();
+	}
+	
+	/**
+	 * <b>Constructeur de <i>Central</i> (initialise toutes les class du robot)</b>
 	 * @author Noe GRAVRAND
 	 */
 	public Central() {
 		boussole = new Boussole();
 		capteurs = new Capteurs();
 		carto = new Carto();
-//		ev3Client = new EV3Client();
 		memoire = new Memoire();
 		pinces = new Pince();
 		roues = new Roues();

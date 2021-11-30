@@ -11,53 +11,75 @@ import lejos.utility.Delay;
  */
 public class LeDavid {
 	
-	protected int[] adresseDemarrage; //adresse du robot au début du round
-	public int[] adresseArrivee; //adresse de dépôt des palais
-	private Capteurs c; 
+	/**
+	 * Adresse du robot au début du round
+	 */
+	protected int[] adresseDemarrage;
+	/**
+	 * Adresse de dépôt des palais
+	 */
+	public int[] adresseArrivee;
 	private EV3Client ev;
-	private Pince pince = new Pince(false);
-	private Boussole boussole = new Boussole();
+	/**
+	 * Represente si le robot est a Droite du plateau ou non
+	 */
 	private boolean aDroiteDuPlateau; 
 	
+	/**
+	 * Represente le robot en entier moins l'ev3client
+	 */
+	private Central leDavid;
 	
 	
 	/**
 	 * <b>Constructeur de la class LeDavid</b><p>
 	 * Initialise les capteurs et l'ev3client
+	 * @throws InterruptedException 
 	 */
-	public LeDavid() {
+	public LeDavid() throws InterruptedException {
 		//Constructeur
+		leDavid = new Central(false);
 		initialiseCapteurC();
 		initialiseClient();
 	}
 	
-	public void initialiseCapteurC() {
-		//Démarre les capteurs et attend qu'on lui dise que c'est bon
-		c = new Capteurs();
-		c.capteurCouleurActive();
-		c.capteurTactileActive();
-		c.demarrerCapteurUltraSon();
+	/**
+	 * <b>Démarre les capteurs et attend qu'on lui dise que c'est bon</b>
+	 * @throws InterruptedException
+	 */
+	public void initialiseCapteurC() throws InterruptedException {
+		leDavid.capteurs = new Capteurs();
+		leDavid.capteurs.capteurCouleurActive();
+		leDavid.capteurs.capteurTactileActive();
+		leDavid.capteurs.demarrerCapteurUltraSon();
+		Music.Mcdo();
 		System.out.print("Yo, je suis ready !");
 		Button.ENTER.waitForPress();
 		
 	}
 	
+	/**
+	 * <b>Creer le client et demande des infos pour savoir où on se trouve</b>
+	 */
 	public void initialiseClient() {
-		//Creer le client et demande des infos pour savoir
-		//ou on se trouve
 		System.out.println("Vous etes a droite ou a gauche ?");
 		aDroiteDuPlateau = true;
 		Button.waitForAnyPress();
-		int p = Button.readButtons();
-		if(p==Button.ID_LEFT) aDroiteDuPlateau = false;
+		int bouton = Button.readButtons();
+		if(bouton==Button.ID_LEFT) 
+			aDroiteDuPlateau = false;
 		
 		System.out.println("Vous etes à droite, au centre ou a gauche ?");
 		int y = 0; int x = 0; int xArrive=125; int yArrive=0;
 		Button.waitForAnyPress();
-		p = Button.readButtons();
-		if(p==Button.ID_LEFT) x = 150;
-		if(p==Button.ID_DOWN) x = 100;
-		else if (p==Button.ID_RIGHT) x = 50;
+		bouton = Button.readButtons();
+		if(bouton==Button.ID_LEFT) 
+			x = 150;
+		if(bouton==Button.ID_DOWN) 
+			x = 100;
+		else 
+			if (bouton==Button.ID_RIGHT) 
+				x = 50;
 		if(aDroiteDuPlateau) {
 			y=30;
 			yArrive=270;
@@ -73,12 +95,12 @@ public class LeDavid {
 		adresseArrivee[0] = xArrive;
 		adresseArrivee[1] = yArrive;
 		
-		boolean marque=false;
+		boolean marque=false;//repérable par la camera IR
 		System.out.println("L'adversaire est-il marque");
 		System.out.println("Gauche pour true (n'importe pour else)");
 		Button.waitForAnyPress();
-		p = Button.readButtons();
-		if(p==Button.ID_LEFT) marque = true;
+		bouton = Button.readButtons();
+		if(bouton==Button.ID_LEFT) marque = true;
 		else marque=false;
 		
 		
@@ -105,9 +127,9 @@ public class LeDavid {
 		//Prends en compte de quel côté du plateau on se trouve
 		
 		if(aDroiteDuPlateau) {
-			pince.ouverture();
+			leDavid.pinces.ouverture();
 			Roues.rouleDist_aveugle(61);
-			pince.fermeture();
+			leDavid.pinces.fermeture();
 			ev.refreshAvecLocalisation(new int[]{50,90});
 			int[][] adressesInstant = ev.getAdressesInstantT();
 			int[] adresse = ev.adresseLaPlusProche(new int[]{50,90}, adressesInstant);
@@ -117,9 +139,9 @@ public class LeDavid {
 			Roues.rouleDist_aveugle(distance);
 		}
 		else {
-			pince.ouverture();
+			leDavid.pinces.ouverture();
 			Roues.rouleDist_aveugle(61);
-			pince.fermeture();
+			leDavid.pinces.fermeture();
 			ev.refreshAvecLocalisation(new int[]{150,270});
 			int[] adresse = ev.adresseLaPlusProche(new int[]{150,270}, ev.getAdressesInstantT());
 			int angle = (int) ev.getAngleAdresseToAdresse(adresse, adresseArrivee);
@@ -128,23 +150,26 @@ public class LeDavid {
 			Roues.rouleDist_aveugle(distance);
 		}
 		deposePalais();
-		boussole.set(0);
+		leDavid.boussole.set(0);
 	}
 	
 	
 	
+	/**
+	 * Prends le palais le plus proche donné par le serveur<p>
+	 * Calcul l'angle et pivote puis avance de la longueur -35 centimètre car cela permettera  de tester si le palais est bien là
+	 * @param emplacement
+	 * @return TODO
+	 */
 	public int[] leSangDeSesMorts(int[] emplacement) {
-		//Prends le palais le plus proche donné par le serveur
-		//Calcul l'angle et pivote puis avance de la longueur 
-		// -35 centimètre car permettera  de tester si le palais 
-		//est bien là
+		//
 
 		ev.refreshAvecLocalisation(emplacement); //Refresh le serveur ainsi que ses instances en placant le robot à la bonne adresse etc
 		int idcPalaisProche = ev.getIndicePalaisLePlusProcheDuRobot();
 		int[] adressePalaisProche = ev.getAdressesInstantT()[idcPalaisProche];
 		int angle = (int) ev.getAngleRobotToAdresse(adressePalaisProche);
 		Roues.pivote(angle);
-		boussole.rotateDeg(angle);
+		leDavid.boussole.rotateDeg(angle);
 		int distance = ev.getDistanceRobotToAdresse(adressePalaisProche)-35; //-35 pour le test d'après
 		Roues.rouleDist_aveugle(distance); //Vérif facteur rouledist et capteurscapte
 		return calibrageFaceAuPalais(adressePalaisProche);
@@ -158,7 +183,7 @@ public class LeDavid {
 		
 		Roues.pivote(180); //Se replace en direction de l'arrivee
 		int distance = ev.getDistanceAdresseToAdresse(adresseDuPalaisQueAllaisChercher,adresseArrivee);
-		Roues.rouleDist_onlyBlanc(distance,c); //Roule + verif si ligne blanche
+		Roues.rouleDist_onlyBlanc(distance,leDavid.capteurs); //Roule + verif si ligne blanche
 		deposePalais(); 
 		ev.refreshAvecLocalisation(adresseDuPalaisQueAllaisChercher); //refresh serveur et attribut de ev
 		if(ev.finDePartie()) //Si plus de palais se stop
@@ -172,9 +197,9 @@ public class LeDavid {
 		//Ouvre les pince, recule, ferme les pinces (quand le moteur des pinces ne bug pas)
 		//Puis se recalibre dos au mur
 		
-		pince.ouverture();
+		leDavid.pinces.ouverture();
 		Roues.recule();
-		pince.fermeture();
+		leDavid.pinces.fermeture();
 		calibrageDemiTour();
 	}
 	
@@ -189,7 +214,7 @@ public class LeDavid {
 		Roues.pivote(30);
 		Delay.msDelay(250);
 		int ii=0;
-		c.capteurUS.getDistanceMode().fetchSample(tab2, 0);
+		leDavid.capteurs.capteurUS.getDistanceMode().fetchSample(tab2, 0);
 		tab.add(tab2[0]);
 		int ancientSpeed = Roues.moteur_droit.getSpeed();
 		Roues.moteur_droit.setSpeed((ancientSpeed*2)/3);
@@ -197,7 +222,7 @@ public class LeDavid {
 		ii=1;
 		boolean bredouille = true;
 		while (Roues.moteur_droit.isMoving()) {
-			c.capteurUS.getDistanceMode().fetchSample(tab2, 0);
+			leDavid.capteurs.capteurUS.getDistanceMode().fetchSample(tab2, 0);
 			tab.add(tab2[0]);
 			float infinity = Float.POSITIVE_INFINITY;
 			if(tab.get(ii-1)-tab.get(ii)>0.20 || (tab.get(ii-1)==infinity && tab.get(ii)!=infinity)) { //2* à verifier car infinity et tester
@@ -221,9 +246,9 @@ public class LeDavid {
 		//Une fois le palais detecte il ouvre ses pinces
 		//avance de 35 ou s'arrète avant si touche
 		//ferme ses pince puis active le retour a l'arrivee
-		pince.ouverture();
-		Roues.rouleDistAvecGestionTouche(35,c);
-		pince.fermeture();
+		leDavid.pinces.ouverture();
+		Roues.rouleDistAvecGestionTouche(35,leDavid.capteurs);
+		leDavid.pinces.fermeture();
 	}
 	
 	public int[] retourBredouille(int[] adresseDuPalaisQueAllaisChercher){
@@ -248,15 +273,15 @@ public class LeDavid {
 		
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		ArrayList <Float> tab = new ArrayList();
-		c.demarrerCapteurUltraSon();
+		leDavid.capteurs.demarrerCapteurUltraSon();
 		float[] tab2 = new float [1];
 		Roues.moteur_droit.rotate(260,true);
 		int ii=0;
-		c.capteurUS.getDistanceMode().fetchSample(tab2, 0);
+		leDavid.capteurs.capteurUS.getDistanceMode().fetchSample(tab2, 0);
 		tab.add(tab2[0]);
 		ii++;
 		while (Roues.moteur_droit.isMoving()) {
-			c.capteurUS.getDistanceMode().fetchSample(tab2, 0);
+			leDavid.capteurs.capteurUS.getDistanceMode().fetchSample(tab2, 0);
 			tab.add(tab2[0]);
 			if(tab.get(ii-1)<tab.get(ii)) break;
 			ii++;
@@ -264,11 +289,11 @@ public class LeDavid {
 		Roues.stop();
 		Roues.moteur_droit.rotateTo(-260,true);
 		int i=0;
-		c.capteurUS.getDistanceMode().fetchSample(tab2, 0);
+		leDavid.capteurs.capteurUS.getDistanceMode().fetchSample(tab2, 0);
 		tab.add(tab2[0]);
 		i++;
 		while (Roues.moteur_droit.isMoving()) {
-			c.capteurUS.getDistanceMode().fetchSample(tab2, 0);
+			leDavid.capteurs.capteurUS.getDistanceMode().fetchSample(tab2, 0);
 			tab.add(tab2[0]);
 			if(tab.get(i-1)<tab.get(i)) break; 
 			i++;
