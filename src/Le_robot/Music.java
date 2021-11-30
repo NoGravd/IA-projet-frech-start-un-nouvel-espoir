@@ -145,7 +145,7 @@ public class Music {
 	 * 
 	 * @author Noe GRAVRAND
 	 */
-	private static void note (int note, int sec) throws InterruptedException {
+	public static void note (int note, int sec) throws InterruptedException {
 		Sound.playTone(note,sec);//frequence note, duree sec
 		silence(sec);//attend sec (pour que la note se joue entierement)
 	}

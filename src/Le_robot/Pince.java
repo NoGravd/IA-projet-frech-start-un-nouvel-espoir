@@ -37,6 +37,14 @@ public class Pince {
 	public Pince() {
 	}
 	
+	/**
+	 * <b>Constructeur de la class <i>Pince</i></b>
+	 * @param ouvert : <i>boolean</i> (<b>true</b> si les pinces sont ouvertes, <b>false</b> sinon)
+	 */
+	public Pince(boolean ouvert) {
+		ouverte = ouvert;
+	}
+
 	
 	
 	/**

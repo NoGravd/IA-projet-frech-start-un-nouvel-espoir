@@ -12,7 +12,7 @@ import lejos.utility.Delay;
 * @param liste : <i>BaseRegulatedMotor[]<i> (liste contenant moteur_gauche)
 * @param VITESSE_MAX : <i>int</i> (vitesse maximal des moteurs)
 * 
-* @author Noe GRAVRAND
+* @author Noe GRAVRAND, Hugo APELOIG
 */
 public class Roues {
 	
@@ -31,7 +31,7 @@ public class Roues {
 	/**
 	 * Represente la vitesse max du robot.
 	 */
-	static final int VITESSE_MAX = (int) moteur_gauche.getMaxSpeed();
+	public static final int VITESSE_MAX = (int) moteur_gauche.getMaxSpeed();
 	
 	
 	
@@ -71,23 +71,27 @@ public class Roues {
  	
 	/**
 	 * <b>Demarre le moteur et recule petit a petit (aceleration)</b>
-	 * @author Noe GRAVRAND
+	 * @author Hugo APELOIG
 	 */
 	public static void recule() {
+		int[] ancientSpeed = new int[2];
+		ancientSpeed[0] = Roues.moteur_droit.getSpeed();
+		ancientSpeed[1] = Roues.moteur_gauche.getSpeed();
 		//accélération
-		int nAcc = 200; //definition du nb de marches d'accélération
-		//				int maxSpeed = 400; //vitesse max = 100xVbatterie
+		int nAcc = 50; //definition du nb de marches d'accélération
+		// int maxSpeed = 400; //vitesse max = 100xVbatterie
 		for (int i=0; i<nAcc; i++) {
-			moteur_droit.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
-			moteur_gauche.setSpeed(VITESSE_MAX/nAcc*i);
-			moteur_droit.backward();//lance le moteur 
-			moteur_gauche.backward();
-			Delay.msDelay(1);// attend 1ms
+		moteur_droit.setSpeed(VITESSE_MAX/nAcc*i);//change la vitesse
+		moteur_gauche.setSpeed(VITESSE_MAX/nAcc*i);
+		moteur_droit.backward();//lance le moteur 
+		moteur_gauche.backward();
+		Delay.msDelay(1);// attend 1ms
 		}
 		stop();
-//		if (Memoire.getEtatPince())//si les pince sont ouvertes
-//			Memoire.setAvoirPalet(false);//alors on a pas/plus de palet
-	}
+		Roues.moteur_droit.setSpeed(ancientSpeed[0]);
+		Roues.moteur_gauche.setSpeed(ancientSpeed[1]);
+		}
+
 	
 	/**
 	 * <b>Pivote de l'angle fourni en parametre</b><p>
@@ -257,6 +261,24 @@ public class Roues {
 		int milisec = (int) Math.round(centimetre / distParMiliSec);
 		rouleTemps_onlyBlanc(milisec, capteurs);
 	}
+	
+	
+	
+	//------------Juste Touch
+	
+	public static void rouleDistAvecGestionTouche (int centimetre, Capteurs c) {
+		double tourDeRoue = 2.8*Math.PI;//cm
+		double tourDeRoueParMiliSec = 0.234;//23,4 tour toute les 10s
+		double distParMiliSec = tourDeRoueParMiliSec * tourDeRoue;
+		int milisec = (int) Math.round(centimetre / distParMiliSec);
+		rouleTemps_onlyBlanc(milisec,c);
+		/*moteur_droit.synchronizeWith(l);
+		moteur_droit.startSynchronization();
+		moteur_gauche.stop();
+		moteur_droit.stop();
+		moteur_droit.endSynchronization();*/ 
+		}
+
 	
 	
 	

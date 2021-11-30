@@ -54,7 +54,7 @@ public class Central {
 		boussole = new Boussole();
 		capteurs = new Capteurs();
 		carto = new Carto();
-		ev3Client = new EV3Client();
+//		ev3Client = new EV3Client();
 		memoire = new Memoire();
 		pinces = new Pince();
 		roues = new Roues();
