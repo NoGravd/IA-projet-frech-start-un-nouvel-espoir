@@ -21,7 +21,7 @@ import lejos.hardware.port.*;
  * @param donneeCo : <i>float[]</i> (useless TODO)
  * @param donneeTa : <i>float[]</i> (activation du capteurTa)
  * 
- * @author Noe GRAVRAND, Hugo Apeloig, Theo Julliat
+ * @author Noe GRAVRAND, Hugo APELOIG, Theo JULLIAT
 */
 public class Capteurs {
 	
@@ -74,7 +74,7 @@ public class Capteurs {
 	
 	/**
 	 * <b>Constructeur de la class Capteurs</b>
-	 * @author Hugo Apeloig
+	 * @author Hugo APELOIG
 	 */
 	public Capteurs() {
 		p1 = BrickFinder.getLocal().getPort("S1");
@@ -92,7 +92,7 @@ public class Capteurs {
 
 	/**
 	 * <b>Demarre le capteur d'Ultrason</b>
-	 * @author Theo Julliat
+	 * @author Theo JULLIAT
 	 */
 	public void demarrerCapteurUltraSon() {
 		capteurUS.enable();
@@ -100,7 +100,7 @@ public class Capteurs {
 	
 	/**
 	 * <b>Eteit le capteur d'Ultrason</b>
-	 * @author Theo Julliat
+	 * @author Theo JULLIAT
 	 */
 	public void eteindreCapteurUltraSon() {
 		capteurUS.disable();
@@ -108,7 +108,7 @@ public class Capteurs {
 	
 	/**
 	 * <b>Place dans l'instance donneeSe la distance de l'obstacle en face du robot</b>
-	 * @author Noe GRAVRAND, Theo Julliat
+	 * @author Noe GRAVRAND, Theo JULLIAT
 	 */
 	public void distanceOb() {
 		capteurUS.enable();
@@ -121,7 +121,7 @@ public class Capteurs {
 	 * <b>Retourne la derniere distance mesurer par le robot</b>
 	 * @return doneeSe[0] : <i>float</i> (la valeur de la derniere distance mesurer avec distanceOb())
 	 * 
-	 * @author Theo Julliat
+	 * @author Theo JULLIAT
 	 */
 	public float getDistanceOb() {
 		return donneeSe[0];
@@ -129,7 +129,7 @@ public class Capteurs {
 	
 	/**
 	 * <b>Fait un tour sur lui meme afin de trouver l'obstacle le plus proche et se tourne dans la direction de celui ci</b>
-	 * @author Hugo Apeloig, Noe GRAVRAND, Theo Julliat
+	 * @author Hugo APELOIG, Noe GRAVRAND, Theo JULLIAT
 	 */
 	public void sonnar() {
 		try {
@@ -173,7 +173,7 @@ public class Capteurs {
 	/**
 	 * <b>Permet de determiner si le capteur tactile est activer ou non</b>
 	 * @return <i>boolean</i> : <b>true</b> si le capteur est active, <b>false</b> sinon
-	 * @author Theo Julliat
+	 * @author Theo JULLIAT
 	 */
 	public boolean capteurTactileActive() {
 		capteurTa.getTouchMode().fetchSample(donneeTa, 0);
@@ -190,7 +190,7 @@ public class Capteurs {
 	
 	/**
 	 * <b>Active le capteur de couleur</b>
-	 * @author Hugo Apeloig, Theo Julliat
+	 * @author Hugo APELOIG, Theo JULLIAT
 	 */
 	public void capteurCouleurActive() {
 	capteurCo.setFloodlight(true);
@@ -200,7 +200,7 @@ public class Capteurs {
 	/**
 	 * <b>Permet de savoir qu'elle est la couleur detecte par le robot</b>
 	 * @return donneCo[] : <i>float</i> (ID de la couleur detecter)
-	 * @author Theo Julliat
+	 * @author Theo JULLIAT
 	 */
 	public float getCouleur() {//Pas utile pour le moment
 		return donneeCo [0];
